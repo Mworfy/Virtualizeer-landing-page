@@ -1,31 +1,102 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  Accessibility, ArrowRight, Box, Building2, CalendarDays, Check, Code, ExternalLink, FileSpreadsheet, Gauge,
-  Languages, LayoutTemplate, Map, Maximize2, Monitor, Play, Search, ShoppingBag, Smartphone, Tablet, Workflow,
+  Accessibility, ArrowRight, Box, Building2, CalendarDays, Check, ChevronDown, Code, ExternalLink, FileSpreadsheet, Gauge,
+  Languages, LayoutTemplate, Map, Maximize2, Monitor, Play, Search, ShoppingBag, Smartphone, Tablet, Workflow, X,
 } from 'lucide-react'
 import { CTABand, FAQ, Reveal, SectionHeader, usePageMeta } from '../components/ui.jsx'
 
-// Live demo copy of the Youth Speak Forum site (public/work/ysf). Registration is disabled there.
-const YSF = {
-  src: '/work/ysf/site.html',
-  live: 'https://ysf.aiesecus.org/',
-  host: 'ysf.aiesecus.org',
-  posters: { desktop: '/work/ysf-desktop.jpg', mobile: '/work/ysf-mobile.jpg' },
-}
+// Portfolio. `src` is what loads in the device preview: a demo copy in public/work (forms off) or the live site.
+const SCRATCH = 'Built from scratch'
+const CODEV = 'Co developed'
+const PROJECTS = [
+  {
+    id: 'ysf', name: 'Youth Speak Forum', client: 'AIESEC in the United States', type: 'Event website and registration', origin: SCRATCH,
+    src: '/work/ysf/site.html', live: 'https://ysf.aiesecus.org/', host: 'ysf.aiesecus.org',
+    posters: { desktop: '/work/ysf-desktop.jpg', mobile: '/work/ysf-mobile.jpg' }, demo: true,
+    summary: 'An event website with a living, interactive hero and registrations that land straight in Google Sheets.',
+    built: [
+      'A Living Voice hero: a live waveform and voice particles drawn on canvas that react to the cursor.',
+      'A scroll driven logo assembly, where the Youth Speak mark builds itself as visitors scroll.',
+      'Delegate and partner registration in modals, plus a standalone page for QR codes on posters.',
+      'Submissions saved to Google Sheets by type (delegates, partners, speakers, sponsors) with branded confirmation emails.',
+      'Optional ambient sound generated in the browser, only after the visitor turns it on.',
+      'Event structured data, Open Graph and a sitemap, so the forum shows up in search and looks right when shared.',
+    ],
+    stack: ['HTML', 'CSS', 'JavaScript', 'Canvas', 'Web Audio', 'Google Apps Script', 'Google Sheets', 'SEO'],
+  },
+  {
+    id: 'konnect', name: 'Konnect', client: 'Konnect HR services', type: 'HR outsourcing platform', origin: SCRATCH,
+    src: 'https://konnect-services.com/', live: 'https://konnect-services.com/', host: 'konnect-services.com',
+    posters: { desktop: '/work/konnect-desktop.jpg', mobile: '/work/konnect-mobile.jpg' },
+    summary: 'A hiring platform where applicants apply with their CVs, companies browse talent by field and HR teams share tracked apply links.',
+    built: [
+      'Applicant flow with CV upload and profiles organised by field.',
+      'A company side to browse and shortlist candidates by field.',
+      'Tracked apply links for HR teams, so every application shows where it came from.',
+      'A separate API backend, with the frontend built in Next.js and TypeScript.',
+      'Docker based deployment for the frontend.',
+    ],
+    stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'REST API', 'Docker'],
+  },
+  {
+    id: 'y2b', name: 'Youth to Business (Y2B)', client: 'AIESEC in Egypt', type: 'Conference website and ticketing', origin: SCRATCH,
+    src: '/work/y2b/index.html', live: 'https://youth2business.aiesec.org.eg/', host: 'youth2business.aiesec.org.eg',
+    posters: { desktop: '/work/y2b-desktop.jpg', mobile: '/work/y2b-mobile.jpg' }, demo: true,
+    summary: 'A full stack conference site with ticket sales, promo codes and content the organising team edits themselves.',
+    built: [
+      'Ticket pricing with early bird rates and percentage promo codes, through to checkout.',
+      'A Django admin where the team edits the hero, dates, venue, counters and buttons without code.',
+      'Pages for the agenda, speakers, partners, companies, media and FAQs.',
+      'Partner applications sent to the AIESEC partners API, with feedback and member forms saved to Google Sheets.',
+      'Media stored on DigitalOcean Spaces and deployed with Docker.',
+    ],
+    stack: ['Django', 'Python', 'HTML', 'CSS', 'JavaScript', 'Google Apps Script', 'DigitalOcean', 'Docker'],
+  },
+]
+const MORE = [
+  {
+    id: 'mea-xlds', name: 'MEA XLDS 2026', client: 'AIESEC in the Middle East and Africa', type: 'Leadership conference website', origin: SCRATCH,
+    src: '/work/mea-xlds/index.html', live: 'https://mea-xlds.aiesec.org.eg/', host: 'mea-xlds.aiesec.org.eg',
+    posters: { desktop: '/work/mea-xlds-desktop.jpg', mobile: '/work/mea-xlds-mobile.jpg' }, demo: true,
+    summary: 'The regional leadership conference site, with a Python backend for content and registrations.',
+  },
+  {
+    id: 'wiab', name: 'Where it all begins', client: 'AIESEC in Egypt', type: 'Exchange programmes and Why Egypt', origin: SCRATCH,
+    src: 'https://whereitallbegins.aiesec.org.eg/', live: 'https://whereitallbegins.aiesec.org.eg/', host: 'whereitallbegins.aiesec.org.eg',
+    posters: { desktop: '/work/where-it-all-begins-desktop.jpg', mobile: '/work/where-it-all-begins-mobile.jpg' },
+    summary: 'Inviting international students to Egypt: destination stories, the volunteer, talent and teacher programmes, and an AIESEC sign in journey.',
+  },
+  {
+    id: 'aiesec-us', name: 'AIESEC in the United States', client: 'AIESEC in the United States', type: 'National website with a CMS', origin: SCRATCH,
+    src: 'https://aiesecus.org/', live: 'https://aiesecus.org/', host: 'aiesecus.org',
+    posters: { desktop: '/work/aiesec-us-desktop.jpg', mobile: '/work/aiesec-us-mobile.jpg' },
+    summary: 'The national site for volunteering, internships and youth leadership: programme sign ups, a blog and news, donations, a 70th anniversary page and a CMS for the team.',
+  },
+  {
+    id: 'aiesec-egypt', name: 'AIESEC in Egypt', client: 'AIESEC in Egypt', type: 'National landing page', origin: CODEV,
+    src: 'https://aiesec.org.eg/', live: 'https://aiesec.org.eg/', host: 'aiesec.org.eg',
+    posters: { desktop: '/work/aiesec-egypt-desktop.jpg', mobile: '/work/aiesec-egypt-mobile.jpg' },
+    summary: 'The new national landing page, built together with the AIESEC in Egypt team.',
+  },
+]
+const ALL = [...PROJECTS, ...MORE]
 const DEVICES = [
   { id: 'desktop', label: 'Desktop', icon: Monitor, w: 1440, h: 900 },
   { id: 'tablet', label: 'Tablet', icon: Tablet, w: 820, h: 1180 },
   { id: 'mobile', label: 'Mobile', icon: Smartphone, w: 390, h: 844 },
 ]
 
-function SitePreview() {
+function SitePreview({ project, autoload = false }) {
   const stageRef = useRef(null)
   const narrow = typeof window !== 'undefined' && window.matchMedia?.('(max-width: 720px)').matches
   const [device, setDevice] = useState(narrow ? 'mobile' : 'desktop')
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(autoload)
   const [scale, setScale] = useState(1)
   const d = DEVICES.find((x) => x.id === device)
+
+  // A new project starts on its poster again
+  useEffect(() => { setLoaded(autoload) }, [project.id, autoload])
 
   // Render the site at its real viewport size, then scale it to fit the stage
   useEffect(() => {
@@ -45,7 +116,7 @@ function SitePreview() {
     <div className="wd-preview">
       <div className="wd-preview__bar">
         <span className="wd-dots" aria-hidden="true"><i /><i /><i /></span>
-        <span className="wd-url"><span className="wd-lock" aria-hidden="true" />{YSF.host}</span>
+        <span className="wd-url"><span className="wd-lock" aria-hidden="true" />{project.host}</span>
         <div className="wd-devices" role="group" aria-label="Preview device">
           {DEVICES.map(({ id, label, icon: I }) => (
             <button key={id} aria-pressed={device === id} onClick={() => setDevice(id)} title={label}>
@@ -54,8 +125,8 @@ function SitePreview() {
           ))}
         </div>
         <div className="wd-preview__actions">
-          <a href={YSF.src} target="_blank" rel="noopener" className="wd-iconbtn" aria-label="Open the preview full screen" title="Full screen"><Maximize2 aria-hidden="true" /></a>
-          <a href={YSF.live} target="_blank" rel="noopener" className="wd-iconbtn" aria-label="Visit the live site" title="Live site"><ExternalLink aria-hidden="true" /></a>
+          <a href={project.src} target="_blank" rel="noopener" className="wd-iconbtn" aria-label="Open the preview full screen" title="Full screen"><Maximize2 aria-hidden="true" /></a>
+          <a href={project.live} target="_blank" rel="noopener" className="wd-iconbtn" aria-label="Visit the live site" title="Live site"><ExternalLink aria-hidden="true" /></a>
         </div>
       </div>
       <div ref={stageRef} className={`wd-stage wd-stage--${device}`}>
@@ -64,15 +135,15 @@ function SitePreview() {
             className={`wd-viewport${device !== 'desktop' ? ' is-device' : ''}`}
             style={{ width: d.w, height: d.h, transform: `translate(-50%, -50%) scale(${scale})` }}
           >
-            <iframe src={YSF.src} title="Youth Speak Forum website, interactive preview" loading="lazy" />
+            <iframe key={project.id} src={project.src} title={`${project.name} website, interactive preview`} loading="lazy" />
           </div>
         ) : (
           <div className="wd-poster">
-            <img src={device === 'desktop' ? YSF.posters.desktop : YSF.posters.mobile} alt="" loading="lazy"
+            <img src={device === 'desktop' ? project.posters.desktop : project.posters.mobile} alt="" loading="lazy"
               className={device === 'desktop' ? '' : 'is-phone'} />
             <button className="wd-launch" onClick={() => setLoaded(true)}>
               <span className="wd-launch__icon"><Play aria-hidden="true" /></span>
-              <span><strong>Launch the interactive site</strong><em>Move your cursor, scroll, open the forms</em></span>
+              <span><strong>Launch the interactive site</strong><em>Scroll, click and switch devices</em></span>
             </button>
           </div>
         )}
@@ -81,15 +152,108 @@ function SitePreview() {
   )
 }
 
-const built = [
-  'A Living Voice hero: a live waveform and voice particles drawn on canvas that react to the cursor.',
-  'A scroll driven logo assembly, where the Youth Speak mark builds itself as visitors scroll.',
-  'Delegate and partner registration in modals, plus a standalone page for QR codes on posters.',
-  'Submissions saved to Google Sheets by type (delegates, partners, speakers, sponsors) with branded confirmation emails.',
-  'Optional ambient sound generated in the browser, only after the visitor turns it on.',
-  'Event structured data, Open Graph and a sitemap, so the forum shows up in search and looks right when shared.',
-]
-const stack = ['HTML', 'CSS', 'JavaScript', 'Canvas', 'Web Audio', 'Google Apps Script', 'Google Sheets', 'SEO']
+function OriginBadge({ origin }) {
+  return <span className={`wd-badge${origin === CODEV ? ' wd-badge--co' : ''}`}>{origin}</span>
+}
+
+function PreviewNote({ project }) {
+  return (
+    <p className="wd-note">
+      {project.demo ? 'Forms are turned off in this preview. ' : 'This is the live site. '}
+      Visit it at <a href={project.live} target="_blank" rel="noopener">{project.host}</a>.
+    </p>
+  )
+}
+
+function FeaturedWork() {
+  const [active, setActive] = useState(PROJECTS[0].id)
+  const p = PROJECTS.find((x) => x.id === active)
+  return (
+    <>
+      <div className="wd-tabs" role="tablist" aria-label="Featured projects">
+        {PROJECTS.map((x) => (
+          <button key={x.id} role="tab" aria-selected={x.id === active} onClick={() => setActive(x.id)}>
+            <strong>{x.name}</strong><em>{x.type}</em>
+          </button>
+        ))}
+      </div>
+      <Reveal><SitePreview project={p} /></Reveal>
+      <PreviewNote project={p} />
+      <div className="wd-case">
+        <div className="wd-case__built">
+          <OriginBadge origin={p.origin} />
+          <h3 className="h3">{p.name}</h3>
+          <p className="wd-case__summary">{p.summary}</p>
+          <ul className="check-list">
+            {p.built.map((b) => <li key={b}><Check aria-hidden="true" />{b}</li>)}
+          </ul>
+        </div>
+        <div className="card wd-case__facts">
+          <dl>
+            <div><dt>Client</dt><dd>{p.client}</dd></div>
+            <div><dt>Project</dt><dd>{p.type}</dd></div>
+            <div><dt>How we worked</dt><dd>{p.origin}</dd></div>
+          </dl>
+          <h4>Built with</h4>
+          <ul className="wd-chips">{p.stack.map((s) => <li key={s}>{s}</li>)}</ul>
+          <a href={p.live} target="_blank" rel="noopener" className="link-arrow">Visit the live site <ExternalLink aria-hidden="true" /></a>
+        </div>
+      </div>
+    </>
+  )
+}
+
+function MoreWork() {
+  const [open, setOpen] = useState(false)
+  const [viewing, setViewing] = useState(null)
+  useEffect(() => {
+    if (!viewing) return
+    const onKey = (e) => e.key === 'Escape' && setViewing(null)
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+  }, [viewing])
+  return (
+    <div className="wd-more">
+      <button className="btn btn--secondary" aria-expanded={open} aria-controls="wd-more-grid" onClick={() => setOpen((o) => !o)}>
+        {open ? 'Show fewer websites' : `Show more websites (${MORE.length})`}
+        <ChevronDown aria-hidden="true" className={open ? 'is-flipped' : ''} />
+      </button>
+      {open && (
+        <ul id="wd-more-grid" className="wd-more__grid">
+          {MORE.map((x) => (
+            <li key={x.id} className="card wd-more__card">
+              <button className="wd-more__shot" onClick={() => setViewing(x)} aria-label={`Preview ${x.name} on desktop, tablet and mobile`}>
+                <img src={x.posters.desktop} alt="" loading="lazy" />
+                <span className="wd-more__play"><Play aria-hidden="true" /></span>
+              </button>
+              <OriginBadge origin={x.origin} />
+              <h3 className="h3">{x.name}</h3>
+              <p className="wd-more__meta">{x.client} · {x.type}</p>
+              <p>{x.summary}</p>
+              <div className="wd-more__links">
+                <button className="link-arrow" onClick={() => setViewing(x)}>Preview on any device <ArrowRight aria-hidden="true" /></button>
+                <a href={x.live} target="_blank" rel="noopener" className="link-arrow">Live site <ExternalLink aria-hidden="true" /></a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {viewing && (
+        <div className="wd-modal" role="dialog" aria-modal="true" aria-label={`${viewing.name} preview`} onClick={(e) => e.target === e.currentTarget && setViewing(null)}>
+          <div className="wd-modal__inner">
+            <div className="wd-modal__head">
+              <div><OriginBadge origin={viewing.origin} /><h3 className="h3">{viewing.name}</h3></div>
+              <button className="wd-modal__close" onClick={() => setViewing(null)} aria-label="Close preview" autoFocus><X aria-hidden="true" /></button>
+            </div>
+            <SitePreview project={viewing} autoload />
+            <PreviewNote project={viewing} />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
 const kinds = [
   { icon: Building2, title: 'Real estate websites and portals', text: 'Project sites and listing portals with virtual tours, 3D masterplans and live availability.' },
@@ -152,8 +316,8 @@ export default function WebDevelopment() {
             </ul>
           </div>
           <div className="wd-hero__shot intro" style={{ '--delay': '150ms' }} aria-hidden="true">
-            <div className="wd-hero__browser"><img src={YSF.posters.desktop} alt="" /></div>
-            <div className="wd-hero__phone"><img src={YSF.posters.mobile} alt="" /></div>
+            <div className="wd-hero__browser"><img src={PROJECTS[0].posters.desktop} alt="" /></div>
+            <div className="wd-hero__phone"><img src={PROJECTS[0].posters.mobile} alt="" /></div>
           </div>
         </div>
       </section>
@@ -161,31 +325,12 @@ export default function WebDevelopment() {
       <section id="work" className="section" aria-labelledby="work-title">
         <div className="container">
           <SectionHeader
-            eyebrow="Featured project"
-            title={<span id="work-title">Youth Speak Forum for AIESEC</span>}
-            lead="An event website with a living, interactive hero and registrations that land straight in Google Sheets. Explore the real site below, then switch between desktop, tablet and mobile."
+            eyebrow="Selected work"
+            title={<span id="work-title">Websites we have built</span>}
+            lead="Three of our favourite projects, running for real below. Pick one, then switch between desktop, tablet and mobile."
           />
-          <Reveal><SitePreview /></Reveal>
-          <p className="wd-note">Registration is turned off in this preview. The live site is at <a href={YSF.live} target="_blank" rel="noopener">{YSF.host}</a>.</p>
-
-          <div className="wd-case">
-            <Reveal className="wd-case__built">
-              <h3 className="h3">What we built</h3>
-              <ul className="check-list">
-                {built.map((b) => <li key={b}><Check aria-hidden="true" />{b}</li>)}
-              </ul>
-            </Reveal>
-            <Reveal className="card wd-case__facts" delay={80}>
-              <dl>
-                <div><dt>Client</dt><dd>AIESEC, Youth Speak Forum</dd></div>
-                <div><dt>Project</dt><dd>Event website and registration</dd></div>
-                <div><dt>Delivered</dt><dd>Design, development, forms, emails, SEO</dd></div>
-              </dl>
-              <h4>Built with</h4>
-              <ul className="wd-chips">{stack.map((s) => <li key={s}>{s}</li>)}</ul>
-              <a href={YSF.live} target="_blank" rel="noopener" className="link-arrow">Visit the live site <ExternalLink aria-hidden="true" /></a>
-            </Reveal>
-          </div>
+          <FeaturedWork />
+          <MoreWork />
         </div>
       </section>
 
