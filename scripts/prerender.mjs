@@ -35,6 +35,17 @@ const serviceHtml = (s) => `<section><h2>${esc(s.name)}</h2><p>${esc(s.intro)}</
 const stepsHtml = `<section><h2>How it works</h2><ol>${steps.map((p) => `<li><strong>${esc(p.title)}:</strong> ${esc(p.text)}</li>`).join('')}</ol></section>`
 
 // ── Route bodies ──
+// Websites shown on the Web Development page (keep in sync with src/pages/WebDevelopment.jsx)
+const PORTFOLIO = [
+  { name: 'Youth Speak Forum', client: 'AIESEC in the United States', origin: 'built from scratch', url: 'https://ysf.aiesecus.org/', text: 'An event website with a living, interactive canvas hero, a scroll driven logo assembly and registrations saved to Google Sheets with branded confirmation emails.' },
+  { name: 'Konnect', client: 'Konnect HR services', origin: 'built from scratch', url: 'https://konnect-services.com/', text: 'An HR outsourcing platform in Next.js and TypeScript where applicants apply with CVs, companies browse talent by field and HR teams share tracked apply links.' },
+  { name: 'Youth to Business (Y2B)', client: 'AIESEC in Egypt', origin: 'built from scratch', url: 'https://youth2business.aiesec.org.eg/', text: 'A Django conference website with ticketing, early bird pricing, promo codes, checkout and an admin for all event content.' },
+  { name: 'MEA XLDS 2026', client: 'AIESEC in the Middle East and Africa', origin: 'built from scratch', url: 'https://mea-xlds.aiesec.org.eg/', text: 'The regional leadership conference website with registrations.' },
+  { name: 'Where it all begins', client: 'AIESEC in Egypt', origin: 'built from scratch', url: 'https://whereitallbegins.aiesec.org.eg/', text: 'Inviting international students to Egypt with destination stories, the volunteer, talent and teacher programmes and an AIESEC sign in journey.' },
+  { name: 'AIESEC in the United States', client: 'AIESEC in the United States', origin: 'built from scratch', url: 'https://aiesecus.org/', text: 'The national website for volunteering, internships and youth leadership, with programme sign ups, a blog, news, donations and a CMS.' },
+  { name: 'AIESEC in Egypt', client: 'AIESEC in Egypt', origin: 'co developed', url: 'https://aiesec.org.eg/', text: 'The national landing page, built together with the AIESEC in Egypt team.' },
+]
+
 const bodies = {
   '/': () => `<h1>Virtual tours, digital twins and real estate websites in Egypt</h1>
     <p>${esc(ORG_DESCRIPTION)}</p>
@@ -52,7 +63,7 @@ const bodies = {
     </section>${stepsHtml}`,
   '/web-development': () => `<h1>Websites people remember, built to rank and convert</h1>
     <p>We design and build fast, interactive websites for real estate, events and brands: 3D experiences, Arabic and English, forms wired to your tools, and SEO that works for search engines and AI assistants.</p>
-    <section><h2>Featured project: Youth Speak Forum for AIESEC</h2><p>An event website with a living, interactive canvas hero, a scroll driven logo assembly, and delegate and partner registration that saves to Google Sheets with branded confirmation emails. Live at <a href="https://ysf.aiesecus.org/">ysf.aiesecus.org</a>.</p></section>
+    <section><h2>Websites we have built</h2><ul>${PORTFOLIO.map((w) => `<li><strong><a href="${w.url}">${esc(w.name)}</a></strong> for ${esc(w.client)} (${w.origin}): ${esc(w.text)}</li>`).join('')}</ul></section>
     <section><h2>What we build</h2><ul><li>Real estate websites and portals with virtual tours, 3D masterplans and live availability</li><li>Event and campaign sites with registration, QR codes and confirmation emails</li><li>Interactive 3D experiences, digital twins and maps</li><li>Company websites</li><li>Web apps and dashboards</li><li>Ecommerce</li></ul></section>
     <section><h2>Built in on every site</h2><ul><li>Fast on any connection</li><li>Prerendered pages, structured data, sitemaps and llms.txt for search engines and AI assistants</li><li>Arabic and English with right to left layouts</li><li>Forms connected to Google Sheets, email or your CRM</li><li>Accessibility</li><li>Full ownership and a clean handover</li></ul></section>
     ${serviceHtml(services[2])}`,
@@ -74,7 +85,7 @@ const routeLd = {
   '/digital-twins': () => [orgLd(), serviceLd('digital-twins'), crumbs('/digital-twins', 'Digital Twins')],
   '/web-development': () => [
     orgLd(), serviceLd('web-development'),
-    { '@context': 'https://schema.org', '@type': 'CreativeWork', name: 'Youth Speak Forum website', url: 'https://ysf.aiesecus.org/', description: 'Event website and registration for AIESEC Youth Speak Forum, with an interactive canvas hero and registrations saved to Google Sheets.', creator: { '@id': `${SITE_URL}/#organization` } },
+    ...PORTFOLIO.map((w) => ({ '@context': 'https://schema.org', '@type': 'WebSite', name: w.name, url: w.url, description: w.text, creator: { '@id': `${SITE_URL}/#organization` } })),
     crumbs('/web-development', 'Web Development'),
   ],
   '/new-zayed-atlas': () => [
