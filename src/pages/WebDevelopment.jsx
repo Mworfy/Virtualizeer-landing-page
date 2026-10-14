@@ -14,44 +14,41 @@ const PROJECTS = [
     id: 'wiab', name: 'Where it all begins', client: 'AIESEC in Egypt', type: 'Exchange programmes website', origin: CODEV,
     src: '/work/where-it-all-begins/index.html', live: 'https://whereitallbegins.aiesec.org.eg/', host: 'whereitallbegins.aiesec.org.eg',
     posters: { desktop: '/work/where-it-all-begins-desktop.jpg', mobile: '/work/where-it-all-begins-mobile.jpg' }, demo: true,
-    summary: 'A cinematic website inviting international students to Egypt, with destination stories, the volunteer, talent and teacher programmes and a personal journey after sign in.',
+    summary: 'A cinematic website that invites international students to spend their exchange in Egypt and helps them choose the right programme.',
     built: [
-      'A layered parallax hero: sky, pyramids and title move at different depths with the cursor.',
-      'A Why Egypt page with parallax hot air balloons and destination cards for Cairo, Luxor, Aswan, Dahab and more.',
-      'Programme pages for Global Volunteer, Global Talent and Global Teacher, linked to live AIESEC opportunities.',
-      'Sign in with AIESEC accounts and a personal journey page loaded from the AIESEC API.',
-      'Scroll animations and a multilingual "Egypt" ticker that sets the tone.',
+      'Opens on a desert sunset scene of the pyramids that moves gently as you explore.',
+      'A Why Egypt page that tours the country, from Cairo and Luxor to Aswan, Dahab and the White Desert.',
+      'Clear pages for the three programmes: volunteering, internships and teaching abroad, each leading to real opportunities.',
+      'Students can sign in with their AIESEC account and follow their own journey to Egypt.',
+      'Warm colours, Egyptian patterns and the word Egypt in many languages, so the site feels like the trip itself.',
     ],
-    stack: ['HTML', 'CSS', 'JavaScript', 'AOS', 'Swiper', 'AIESEC OAuth', 'GraphQL API'],
   },
   {
     id: 'ysf', name: 'Youth Speak Forum', client: '', type: 'Event website and registration', origin: SCRATCH,
     src: '/work/ysf/site.html', live: 'https://ysf.aiesecus.org/', host: 'ysf.aiesecus.org',
     posters: { desktop: '/work/ysf-desktop.jpg', mobile: '/work/ysf-mobile.jpg' }, demo: true,
-    summary: 'An event website with a living, interactive hero and registrations that land straight in Google Sheets.',
+    summary: 'The website for Youth Speak Forum, an event where young people discuss the issues that matter to them, with registration for everyone involved.',
     built: [
-      'A Living Voice hero: a live waveform and voice particles drawn on canvas that react to the cursor.',
-      'A scroll driven logo assembly, where the Youth Speak mark builds itself as visitors scroll.',
-      'Delegate and partner registration in modals, plus a standalone page for QR codes on posters.',
-      'Submissions saved to Google Sheets by type (delegates, partners, speakers, sponsors) with branded confirmation emails.',
-      'Optional ambient sound generated in the browser, only after the visitor turns it on.',
-      'Event structured data, Open Graph and a sitemap, so the forum shows up in search and looks right when shared.',
+      'Opens with a living voice animation that responds as visitors move around the page.',
+      'The Youth Speak logo builds itself piece by piece as visitors scroll.',
+      'Delegates, partners, speakers and sponsors can each register in a few steps, right from the page.',
+      'Every person who registers receives a branded confirmation email.',
+      'A separate registration page for QR codes on posters and flyers.',
+      'Optional ambient sound that visitors can turn on for a more immersive visit.',
     ],
-    stack: ['HTML', 'CSS', 'JavaScript', 'Canvas', 'Web Audio', 'Google Apps Script', 'Google Sheets', 'SEO'],
   },
   {
     id: 'konnect', name: 'Konnect', client: 'Konnect HR services', type: 'HR outsourcing platform', origin: SCRATCH,
     src: 'https://konnect-services.com/', live: 'https://konnect-services.com/', host: 'konnect-services.com',
     posters: { desktop: '/work/konnect-desktop.jpg', mobile: '/work/konnect-mobile.jpg' },
-    summary: 'A hiring platform where applicants apply with their CVs, companies browse talent by field and HR teams share tracked apply links.',
+    summary: 'A hiring platform that connects job seekers with companies, and helps recruiters find the right people faster.',
     built: [
-      'Applicant flow with CV upload and profiles organised by field.',
-      'A company side to browse and shortlist candidates by field.',
-      'Tracked apply links for HR teams, so every application shows where it came from.',
-      'A separate API backend, with the frontend built in Next.js and TypeScript.',
-      'Docker based deployment for the frontend.',
+      'Job seekers create a profile and upload their CV in minutes.',
+      'Talent is organised by field of experience, so companies find suitable candidates quickly.',
+      'Companies browse and shortlist candidates in one place.',
+      'Recruiters share personal apply links and see which link brought in each applicant.',
+      'A bold, modern look with a connecting rings animation that reflects the brand.',
     ],
-    stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'REST API', 'Docker'],
   },
 ]
 const MORE = [
@@ -59,7 +56,7 @@ const MORE = [
     id: 'y2b', name: 'Youth to Business (Y2B)', client: 'AIESEC in Egypt', type: 'Conference website and ticketing', origin: SCRATCH,
     src: '/work/y2b/index.html', live: 'https://youth2business.aiesec.org.eg/', host: 'youth2business.aiesec.org.eg',
     posters: { desktop: '/work/y2b-desktop.jpg', mobile: '/work/y2b-mobile.jpg' }, demo: true,
-    summary: 'A full stack conference site with ticket sales, promo codes and content the organising team edits themselves.',
+    summary: 'A conference website with ticket sales, promo codes and content the organising team updates themselves.',
     built: [
       'Ticket pricing with early bird rates and percentage promo codes, through to checkout.',
       'A Django admin where the team edits the hero, dates, venue, counters and buttons without code.',
@@ -67,19 +64,18 @@ const MORE = [
       'Partner applications sent to the AIESEC partners API, with feedback and member forms saved to Google Sheets.',
       'Media stored on DigitalOcean Spaces and deployed with Docker.',
     ],
-    stack: ['Django', 'Python', 'HTML', 'CSS', 'JavaScript', 'Google Apps Script', 'DigitalOcean', 'Docker'],
   },
   {
     id: 'mea-xlds', name: 'MEA XLDS 2026', client: 'AIESEC in the Middle East and Africa', type: 'Leadership conference website', origin: SCRATCH,
     src: '/work/mea-xlds/index.html', live: 'https://mea-xlds.aiesec.org.eg/', host: 'mea-xlds.aiesec.org.eg',
     posters: { desktop: '/work/mea-xlds-desktop.jpg', mobile: '/work/mea-xlds-mobile.jpg' }, demo: true,
-    summary: 'The regional leadership conference site, with a Python backend for content and registrations.',
+    summary: 'The website for the regional leadership conference, with event details and registration for delegates.',
   },
   {
-    id: 'aiesec-us', name: 'AIESEC in the United States', client: '', type: 'National website with a CMS', origin: CODEV,
+    id: 'aiesec-us', name: 'AIESEC in the United States', client: '', type: 'National website', origin: CODEV,
     src: 'https://aiesecus.org/', live: 'https://aiesecus.org/', host: 'aiesecus.org',
     posters: { desktop: '/work/aiesec-us-desktop.jpg', mobile: '/work/aiesec-us-mobile.jpg' },
-    summary: 'The national site for volunteering, internships and youth leadership: programme sign ups, a blog and news, donations, a 70th anniversary page and a CMS for the team.',
+    summary: 'The national website for volunteering, internships and youth leadership, with programme sign ups, stories, news and donations.',
   },
   {
     id: 'aiesec-egypt', name: 'AIESEC in Egypt', client: 'AIESEC in Egypt', type: 'National landing page', origin: CODEV,
@@ -202,8 +198,6 @@ function FeaturedWork() {
             <div><dt>Project</dt><dd>{p.type}</dd></div>
             <div><dt>How we worked</dt><dd>{p.origin}</dd></div>
           </dl>
-          <h4>Built with</h4>
-          <ul className="wd-chips">{p.stack.map((s) => <li key={s}>{s}</li>)}</ul>
           <a href={p.live} target="_blank" rel="noopener" className="link-arrow">Visit the live site <ExternalLink aria-hidden="true" /></a>
         </div>
       </div>
