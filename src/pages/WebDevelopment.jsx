@@ -318,7 +318,7 @@ export default function WebDevelopment() {
             </ul>
           </div>
           <div className="wd-hero__shot intro" style={{ '--delay': '150ms' }} aria-hidden="true">
-            <div className="wd-hero__browser"><img src="/work/where-it-all-begins-desktop.jpg" alt="" /></div>
+            <div className="wd-hero__browser"><img src="/work/y2b-desktop.jpg" alt="" /></div>
             <div className="wd-hero__phone"><img src="/work/y2b-mobile.jpg" alt="" /></div>
           </div>
         </div>
