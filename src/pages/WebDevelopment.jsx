@@ -62,9 +62,9 @@ const MORE = [
     summary: 'The regional leadership conference site, with a Python backend for content and registrations.',
   },
   {
-    id: 'wiab', name: 'Where it all begins', client: 'AIESEC in Egypt', type: 'Exchange programmes and Why Egypt', origin: SCRATCH,
-    src: 'https://whereitallbegins.aiesec.org.eg/', live: 'https://whereitallbegins.aiesec.org.eg/', host: 'whereitallbegins.aiesec.org.eg',
-    posters: { desktop: '/work/where-it-all-begins-desktop.jpg', mobile: '/work/where-it-all-begins-mobile.jpg' },
+    id: 'wiab', name: 'Where it all begins', client: 'AIESEC in Egypt', type: 'Exchange programmes and Why Egypt', origin: CODEV,
+    src: '/work/where-it-all-begins/index.html', live: 'https://whereitallbegins.aiesec.org.eg/', host: 'whereitallbegins.aiesec.org.eg',
+    posters: { desktop: '/work/where-it-all-begins-desktop.jpg', mobile: '/work/where-it-all-begins-mobile.jpg' }, demo: true,
     summary: 'Inviting international students to Egypt: destination stories, the volunteer, talent and teacher programmes, and an AIESEC sign in journey.',
   },
   {

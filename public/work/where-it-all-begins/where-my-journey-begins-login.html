@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="robots" content="noindex"><style>section.video,.vid,.play-btn,.blocker,video,.login-video-modal{display:none!important}</style><script>document.addEventListener("submit",function(e){e.preventDefault()},true);</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLGLDBX5ZD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XLGLDBX5ZD');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where My Journey Begins - Login</title>
+  <link rel="icon" href="assets/images/favicon.png">
+  <style>
+    :root{
+      --bg: #1b1b1b;
+      --gold: #febe47;
+      --beige: #fef9c6;
+
+      --fs--300: 19px;
+      --fs--400: 22px;
+      --fs--900: 45px;
+
+
+      --fw-300: 300;
+      --fw-400: 400;
+      --fw-700: 700;
+      --fw-900: 900;
+    }
+    /* General selectors  */
+
+    *, *::before, *::after{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    h2{
+      font-weight: var(--fw-900);
+      color: var(--beige);
+      font-size: var(--fs--900);
+    }
+
+    h2 span{
+      color: var(--gold);
+    }
+
+    p{
+      color: var(--beige);
+      font-weight: var(--fw-400);
+      font-size: var(--fs--400);
+    }
+
+    body{
+      font-family: "Lato", sans-serif;
+      background-color: #1b1b1b;
+      background-image: url(/work/where-it-all-begins/assets/images/transparent-dirt-texture-png-29.webp);
+      scroll-behavior: smooth;
+      cursor: url(/work/where-it-all-begins/assets/images/76cb3ac5d40dba91a8f11345729a52fce\ \(1\).png), auto;
+      overflow-x: hidden;
+    }
+
+    .container{
+      margin-right: auto;
+      margin-left: auto;
+      padding: 60px 15px;
+    }
+
+    /* small */
+
+    @media (min-width: 768px){
+      .container{
+        width: 750px;
+      }
+    }
+
+    /* medium */
+
+    @media (min-width: 992px){
+      .container{
+        width: 970px;
+      }
+
+    }
+
+    /* large */
+
+    @media (min-width: 1200px){
+      .container{
+        width: 1170px;
+      }
+
+    }
+
+    /* header  */
+
+    header{
+      position: absolute;
+      z-index: 9999;
+      padding: 0.3rem 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    header nav{
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 83%;
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    header ul{
+      display: flex;
+      list-style: none;
+      align-items: baseline;
+    }
+    .logo{
+      width: 50px;
+    }
+
+    .hamburger{
+      padding-left: 1.5rem;
+    }
+
+    header .container{
+      padding-top: 5px;
+      padding-bottom: 0;
+    }
+
+    /* login page styles */
+    .login-container{
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .login-form{
+      background: rgba(27, 27, 27, 0.9);
+      padding: 60px 40px;
+      border-radius: 20px;
+      border: 3px solid var(--gold);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      min-width: 400px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .login-form h2{
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+
+    .ep-input{
+      width: 100%;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      background: transparent;
+      border: 2px solid var(--gold);
+      border-radius: 15px;
+      color: var(--beige);
+      font-size: var(--fs--400);
+      font-family: "Lato", sans-serif;
+      transition: 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
+    }
+
+    .ep-input:focus{
+      outline: none;
+      border-color: var(--beige);
+      box-shadow: 0 0 20px rgba(254, 190, 71, 0.3);
+    }
+
+    .ep-input::placeholder{
+      color: rgba(254, 249, 198, 0.6);
+    }
+
+    .login-btn{
+      width: 100%;
+      padding: 15px 30px;
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      border-radius: 15px;
+      font-size: var(--fs--400);
+      font-weight: var(--fw-700);
+      font-family: "Lato", sans-serif;
+      cursor: pointer;
+      transition: 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
+    }
+
+    .login-btn:hover{
+      background: var(--beige);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(254, 190, 71, 0.4);
+    }
+
+    .error-message{
+      color: #f85a40;
+      font-size: 16px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .loading{
+      display: none;
+      color: var(--gold);
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    /* pattern  */
+    .pattern{
+      position: absolute;
+      opacity: 0.4;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .pattern-top{
+      position: absolute;
+      opacity: 0.4;
+      top: 0;
+      right: 0px;
+      z-index: -1;
+    }
+
+    .pre-loader{
+      position: fixed;
+      background-color: #1b1b1b;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10000;
+    }
+    .pre-loader img{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+    }
+
+    .hamburger button{
+      padding: 0;
+      width: 37px;
+      height: 37px;
+      display: flex;
+      border-radius: 50%;
+      -webkit-backdrop-filter: blur(10px);
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .hamburger .bar{
+      position: relative;
+      width: 52%;
+      height: 1.3px;
+      background-color: #fff;
+      border-radius: 2px;
+    }
+
+    .hamburger .bar::before, .hamburger .bar::after{
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%);
+      width: 60%;
+      height: 100%;
+      background-color: inherit;
+      border-radius: 2px;
+    }
+
+    .hamburger .bar::before{
+      top: -4.5px
+    }
+
+    .hamburger .bar::after{
+      top: 4.5px
+    }
+
+    @media (max-width: 767px){
+      .login-form{
+        min-width: 90%;
+        padding: 40px 30px;
+      }
+      
+      .login-form h2{
+        font-size: 2rem;
+      }
+      
+      nav ul{
+        display: none;
+      }
+    }
+
+    @media (min-width: 767px){
+      .hamburger{
+        display: none;
+      }
+    }
+
+    .mobile-nav{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      z-index: 9999;
+    }
+
+    ul{
+      list-style: none;
+    }
+
+    .nav-blocker{
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      content: ' ';
+      background: rgb(0 0 0 / 62%);
+      z-index: -1;
+    }
+
+    .nav-content{
+      position: fixed;
+      top: 0;
+      right: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: #1b1b1b;
+      width: 70%;
+      padding: 20px;
+      transition: 0.8s cubic-bezier(0.2, 0.49, 0.32, 0.99);
+    }
+  </style>
+  <link rel=preload href=assets/css/style.css as=style onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel=stylesheet href=assets/css/style.css></noscript>
+  <!-- FontAwesome and AOS removed - not available in vendors folder -->
+</head>
+<body>
+    <div class="pre-loader">
+    <img src="assets/images/wired-outline-1958-pyramids.gif" alt="">
+  </div>
+
+  <header class="hide">
+    <div class="container">
+      <nav>
+        <a href="index.html"><img class="logo" src="assets/images/800px-AIESEC-Human-Blue.webp" alt="" width="50px" height="50px"></a>
+        <ul>
+          <li>
+            <a style="text-decoration: none;padding: 0 1.5rem;text-transform: uppercase;font-weight: 300;font-size: 0.83rem;color: var(--beige);" href="whyEgypt.html">Why Egypt</a>
+          </li>
+          <li>
+            <a style="text-decoration: none;padding: 0 1.5rem;text-transform: uppercase;font-weight: 300;font-size: 0.83rem;color: var(--beige);" href="where-my-journey-begins-login.html">My Journey</a>
+          </li>
+          <li >
+            <div class="programs-list" >
+              <div class="dropdown-head" style="color: var(--beige);" href="">Our Programs</div>
+              <div class="dropdown">
+                <ul class="dropdown-list">
+                  <li><a href="igv.html">Global Volunteer</a></li>
+                  <li><a href="igta.html">Global Talent</a></li>
+                  <li><a href="igte.html">Global Teacher</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <button>
+            <div class="bar"></div>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="pattern-top">
+      <img src="assets/images/pharaonic-pattern-top.webp" alt="">
+    </div>
+    
+    <div class="login-container">
+      <div class="login-form">
+        <h2>Where My <span>Journey</span> Begins</h2>
+        <p style="margin-bottom: 30px; font-size: 18px;">Sign in with your EXPA account to access your exchange journey</p>
+        
+        <button type="button" class="login-btn" id="expaLoginBtn" onclick="loginWithExpa()">Login</button>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="loading" id="loadingMessage">Loading your journey...</div>
+      </div>
+    </div>
+
+    <div class="pattern">
+      <img src="assets/images/pharaonic-pattern.webp" alt="">
+    </div>
+  </main>
+
+  <div class="mobile-nav" style="display: none;">
+    <div class="nav-blocker"></div>
+    <div class="nav-content">    
+      <a style="  display: flex;justify-content: center;" href="index.html"><img class="logo" src="assets/images/egypt.webp" alt=""></a>
+      <ul>
+        <li style="margin-top: 19px;">
+          <a style="text-decoration: none;color: var(--beige);;text-transform: uppercase;font-weight: 300;font-size: 16px;" href="index.html">Home</a>
+        </li>        
+        <li style="margin-top: 19px;">
+          <a style="text-decoration: none;color: var(--beige);;text-transform: uppercase;font-weight: 300;font-size: 16px;" href="whyEgypt.html">Why Egypt</a>
+        </li>
+        <li style="margin-top: 19px;">
+          <a style="text-decoration: none;color: var(--beige);;text-transform: uppercase;font-weight: 300;font-size: 16px;" href="where-my-journey-begins-login.html">My Journey</a>
+        </li>
+        <li>
+          <div class="programs-list" >
+            <div style="padding: 0; font-size: 16px;color: var(--beige);" id="dropdown-head-mob" class="dropdown-head" href="">Our Programs</div>
+            <div class="dropdown" >
+              <ul id="mob-dropdown" style="color: var(--beige);background: transparent;padding: 14px;border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;position: absolute;top: 27px;width: 100%;display:block"  class="dropdown-list-mob">
+                <li><a href="igv.html">Global Volunteer</a></li>
+                <li><a href="igta.html">Global Talent</a></li>
+                <li><a href="igte.html">Global Teacher</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var EXPA_OAUTH = {
+        authUrl: 'https://auth.aiesec.org/oauth/authorize',
+        tokenUrl: 'https://auth.aiesec.org/oauth/token',
+        clientId: 'GCIb5ST5_8hNcpertZI4Fapnv6xD5Qdkz5p6NMqzSj8',
+        clientSecret: 'kh7Ynr4g4k7PIkSNMvB7TbbP2m2ko04FYPYDCyJBFgQ',
+        redirectUri: 'https://whereitallbegins.aiesec.org.eg/where-my-journey-begins.html',
+        responseType: 'code',
+        grantType: 'authorization_code',
+        afterLoginPath: 'where-my-journey-begins.html'
+      };
+
+      function buildAuthorizeUrl() {
+        return (
+          EXPA_OAUTH.authUrl +
+          '?client_id=' + encodeURIComponent(EXPA_OAUTH.clientId) +
+          '&redirect_uri=' + encodeURIComponent(EXPA_OAUTH.redirectUri) +
+          '&response_type=' + EXPA_OAUTH.responseType
+        );
+      }
+
+      function setLoginLoading(isLoading) {
+        var btn = document.getElementById('expaLoginBtn');
+        var loadingMessage = document.getElementById('loadingMessage');
+        var errorMessage = document.getElementById('errorMessage');
+        if (btn) {
+          btn.disabled = isLoading;
+          btn.textContent = isLoading ? 'Signing in...' : 'Login';
+        }
+        if (loadingMessage) {
+          loadingMessage.style.display = isLoading ? 'block' : 'none';
+        }
+        if (isLoading && errorMessage) {
+          errorMessage.style.display = 'none';
+        }
+      }
+
+      function loginWithExpa() {
+        setLoginLoading(true);
+        window.location.href = buildAuthorizeUrl();
+      }
+
+      window.loginWithExpa = loginWithExpa;
+
+      document.addEventListener('DOMContentLoaded', function () {
+        setLoginLoading(false);
+      });
+    })();
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="assets/js/script.js"></script>
+  <!-- AOS removed - not available -->
+</body>
+</html>

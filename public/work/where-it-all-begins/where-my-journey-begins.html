@@ -1,0 +1,2480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="robots" content="noindex"><style>section.video,.vid,.play-btn,.blocker,video,.login-video-modal{display:none!important}</style><script>document.addEventListener("submit",function(e){e.preventDefault()},true);</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLGLDBX5ZD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XLGLDBX5ZD');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where My Journey Begins</title>
+  <link rel="icon" href="assets/images/favicon.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <style>
+    :root{
+      --bg: #1b1b1b;
+      --gold: #febe47;
+      --beige: #fef9c6;
+
+      --fs--300: 19px;
+      --fs--400: 22px;
+      --fs--900: 45px;
+
+
+      --fw-300: 300;
+      --fw-400: 400;
+      --fw-700: 700;
+      --fw-900: 900;
+    }
+    /* General selectors  */
+
+    *, *::before, *::after{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    h2{
+      font-weight: var(--fw-900);
+      color: var(--beige);
+      font-size: var(--fs--900);
+    }
+
+    h2 span{
+      color: var(--gold);
+    }
+
+    p{
+      color: var(--beige);
+      font-weight: var(--fw-400);
+      font-size: var(--fs--400);
+    }
+
+    body{
+      font-family: "Lato", sans-serif;
+      background-color: #1b1b1b;
+      background-image: url(/work/where-it-all-begins/assets/images/transparent-dirt-texture-png-29.webp);
+      scroll-behavior: smooth;
+      cursor: url(/work/where-it-all-begins/assets/images/76cb3ac5d40dba91a8f11345729a52fce\ \(1\).png), auto;
+      overflow-x: hidden;
+    }
+
+    .container{
+      margin-right: auto;
+      margin-left: auto;
+      padding: 60px 15px;
+    }
+
+    /* small */
+
+    @media (min-width: 768px){
+      .container{
+        width: 750px;
+      }
+    }
+
+    /* medium */
+
+    @media (min-width: 992px){
+      .container{
+        width: 970px;
+      }
+
+    }
+
+    /* large */
+
+    @media (min-width: 1200px){
+      .container{
+        width: 1170px;
+      }
+
+    }
+
+    /* header  */
+
+    header{
+      position: absolute;
+      z-index: 9999;
+      padding: 0.3rem 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    header nav{
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 83%;
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    header ul{
+      display: flex;
+      list-style: none;
+      align-items: baseline;
+    }
+    .logo{
+      width: 50px;
+    }
+
+    .hamburger{
+      padding-left: 1.5rem;
+    }
+
+    header .container{
+      padding-top: 5px;
+      padding-bottom: 0;
+    }
+
+    /* profile page styles */
+    .ep-profile-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .info-card{
+      background: rgba(27, 27, 27, 0.9);
+      border: 3px solid var(--gold);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      transition: 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
+    }
+
+    .info-card:hover{
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(254, 190, 71, 0.2);
+    }
+
+    .info-card h3{
+      color: var(--gold);
+      font-size: 24px;
+      font-weight: var(--fw-700);
+      margin-bottom: 20px;
+    }
+
+    .info-card p{
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .status-badge{
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: var(--fw-700);
+      margin: 5px;
+    }
+
+    .status-active{
+      background: #0cb9c1;
+      color: var(--beige);
+    }
+
+    .status-completed{
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .status-pending{
+      background: #f48924;
+      color: var(--beige);
+    }
+
+    .timeline{
+      grid-column: 1 / -1;
+      background: rgba(27, 27, 27, 0.9);
+      border: 3px solid var(--gold);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+    }
+
+    .timeline-item{
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-left: 3px solid var(--gold);
+      margin-left: 20px;
+      position: relative;
+    }
+
+    .timeline-item::before{
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 20px;
+      width: 13px;
+      height: 13px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .timeline-date{
+      color: var(--gold);
+      font-weight: var(--fw-700);
+      min-width: 120px;
+      margin-right: 20px;
+    }
+
+    .timeline-content{
+      color: var(--beige);
+    }
+
+    .document-item{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 10px;
+      background: rgba(254, 190, 71, 0.1);
+      border-radius: 10px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .document-name{
+      color: var(--beige);
+      font-weight: var(--fw-400);
+    }
+
+    .hero-section{
+      text-align: center;
+      margin-top: 100px;
+      margin-bottom: 50px;
+    }
+
+    .hero-section h1{
+      font-size: 3rem;
+      color: var(--beige);
+      margin-bottom: 20px;
+    }
+
+    .hero-section .ep-name{
+      color: var(--gold);
+      font-size: 2rem;
+      font-weight: var(--fw-700);
+    }
+
+    .ep-photo{
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid var(--gold);
+      margin: 20px auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .no-data{
+      text-align: center;
+      padding: 50px;
+      color: var(--beige);
+    }
+
+    .no-data h2{
+      margin-bottom: 20px;
+    }
+
+    .back-btn{
+      background: var(--gold);
+      color: var(--bg);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 15px;
+      font-size: var(--fs--400);
+      font-weight: var(--fw-700);
+      cursor: pointer;
+      transition: 0.45s cubic-bezier(0.2, 0.49, 0.32, 0.99);
+      margin-top: 20px;
+    }
+
+    .back-btn:hover{
+      background: var(--beige);
+      transform: translateY(-2px);
+    }
+
+    /* pattern  */
+    .pattern{
+      position: absolute;
+      opacity: 0.4;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .pattern-top{
+      position: absolute;
+      opacity: 0.4;
+      top: 0;
+      right: 0px;
+      z-index: -1;
+    }
+
+    .pre-loader{
+      position: fixed;
+      background-color: #1b1b1b;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10000;
+    }
+    .pre-loader img{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+    }
+
+    .hamburger button{
+      padding: 0;
+      width: 37px;
+      height: 37px;
+      display: flex;
+      border-radius: 50%;
+      -webkit-backdrop-filter: blur(10px);
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      border: 0;
+      backdrop-filter: blur(10px);
+    }
+
+    .hamburger .bar{
+      position: relative;
+      width: 52%;
+      height: 1.3px;
+      background-color: #fff;
+      border-radius: 2px;
+    }
+
+    .hamburger .bar::before, .hamburger .bar::after{
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%);
+      width: 60%;
+      height: 100%;
+      background-color: inherit;
+      border-radius: 2px;
+    }
+
+    .hamburger .bar::before{
+      top: -4.5px
+    }
+
+    .hamburger .bar::after{
+      top: 4.5px
+    }
+
+    @media (max-width: 767px){
+      .ep-profile-grid{
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .hero-section h1{
+        font-size: 2rem;
+      }
+      
+      .hero-section .ep-name{
+        font-size: 1.5rem;
+      }
+      
+      .ep-photo{
+        width: 120px;
+        height: 120px;
+      }
+      
+      nav ul{
+        display: none;
+      }
+    }
+
+    @media (min-width: 767px){
+      .hamburger{
+        display: none;
+      }
+    }
+
+    .mobile-nav{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      z-index: 9999;
+    }
+
+    ul{
+      list-style: none;
+    }
+
+    .nav-blocker{
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      content: ' ';
+      background: rgb(0 0 0 / 62%);
+      z-index: -1;
+    }
+
+    .nav-content{
+      position: fixed;
+      top: 0;
+      right: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: #1b1b1b;
+      width: 70%;
+      padding: 20px;
+      transition: 0.8s cubic-bezier(0.2, 0.49, 0.32, 0.99);
+    }
+
+    /* Hero text overlay to fix typo */
+    .hero-text-overlay{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .hero-title{
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--gold);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      margin: 0;
+      line-height: 1.1;
+      font-family: "Lato", sans-serif;
+    }
+
+    @media (max-width: 767px){
+      .hero-title{
+        font-size: 2.5rem;
+      }
+    }
+
+    /* Food Modal Styles */
+    .food-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+    }
+
+    .food-modal-blocker {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10001;
+    }
+
+    .food-modal-content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(27, 27, 27, 0.95);
+      border: 3px solid var(--gold);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      z-index: 10002;
+      backdrop-filter: blur(10px);
+    }
+
+    .food-modal-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .food-modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      color: var(--gold);
+      font-size: 40px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      line-height: 1;
+    }
+
+    .food-modal-close:hover {
+      color: var(--beige);
+      transform: rotate(90deg);
+    }
+
+    .food-modal-body img {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 767px) {
+      .food-modal-content {
+        padding: 30px 20px;
+        max-width: 95%;
+      }
+      
+      .food-modal-body img {
+        max-width: 100%;
+      }
+    }
+
+    /* Login Video Modal Styles */
+    .login-video-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 20000;
+      display: none;
+      background: rgba(0, 0, 0, 0.95);
+    }
+
+    .login-video-modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-video-container {
+      position: relative;
+      width: 100%;
+      max-width: 90%;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-video-container video {
+      width: 100%;
+      height: auto;
+      max-height: 90vh;
+      border-radius: 10px;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+      object-fit: contain;
+    }
+
+    .login-video-skip {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(27, 27, 27, 0.9);
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      z-index: 20001;
+      font-family: "Lato", sans-serif;
+      min-width: 80px;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .login-video-skip:hover {
+      background: var(--gold);
+      color: var(--bg);
+      transform: scale(1.05);
+    }
+
+    .login-video-skip:active {
+      transform: scale(0.95);
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 767px) {
+      .login-video-modal {
+        padding: 0;
+      }
+
+      .login-video-container {
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        max-height: 100vh;
+      }
+
+      .login-video-container video {
+        width: 100%;
+        height: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        object-fit: cover;
+      }
+
+      .login-video-skip {
+        top: 15px;
+        right: 15px;
+        padding: 10px 18px;
+        font-size: 14px;
+        min-width: 70px;
+        border-width: 2px;
+      }
+    }
+
+    /* Small Mobile Devices */
+    @media (max-width: 480px) {
+      .login-video-skip {
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 13px;
+        min-width: 65px;
+      }
+    }
+
+    /* Landscape Orientation on Mobile */
+    @media (max-width: 767px) and (orientation: landscape) {
+      .login-video-container {
+        max-height: 100vh;
+      }
+
+      .login-video-container video {
+        object-fit: contain;
+        max-height: 100vh;
+      }
+
+      .login-video-skip {
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        font-size: 13px;
+      }
+    }
+  </style>
+  <link rel=preload href=assets/css/style.css as=style onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel=stylesheet href=assets/css/style.css></noscript>
+  <!-- FontAwesome and AOS removed - not available in vendors folder -->
+</head>
+<body>
+    <div class="pre-loader">
+    <img src="assets/images/wired-outline-1958-pyramids.gif" alt="">
+  </div>
+
+  <header class="hide">
+    <div class="container">
+      <nav>
+        <a href="index.html"><img class="logo" src="assets/images/800px-AIESEC-Human-Blue.webp" alt="" width="50px" height="50px"></a>
+        <ul>
+          <li>
+            <a style="text-decoration: none;padding: 0 1.5rem;text-transform: uppercase;font-weight: 300;font-size: 0.83rem;color: var(--beige);" href="whyEgypt.html">Why Egypt</a>
+          </li>
+          <li>
+            <a style="text-decoration: none;padding: 0 1.5rem;text-transform: uppercase;font-weight: 300;font-size: 0.83rem;color: var(--beige);" href="where-my-journey-begins-login.html">My Journey</a>
+          </li>
+          <li >
+            <div class="programs-list" >
+              <div class="dropdown-head" style="color: var(--beige);" href="">Our Programs</div>
+              <div class="dropdown">
+                <ul class="dropdown-list">
+                  <li><a href="igv.html">Global Volunteer</a></li>
+                  <li><a href="igta.html">Global Talent</a></li>
+                  <li><a href="igte.html">Global Teacher</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <button>
+            <div class="bar"></div>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="hero_sec">
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/whyEgyptHero.webp" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/whyEgyptHero.png" />
+        <img src="assets/images/whyEgyptHero/hero/whyEgyptHero.png" alt="" class="bg-img-egypt"/>
+      </picture>
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/Text Journey.png" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/Text Journey.png" />
+        <img src="assets/images/whyEgyptHero/hero/Text Journey.png"  data-speedx="0.1" data-speedy="0.1" data-distance="500" alt="" class="parallax text"/>
+      </picture>
+      <!-- Text overlay to fix typo -->
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/balloon_2.webp" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/balloon_2.png" />
+        <img src="assets/images/whyEgyptHero/hero/balloon_2.png"id="three" data-speedx="0.162" data-speedy="0.338" data-distance="500" alt="" class="parallax balloon balloon2"/>
+      </picture>
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/balloon_1.webp" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/balloon_1.png" />
+        <img src="assets/images/whyEgyptHero/hero/balloon_1.png" id="four" data-speedx="0.13" data-speedy="0.124" data-distance="500" alt="" class="parallax balloon balloon1 hide-video why"/>
+      </picture>
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/balloon_3.webp" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/balloon_3.png" />
+        <img src="assets/images/whyEgyptHero/hero/balloon_3.png" id="eight" data-speedx="-0.2" data-speedy="0.142" data-distance="500" alt="" class="parallax balloon balloon3 hide-video why"/>
+      </picture>
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/balloon_4.webp" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/balloon_4.png" />
+        <img src="assets/images/whyEgyptHero/hero/balloon_4.png" id="five" data-speedx="0.150" data-speedy="0.256" data-distance="500" alt="" class="parallax balloon balloon4 hide-video why"/>
+      </picture>
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/balloon_5.webp" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/balloon_5.png" />
+        <img src="assets/images/whyEgyptHero/hero/balloon_5.png" id="seven" data-speedx="0.264" data-speedy="0.195" data-distance="500" alt="" class="parallax balloon balloon5 hide-video why"/>
+      </picture>
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/balloon_6.webp" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/balloon_6.png" />
+        <img src="assets/images/whyEgyptHero/hero/balloon_6.png" id="two" data-speedx="-0.17" data-speedy="0.174" data-distance="500" alt="" class="parallax balloon balloon6 hide-video why"/>
+      </picture>
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/images/whyEgyptHero/mobile/balloon_8.webp" />
+        <source media="(min-width: 768px)" srcset="assets/images/whyEgyptHero/hero/balloon_8.png" />
+        <img src="assets/images/whyEgyptHero/hero/balloon_8.png" id="six" data-speedx="0.296" data-speedy="0.192" data-distance="500" alt="" class="parallax balloon balloon8 hide-video why"/>
+      </picture>
+    </section>
+    
+    <div class="shade"></div>
+    <div class="pattern-top">
+      <img src="assets/images/pharaonic-pattern-top.webp" alt="">
+    </div>
+    
+    <!-- EP Journey Header Section -->
+    <section class="about" data-aos="fade-up" data-aos-duration="1200">
+      <div class="container">
+        <h2>Where My <span>Journey</span> Begins</h2>
+        <div class="journey-content-wrapper">
+          <div id="epJourneyContent">
+            <!-- EP journey content will be loaded here -->
+          </div>
+          <div id="countdownTimer" class="countdown-timer">
+            <!-- Countdown timer will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP Journey Story Section -->
+    <section class="culture" data-aos="fade-up" data-aos-duration="1200">
+      <div class="container">
+        <div class="culture-text">
+          <h2>Your <span>Exchange</span> Story</h2>
+          <p>Every AIESEC exchange is a unique journey of personal growth, cultural immersion, and professional development. Your experience will be filled with meaningful connections, new perspectives, and unforgettable memories that will shape your future.</p>
+        </div>
+        <div class="culture-image">
+          <img src="assets/images/whyEgyptHero/culture.webp" alt="Exchange Culture">
+          <div class="img-border"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EP Journey Timeline Section -->
+    <section class="culture" data-aos="fade-up" data-aos-duration="1200">
+      <div class="container">
+        <div class="culture-image right1">
+          <img src="assets/images/whyEgyptHero/history.png" alt="Journey Timeline">
+          <div class="img-border"></div>
+        </div>
+        <div class="culture-text right2">
+          <h2>Your <span>Timeline</span></h2>
+          <p>From application to completion, your AIESEC journey follows a structured path designed to maximize your learning and impact. Each milestone brings new opportunities for growth and connection with the global AIESEC community.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Egyptian Cuisine Carousel Section -->
+    <section class="sldr">
+      <div class="container">
+        <h2><span>EGYPTIAN</span> CUISINE</h2>
+        <div class="swiper mySwiperCuisine">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" style="cursor: pointer;" data-food="koshari">
+              <div class="info">
+                <p>Koshari</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/koushary.webp" alt="Koshari" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="ful-medames">
+              <div class="info">
+                <p>Ful Medames</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/ful medms.webp" alt="Ful Medames" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="falafel">
+              <div class="info">
+                <p>Falafel</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/falafl.webp" alt="Falafel" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="shawarma">
+              <div class="info">
+                <p>Shawarma</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/shawarma.webp" alt="Shawarma" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="mahshi">
+              <div class="info">
+                <p>Mahshi</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/mahshi.webp" alt="Mahshi" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="sayadieh">
+              <div class="info">
+                <p>Sayadieh</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/sayadeya.webp" alt="Sayadieh" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="feteer">
+              <div class="info">
+                <p>Feteer</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/feteer.webp" alt="Feteer" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="molokhia">
+              <div class="info">
+                <p>Molokhia</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/molokhia.webp" alt="Molokhia" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="baklava">
+              <div class="info">
+                <p>Baklava</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/baklava.webp" alt="Baklava" />        
+            </div>
+            <div class="swiper-slide" style="cursor: pointer;" data-food="basbousa">
+              <div class="info">
+                <p>Basbousa</p>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/cuisine/basbosa.webp" alt="Basbousa" />        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Food Description Modal -->
+    <div class="food-modal" id="foodModal" style="display: none;">
+      <div class="food-modal-blocker"></div>
+      <div class="food-modal-content">
+        <button class="food-modal-close" id="closeFoodModal">&times;</button>
+        <div class="food-modal-body">
+          <img id="foodModalImage" src="" alt="" style="width: 100%; max-width: 250px; border-radius: 15px; margin-bottom: 20px;">
+          <h2 id="foodModalTitle" style="color: var(--gold); margin-bottom: 15px; font-size: 2rem;"></h2>
+          <p id="foodModalDescription" style="color: var(--beige); font-size: 18px; line-height: 1.6; text-align: left; padding: 0 10px;"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Video Modal -->
+    
+
+    <!-- Profile Content Section -->
+    <section class="about" data-aos="fade-up" data-aos-duration="1200">
+      <div class="container">
+        <div id="epProfileContent">
+          <!-- EP profile content will be loaded here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- EP Journey Inspiration Section -->
+    <section class="scrolling-txt">
+      <div class="line1"><p class="line" id="line-one"><span class="W300"> Growth</span> <span class="W400"> نمو</span> <span class="W700"> विकास</span> <span class="W900"> Crescimento</span> <span class="W300"> Crescita</span> <span class="W400"> Crecimiento</span> <span class="W700"> Рост</span> <span class="W900"> Croissance</span> <span class="W300"> 成长</span> <span class="W400"> نمو</span> <span class="W700"> வளர்ச்சி</span> <span class="W900"> වර්ධනය</span> <span class="W300"> 成長</span> <span class="W400"> Αύξηση</span> <span class="W700"> Pertumbuhan</span> <span class="W900"> Growth</span><span class="W300"> Growth</span> <span class="W400"> نمو</span> <span class="W700"> विकास</span> <span class="W900"> Crescimento</span> <span class="W300"> Crescita</span> <span class="W400"> Crecimiento</span> <span class="W700"> Рост</span> <span class="W900"> Croissance</span> <span class="W300"> 成长</span> <span class="W400"> نمو</span> <span class="W700"> வளர்ச்சி</span> <span class="W900"> වර්ධනය</span> <span class="W300"> 成長</span> <span class="W400"> Αύξηση</span> <span class="W700"> Pertumbuhan</span> <span class="W900"> Growth</span></p></div>
+      <div class="line2"><p class="line" id="line-two"><span class="W700"> Experience</span> <span class="W900"> تجربة</span> <span class="W300"> अनुभव</span> <span class="W400"> Experiência</span> <span class="W700"> Esperienza</span> <span class="W900"> Experiencia</span> <span class="W300"> Опыт</span> <span class="W400"> Expérience</span> <span class="W700"> 经验</span> <span class="W900"> அனுபவம்</span> <span class="W300"> අත්දැකීම</span> <span class="W400"> 経験</span> <span class="W700"> Εμπειρία</span> <span class="W900"> Pengalaman</span><span class="W300"> Experience</span> <span class="W400"> تجربة</span> <span class="W700"> अनुभव</span> <span class="W900"> Experiência</span> <span class="W300"> Esperienza</span> <span class="W400"> Experiencia</span> <span class="W700"> Опыт</span> <span class="W900"> Expérience</span> <span class="W300"> 经验</span> <span class="W400"> அனுபவம்</span> <span class="W700"> අත්දැකීම</span> <span class="W900"> 経験</span> <span class="W300"> Εμπειρία</span> <span class="W400"> Pengalaman</span> <span class="W700"> Experience</span> <span class="W900"> تجربة</span> <span class="W300"> अनुभव</span> <span class="W400"> Experiência</span> <span class="W700"> Esperienza</span> <span class="W900"> Experiencia</span> <span class="W300"> Опыт</span> <span class="W400"> Expérience</span> <span class="W700"> 经验</span> <span class="W900"> அனுபவம்</span> <span class="W300"> අත්දැකීම</span> <span class="W400"> 経験</span> <span class="W700"> Εμπειρία</span> <span class="W900"> Pengalaman</span></p></div>
+      <div class="line3"><p class="line" id="line-three"><span class="W900"> Impact</span> <span class="W300"> تأثير</span> <span class="W400"> प्रभाव</span> <span class="W700"> Impacto</span> <span class="W900"> Impatto</span> <span class="W300"> Impacto</span> <span class="W400"> Воздействие</span> <span class="W700"> Impact</span> <span class="W900"> 影响</span> <span class="W300"> தாக்கம்</span> <span class="W400"> බලපෑම</span> <span class="W700"> 影響</span> <span class="W900"> Αντίκτυπος</span> <span class="W300"> Dampak</span><span class="W700"> Impact</span> <span class="W900"> تأثير</span> <span class="W300"> प्रभाव</span> <span class="W400"> Impacto</span> <span class="W700"> Impatto</span> <span class="W900"> Impacto</span> <span class="W300"> Воздействие</span> <span class="W400"> Impact</span> <span class="W700"> 影响</span> <span class="W900"> தாக்கம்</span> <span class="W300"> බලපෑම</span> <span class="W400"> 影響</span> <span class="W700"> Αντίκτυπος</span> <span class="W900"> Dampak</span><span class="W300"> Impact</span> <span class="W400"> تأثير</span> <span class="W700"> प्रभाव</span> <span class="W900"> Impacto</span> <span class="W300"> Impatto</span> <span class="W400"> Impacto</span> <span class="W700"> Воздействие</span> <span class="W900"> Impact</span> <span class="W300"> 影响</span> <span class="W400"> தாக்கம்</span> <span class="W700"> බලපෑම</span> <span class="W900"> 影響</span> <span class="W300"> Αντίκτυπος</span> <span class="W400"> Dampak</span></p></div>
+    </section>
+
+    <!-- Destinations to Visit Section -->
+    <section class="sldr">
+      <div class="vid vid1 hide-video">
+        <div class="blocker" data-id = "1"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton1" onclick="playCard(1)" data-dist = "aswan"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid2 hide-video">
+        <div class="blocker" data-id = "2"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton2" onclick="playCard(2)" data-dist = "cairo"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid3 hide-video">
+        <div class="blocker" data-id = "3"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton3" onclick="playCard(3)" data-dist = "whiteDesert"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid4 hide-video">
+        <div class="blocker" data-id = "4"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton4" onclick="playCard(4)" data-dist = "luxor"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid5 hide-video">
+        <div class="blocker" data-id = "5"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton5" onclick="playCard(5)" data-dist = "catherine"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid6 hide-video">
+        <div class="blocker" data-id = "6"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton6" onclick="playCard(6)" data-dist = "marsaAlam"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid7 hide-video">
+        <div class="blocker" data-id = "7"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton7" onclick="playCard(7)" data-dist = "fayoum"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid8 hide-video">
+        <div class="blocker" data-id = "8"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton8" onclick="playCard(8)" data-dist = "edfu"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid9 hide-video">
+        <div class="blocker" data-id = "9"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton9" onclick="playCard(9)" data-dist = "dahab"></button>
+          
+        </div>
+      </div>
+      <div class="vid vid10 hide-video">
+        <div class="blocker" data-id = "10"></div>
+        <div class="vid-container">
+          <button class="fas fa-play play-btn" id="myButton10" onclick="playCard(10)" data-dist = "pyramids"></button>
+          
+        </div>
+      </div>
+      <div class="container">
+        <h2><span>DESTINATIONS</span> TO VISIT</h2>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="info">
+                <p>Aswan</p>
+                <button type="button" class="card-btn" id="aswan" data-id = "1">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/aswan_0.webp" alt="Aswan" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>Cairo</p>
+                <button type="button" class="card-btn" id="cairo" data-id = "2" >Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/cairo.webp" alt="Cario" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>White Desert</p>
+                <button type="button" class="card-btn" id="whiteDesert" data-id = "3">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/white_desert.webp" alt="White Desert" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>Luxor</p>
+                <button type="button" class="card-btn" id="luxor" data-id = "4">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/luxor.webp" alt="Luxor" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>St. Catherine</p>
+                <button type="button" class="card-btn" id="catherine" data-id = "5">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/st.cathrine.webp" alt="St. Cathrine" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>Marsa Alam</p>
+                <button type="button" class="card-btn" id="marsaAlam" data-id = "6">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/marsa_alm.webp" alt="Marsa Alam" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>Fayoum</p>
+                <button type="button" class="card-btn" id="fayoum" data-id = "7">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/Fayoum.webp" alt="Fayoum" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>Edfu</p>
+                <button type="button" class="card-btn" id="edfu" data-id = "8">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/edfu.webp" alt="Edfu" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>Dahab</p>
+                <button type="button" class="card-btn" id="dahab" data-id = "9">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/dahab-asalah-coast.webp" alt="Dahab" />        
+            </div>
+            <div class="swiper-slide">
+              <div class="info">
+                <p>Pyramids</p>
+                <button type="button" class="card-btn" id="pyramids" data-id = "10">Watch</button>
+              </div>
+              <div class="card-shade"></div>
+              <img src="assets/images/whyEgyptHero/pyramids.webp" alt="Pyramids" />        
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emergency Contacts Section -->
+    <section class="about" data-aos="fade-up" data-aos-duration="1200" style="opacity: 1; visibility: visible;">
+      <div class="container">
+        <h2>Emergency <span>Contacts</span></h2>
+        <div style="background: rgba(27, 27, 27, 0.9); border: 3px solid var(--gold); border-radius: 20px; padding: 40px; margin-top: 50px; backdrop-filter: blur(10px);">
+          <p style="color: var(--beige); margin-bottom: 30px; text-align: center; font-size: 18px;">Important emergency contact numbers in Egypt</p>
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; margin: 0 auto;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--gold);">
+                  <th style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 16px;">Service</th>
+                  <th style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 16px;">Phone Number</th>
+                  <th style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 16px;">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">🚓 Police / General Emergencies</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">122</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">For any police, theft, or assault emergency</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">🚑 Ambulance / Medical Emergency</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">123</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">For medical emergencies and accidents</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">🚒 Fire Department</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">180</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">For fire-related emergencies</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">⚡ Electricity Emergency</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">121</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">To report power outages or electrical hazards</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">💧 Water Emergency</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">125</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">To report water leaks or issues</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">☣️ Gas Emergency</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">129</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">To report gas leaks or related incidents</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">🚨 Traffic Police / Road Accidents</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">128</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">For road and highway emergencies</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">🚖 Tourist Police</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">126</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">For tourists needing assistance or to report incidents</td>
+                </tr>
+                <tr>
+                  <td style="padding: 15px; color: var(--beige); font-size: 16px;">👩‍⚖️ Women's Helpline (NCW)</td>
+                  <td style="padding: 15px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">15115</td>
+                  <td style="padding: 15px; color: var(--beige); font-size: 14px;">For women's safety and support services</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plan Your Flight Section -->
+    <section id="flight-search-section" class="about" data-aos="fade-up" data-aos-duration="1200" style="opacity: 1; visibility: visible;">
+      <div class="container">
+        <h2>Plan Your <span>Flight</span></h2>
+        <div style="background: rgba(27, 27, 27, 0.9); border: 3px solid var(--gold); border-radius: 20px; padding: 40px; margin-top: 50px; backdrop-filter: blur(10px); max-width: 800px; margin-left: auto; margin-right: auto;">
+          <p style="color: var(--beige); margin-bottom: 30px; text-align: center; font-size: 18px;">Search flights from your home country to Egypt on Skyscanner. Dates are pre-filled from your exchange when available.</p>
+
+          <div style="display: grid; gap: 20px;">
+            <div>
+              <label for="flightOrigin" style="display: block; color: var(--gold); font-weight: 700; margin-bottom: 8px; font-size: 16px;">From</label>
+              <input type="text" id="flightOrigin" class="ep-input" list="flightOriginOptions" placeholder="City or airport (e.g. Istanbul)" style="width: 100%; padding: 15px 20px; background: rgba(254, 190, 71, 0.1); border: 2px solid var(--gold); border-radius: 15px; color: var(--beige); font-size: 16px; font-family: 'Lato', sans-serif;">
+              <datalist id="flightOriginOptions">
+                <option value="Istanbul (IST)" data-code="ist"></option>
+                <option value="London (LON)" data-code="lon"></option>
+                <option value="Paris (PAR)" data-code="par"></option>
+                <option value="Berlin (BER)" data-code="ber"></option>
+                <option value="Madrid (MAD)" data-code="mad"></option>
+                <option value="Rome (ROM)" data-code="rom"></option>
+                <option value="Amsterdam (AMS)" data-code="ams"></option>
+                <option value="Warsaw (WAW)" data-code="waw"></option>
+                <option value="Bucharest (OTP)" data-code="otp"></option>
+                <option value="Athens (ATH)" data-code="ath"></option>
+                <option value="Delhi (DEL)" data-code="del"></option>
+                <option value="Bangkok (BKK)" data-code="bkk"></option>
+                <option value="Manila (MNL)" data-code="mnl"></option>
+                <option value="São Paulo (SAO)" data-code="sao"></option>
+                <option value="Bogotá (BOG)" data-code="bog"></option>
+                <option value="Mexico City (MEX)" data-code="mex"></option>
+                <option value="New York (NYC)" data-code="nyc"></option>
+                <option value="Toronto (YTO)" data-code="yto"></option>
+                <option value="Sydney (SYD)" data-code="syd"></option>
+                <option value="Johannesburg (JNB)" data-code="jnb"></option>
+                <option value="Lagos (LOS)" data-code="los"></option>
+                <option value="Nairobi (NBO)" data-code="nbo"></option>
+              </datalist>
+            </div>
+            <div>
+              <label for="flightDestination" style="display: block; color: var(--gold); font-weight: 700; margin-bottom: 8px; font-size: 16px;">To (Egypt)</label>
+              <select id="flightDestination" class="ep-input" style="width: 100%; padding: 15px 20px; background: rgba(254, 190, 71, 0.1); border: 2px solid var(--gold); border-radius: 15px; color: var(--beige); font-size: 16px; font-family: 'Lato', sans-serif;">
+                <option value="cai">Cairo (CAI)</option>
+                <option value="aly">Alexandria (ALY)</option>
+                <option value="hrg">Hurghada (HRG)</option>
+                <option value="lxr">Luxor (LXR)</option>
+                <option value="ssh">Sharm El Sheikh (SSH)</option>
+                <option value="asw">Aswan (ASW)</option>
+              </select>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div>
+                <label for="flightOutboundDate" style="display: block; color: var(--gold); font-weight: 700; margin-bottom: 8px; font-size: 16px;">Departure</label>
+                <input type="date" id="flightOutboundDate" class="ep-input" style="width: 100%; padding: 15px 20px; background: rgba(254, 190, 71, 0.1); border: 2px solid var(--gold); border-radius: 15px; color: var(--beige); font-size: 16px; font-family: 'Lato', sans-serif;">
+              </div>
+              <div>
+                <label for="flightReturnDate" style="display: block; color: var(--gold); font-weight: 700; margin-bottom: 8px; font-size: 16px;">Return (optional)</label>
+                <input type="date" id="flightReturnDate" class="ep-input" style="width: 100%; padding: 15px 20px; background: rgba(254, 190, 71, 0.1); border: 2px solid var(--gold); border-radius: 15px; color: var(--beige); font-size: 16px; font-family: 'Lato', sans-serif;">
+              </div>
+            </div>
+            <p id="flightSearchError" style="display: none; color: #f85a40; font-size: 16px; margin: 0; text-align: center;"></p>
+            <button type="button" id="flightSearchBtn" class="login-btn" style="width: 100%; margin-top: 10px;">Search flights on Skyscanner</button>
+            <p style="color: var(--beige); font-size: 14px; text-align: center; margin: 0; opacity: 0.85;">You will continue on Skyscanner to see live prices and book.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Currency Exchange Section -->
+    <section class="about" data-aos="fade-up" data-aos-duration="1200" style="opacity: 1; visibility: visible;">
+      <div class="container">
+        <h2>Currency <span>Exchange</span></h2>
+        <div style="background: rgba(27, 27, 27, 0.9); border: 3px solid var(--gold); border-radius: 20px; padding: 40px; margin-top: 50px; backdrop-filter: blur(10px); max-width: 800px; margin-left: auto; margin-right: auto;">
+          <p style="color: var(--beige); margin-bottom: 30px; text-align: center; font-size: 18px;">Check exchange rates for your currency</p>
+          
+          <!-- Currency Converter Table -->
+          <div class="currency-converter-table">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--gold);">
+                  <th style="padding: 20px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">Country Currency</th>
+                  <th style="padding: 20px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">US Dollar</th>
+                  <th style="padding: 20px; text-align: center; color: var(--gold); font-weight: 700; font-size: 18px;">Egyptian Pound</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 20px; text-align: center;">
+                    <input type="number" id="countryCurrencyInputField" class="ep-input" placeholder="0.00" style="width: 100%; padding: 15px 10px; background: rgba(254, 190, 71, 0.1); border: 2px solid var(--gold); border-radius: 15px; color: var(--gold); font-size: 18px; font-family: 'Lato', sans-serif; font-weight: 700; text-align: center;" step="0.01">
+                  </td>
+                  <td style="padding: 20px; text-align: center;">
+                    <input type="number" id="usdInput" class="ep-input" placeholder="0.00" style="width: 100%; padding: 15px 10px; background: rgba(254, 190, 71, 0.1); border: 2px solid var(--gold); border-radius: 15px; color: var(--gold); font-size: 18px; font-family: 'Lato', sans-serif; font-weight: 700; text-align: center;" step="0.01">
+                  </td>
+                  <td style="padding: 20px; text-align: center;">
+                    <input type="number" id="egpInput" class="ep-input" placeholder="0.00" style="width: 100%; padding: 15px 10px; background: rgba(254, 190, 71, 0.1); border: 2px solid var(--gold); border-radius: 15px; color: var(--gold); font-size: 18px; font-family: 'Lato', sans-serif; font-weight: 700; text-align: center;" step="0.01">
+                  </td>
+                </tr>
+                <tr style="border-top: 1px solid rgba(254, 190, 71, 0.3);">
+                  <td style="padding: 20px; text-align: center; color: var(--beige); font-size: 18px; font-weight: 600;" id="countryCurrencyName">Turkish Lira (₺)</td>
+                  <td style="padding: 20px; text-align: center; color: var(--beige); font-size: 18px; font-weight: 600;">USD ($)</td>
+                  <td style="padding: 20px; text-align: center; color: var(--beige); font-size: 18px; font-weight: 600;">EGP (LE)</td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <div style="text-align: center; margin-top: 30px; padding: 15px; background: rgba(254, 190, 71, 0.1); border: 2px solid var(--gold); border-radius: 15px; color: var(--beige); font-size: 16px;">
+              <p style="margin: 0;">Exchange rates are live</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="pattern">
+      <img src="assets/images/pharaonic-pattern.webp" alt="">
+    </div>
+  </main>
+
+  <!-- Product video (inserted dynamically) -->
+  <div id="productVideoSection"></div>
+
+  <div class="mobile-nav" style="display: none;">
+    <div class="nav-blocker"></div>
+    <div class="nav-content">    
+      <a style="  display: flex;justify-content: center;" href="index.html"><img class="logo" src="assets/images/egypt.webp" alt=""></a>
+      <ul>
+        <li style="margin-top: 19px;">
+          <a style="text-decoration: none;color: var(--beige);;text-transform: uppercase;font-weight: 300;font-size: 16px;" href="index.html">Home</a>
+        </li>        
+        <li style="margin-top: 19px;">
+          <a style="text-decoration: none;color: var(--beige);;text-transform: uppercase;font-weight: 300;font-size: 16px;" href="whyEgypt.html">Why Egypt</a>
+        </li>
+        <li style="margin-top: 19px;">
+          <a style="text-decoration: none;color: var(--beige);;text-transform: uppercase;font-weight: 300;font-size: 16px;" href="where-my-journey-begins-login.html">My Journey</a>
+        </li>
+        <li>
+          <div class="programs-list" >
+            <div style="padding: 0; font-size: 16px;color: var(--beige);" id="dropdown-head-mob" class="dropdown-head" href="">Our Programs</div>
+            <div class="dropdown" >
+              <ul id="mob-dropdown" style="color: var(--beige);background: transparent;padding: 14px;border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;position: absolute;top: 27px;width: 100%;display:block"  class="dropdown-list-mob">
+                <li><a href="igv.html">Global Volunteer</a></li>
+                <li><a href="igta.html">Global Talent</a></li>
+                <li><a href="igte.html">Global Teacher</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    if(window.screen.width > 767){
+      const why = document.querySelectorAll(".why");
+      why.forEach(el => {
+        el.classList.remove('hide-video')
+      })
+    }
+    const parallax_el = document.querySelectorAll(".parallax");
+
+    let xValue = 0, yValue = 0;
+    function update(){
+      parallax_el.forEach(el => {
+        let speedx = el.dataset.speedx;
+        let speedy = el.dataset.speedy;
+        el.style.transform = `translateX(calc(-50% + ${-xValue * speedx}px)) translateY(calc(-50% + ${yValue * speedy}px))`;
+      })
+    }
+
+    update();
+    if(window.screen.width > 767){
+        window.addEventListener("mousemove", (e) => {
+          if(timeline1.isActive()){return}
+
+          xValue = e.clientX - window.innerWidth / 2;
+          yValue = e.clientY - window.innerHeight / 2;
+
+          update();
+      })
+    }
+
+    if(window.screen.width <= 767){
+      const text = document.querySelector('.text');
+      window.addEventListener('scroll', () => {
+          parallax_el.forEach(el => {
+            let speedy = el.dataset.speedy;
+            yValue = -window.scrollY - window.innerHeight / 2;
+            update();
+          })
+      })
+    }
+
+    // GSAP Animation
+    let timeline1 = gsap.timeline();
+
+    timeline1.from(".text", {
+      top: `90%`,
+      duration: 2,
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js">  </script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // EXPA OAuth callback — constants must match where-my-journey-begins-login.html
+    (function () {
+      var EXPA_OAUTH = {
+        tokenUrl: 'https://auth.aiesec.org/oauth/token',
+        gisGraphqlUrl: 'https://gis-api.aiesec.org/graphql',
+        apiGraphqlUrl: 'https://api.aiesec.org/graphql',
+        clientId: 'GCIb5ST5_8hNcpertZI4Fapnv6xD5Qdkz5p6NMqzSj8',
+        clientSecret: 'kh7Ynr4g4k7PIkSNMvB7TbbP2m2ko04FYPYDCyJBFgQ',
+        redirectUri: 'https://whereitallbegins.aiesec.org.eg/where-my-journey-begins.html',
+        grantType: 'authorization_code',
+        afterLoginPath: 'where-my-journey-begins.html'
+      };
+
+      var CURRENT_PERSON_QUERY =
+        'query CurrentPerson { currentPerson { id full_name email } }';
+
+      function buildTokenRequestBody(code) {
+        return {
+          client_id: EXPA_OAUTH.clientId,
+          client_secret: EXPA_OAUTH.clientSecret,
+          redirect_uri: EXPA_OAUTH.redirectUri,
+          grant_type: EXPA_OAUTH.grantType,
+          code: code
+        };
+      }
+
+      function extractPersonIdFromTokenPayload(payload) {
+        if (!payload || typeof payload !== 'object') return null;
+        return (
+          payload.person_id ||
+          payload.personId ||
+          payload.user_id ||
+          (payload.person && payload.person.id) ||
+          (payload.current_person && payload.current_person.id) ||
+          (payload.data && payload.data.person && payload.data.person.id)
+        );
+      }
+
+      async function parseJsonResponse(response) {
+        var text = await response.text();
+        if (!text) return null;
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          console.warn('[EXPA] non-JSON response', response.url, response.status, text);
+          return null;
+        }
+      }
+
+      async function fetchCurrentPersonViaGraphql(token, url, useAuthorizationHeader) {
+        var response = await fetch(url, {
+          method: 'POST',
+          headers: useAuthorizationHeader
+            ? { 'Content-Type': 'application/json', Authorization: token }
+            : { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: CURRENT_PERSON_QUERY })
+        });
+        var json = await parseJsonResponse(response);
+        if (!json) return null;
+        console.log('[EXPA] currentPerson via', url, json);
+        if (json.errors && json.errors.length) {
+          console.warn('[EXPA] GraphQL errors', url, json.errors);
+        }
+        return json.data && json.data.currentPerson ? json.data.currentPerson : null;
+      }
+
+      async function resolvePersonFromOAuthToken(token, tokenData) {
+        var fromToken = extractPersonIdFromTokenPayload(tokenData);
+        if (fromToken) {
+          console.log('[EXPA] person id from token payload', fromToken);
+          return { id: fromToken, source: 'token_payload' };
+        }
+
+        var gisPerson = await fetchCurrentPersonViaGraphql(
+          token,
+          EXPA_OAUTH.gisGraphqlUrl,
+          true
+        );
+        if (gisPerson && gisPerson.id) {
+          return { person: gisPerson, source: 'gis_graphql' };
+        }
+
+        var apiPerson = await fetchCurrentPersonViaGraphql(
+          token,
+          EXPA_OAUTH.apiGraphqlUrl + '?access_token=' + encodeURIComponent(token),
+          false
+        );
+        if (apiPerson && apiPerson.id) {
+          return { person: apiPerson, source: 'api_graphql' };
+        }
+
+        return null;
+      }
+
+      async function exchangeCodeForToken(authCode) {
+        try {
+          var response = await fetch(EXPA_OAUTH.tokenUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(buildTokenRequestBody(authCode))
+          });
+          var data = await parseJsonResponse(response);
+
+          if (!data || !data.access_token) {
+            console.error('[EXPA] token exchange failed', data);
+            window.location.href = 'where-my-journey-begins-login.html';
+            return;
+          }
+
+          var token = data.access_token;
+          console.log('[EXPA] token response', data);
+          console.log('[EXPA] access_token', token);
+
+          var resolved = await resolvePersonFromOAuthToken(token, data);
+          var personId =
+            resolved && resolved.id
+              ? resolved.id
+              : resolved && resolved.person
+                ? resolved.person.id
+                : null;
+
+          if (!personId) {
+            console.error('[EXPA] could not resolve person id', resolved);
+            window.location.href = 'where-my-journey-begins-login.html';
+            return;
+          }
+
+          if (resolved.person) {
+            console.log('[EXPA] currentPerson', resolved.person, 'via', resolved.source);
+          }
+          console.log('[EXPA] resolved epId', personId);
+
+          localStorage.setItem('isAuthenticated', 'true');
+          localStorage.setItem('epId', String(personId));
+          window.__expaOAuthInProgress = false;
+          window.location.replace(
+            EXPA_OAUTH.afterLoginPath + '?epId=' + encodeURIComponent(personId)
+          );
+        } catch (err) {
+          console.error('[EXPA] callback error', err);
+          window.__expaOAuthInProgress = false;
+          window.location.href = 'where-my-journey-begins-login.html';
+        }
+      }
+
+      window.exchangeCodeForToken = exchangeCodeForToken;
+
+      var urlParams = new URLSearchParams(window.location.search);
+      var authCode = urlParams.get('code');
+      if (authCode) {
+        window.__expaOAuthInProgress = true;
+        exchangeCodeForToken(authCode);
+      }
+    })();
+  </script>
+  <script src="assets/js/script.js"></script>
+  
+  <script>
+    // Authentication check - EXPA login sets epId + isAuthenticated; GraphQL uses app token
+    const urlParams = new URLSearchParams(window.location.search);
+    const epIdFromUrl = urlParams.get('epId');
+    const hasOAuthCode = urlParams.has('code');
+    const storedEpId = localStorage.getItem('epId');
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    let shouldShowVideo = false;
+
+    if (window.__expaOAuthInProgress || hasOAuthCode) {
+      console.log('[EXPA] OAuth callback in progress');
+    } else if (!isAuthenticated && !epIdFromUrl && !storedEpId) {
+      console.log('❌ Not authenticated, redirecting to login');
+      window.location.href = 'where-my-journey-begins-login.html';
+    } else {
+      if (!isAuthenticated && (epIdFromUrl || storedEpId)) {
+        const epIdToStore = epIdFromUrl || storedEpId;
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('epId', epIdToStore);
+        console.log('✅ Session established for epId', epIdToStore);
+      }
+      if (epIdFromUrl) {
+        const videoShown = sessionStorage.getItem('loginVideoShown');
+        if (!videoShown) {
+          shouldShowVideo = true;
+        }
+      }
+    }
+    
+    // Logout functionality (optional)
+    function logout() {
+      localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('epId');
+      sessionStorage.removeItem('loginVideoShown');
+      window.location.href = 'where-my-journey-begins-login.html';
+    }
+    
+    // Login Video Modal Functions
+    function showLoginVideo() {
+      const videoModal = document.getElementById('loginVideoModal');
+      const video = document.getElementById('loginVideo');
+      
+      if (videoModal && video) {
+        videoModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        
+        // Set video attributes for better mobile support
+        video.setAttribute('playsinline', 'true');
+        video.setAttribute('webkit-playsinline', 'true');
+        
+        // Play video
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Video started playing
+              console.log('Video started playing');
+            })
+            .catch(err => {
+              console.log('Video autoplay prevented:', err);
+              // On mobile, autoplay might be blocked
+              // User can tap the video to play it
+              video.controls = true; // Show controls on mobile if autoplay fails
+            });
+        }
+        
+        // Mark video as shown in session
+        sessionStorage.setItem('loginVideoShown', 'true');
+      }
+    }
+    
+    function hideLoginVideo() {
+      const videoModal = document.getElementById('loginVideoModal');
+      const video = document.getElementById('loginVideo');
+      
+      if (videoModal && video) {
+        videoModal.classList.remove('show');
+        video.pause();
+        video.currentTime = 0;
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Initialize video modal when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      const skipBtn = document.getElementById('skipVideoBtn');
+      const video = document.getElementById('loginVideo');
+      
+      // Skip button handler
+      if (skipBtn) {
+        skipBtn.addEventListener('click', hideLoginVideo);
+      }
+      
+      // Hide video when it ends
+      if (video) {
+        video.addEventListener('ended', hideLoginVideo);
+      }
+      
+      // Show video if user just logged in
+      if (shouldShowVideo) {
+        // Small delay to ensure page is loaded
+        setTimeout(showLoginVideo, 500);
+      }
+    });
+    
+    // Also check on window load (in case DOMContentLoaded already fired)
+    window.addEventListener('load', function() {
+      if (shouldShowVideo) {
+        const videoModal = document.getElementById('loginVideoModal');
+        if (videoModal && !videoModal.classList.contains('show')) {
+          setTimeout(showLoginVideo, 500);
+        }
+      }
+    });
+    
+    // Save scroll position before page unload
+    window.addEventListener('beforeunload', function() {
+      localStorage.setItem('scrollPosition', window.scrollY);
+    });
+    
+    // Prevent initial flash of content during page load
+    window.addEventListener('load', function() {
+      const savedScrollPosition = localStorage.getItem('scrollPosition');
+      
+      // Wait for all content to fully render and animations to complete
+      setTimeout(function() {
+        if (savedScrollPosition && parseInt(savedScrollPosition) > 0) {
+          // Force instant scroll to exact position without any intermediate scrolling
+          document.documentElement.scrollTop = parseInt(savedScrollPosition);
+          document.body.scrollTop = parseInt(savedScrollPosition);
+          window.pageYOffset = parseInt(savedScrollPosition);
+        }
+      }, 100); // Very short delay to ensure DOM is ready
+    });
+    
+    // Alternative: Use requestAnimationFrame for even smoother restoration
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        requestAnimationFrame(function() {
+          const savedScrollPosition = localStorage.getItem('scrollPosition');
+          if (savedScrollPosition && parseInt(savedScrollPosition) > 0) {
+            setTimeout(function() {
+              window.scrollTo({
+                top: parseInt(savedScrollPosition),
+                behavior: 'instant'
+              });
+            }, 50);
+          }
+        });
+      });
+    }
+  </script>
+  
+  <script>
+    // Currency Converter Table with Live Exchange Rates
+    // Global variables for currency converter
+    let currencyConverterInitialized = false;
+    let currencyConverterFunctions = null;
+    
+    // Set up event listener immediately (before DOM is ready)
+    window.addEventListener('homeCountryUpdated', function(e) {
+      console.log('🔄 Home country updated event received globally:', e.detail.homeCountry);
+      if (currencyConverterFunctions) {
+        currencyConverterFunctions.updateCurrency();
+      }
+    });
+    
+    function initCurrencyConverter() {
+      const usdInput = document.getElementById('usdInput');
+      const egpInput = document.getElementById('egpInput');
+      const countryInput = document.getElementById('countryCurrencyInputField');
+      const countryCurrencyName = document.getElementById('countryCurrencyName');
+      
+      if (!usdInput || !egpInput || !countryInput || !countryCurrencyName) {
+        console.log('⚠️ Currency converter elements not found, retrying...');
+        setTimeout(initCurrencyConverter, 500);
+        return;
+      }
+      
+      let exchangeRate = 30.90; // USD to EGP
+      let countryToUsdRate = 0.033; // Country currency to USD (TRY default)
+      let homeCurrency = 'TRY';
+      let currencySymbol = '₺';
+      let currencyName = 'Turkish Lira';
+      
+      // Country to currency mapping - includes all countries from visa requirements
+      const currencyMap = {
+        // Existing countries
+        'Turkey': { code: 'TRY', name: 'Turkish Lira', symbol: '₺' },
+        'turkey': { code: 'TRY', name: 'Turkish Lira', symbol: '₺' },
+        'India': { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+        'india': { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+        'AIESEC India': { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+        'aiesec india': { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+        'AIESEC in India': { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+        'aiesec in india': { code: 'INR', name: 'Indian Rupee', symbol: '₹' },
+        'Pakistan': { code: 'PKR', name: 'Pakistani Rupee', symbol: 'Rs' },
+        'pakistan': { code: 'PKR', name: 'Pakistani Rupee', symbol: 'Rs' },
+        'Bangladesh': { code: 'BDT', name: 'Bangladeshi Taka', symbol: '৳' },
+        'bangladesh': { code: 'BDT', name: 'Bangladeshi Taka', symbol: '৳' },
+        'Indonesia': { code: 'IDR', name: 'Indonesian Rupiah', symbol: 'Rp' },
+        'indonesia': { code: 'IDR', name: 'Indonesian Rupiah', symbol: 'Rp' },
+        'Malaysia': { code: 'MYR', name: 'Malaysian Ringgit', symbol: 'RM' },
+        'malaysia': { code: 'MYR', name: 'Malaysian Ringgit', symbol: 'RM' },
+        'Philippines': { code: 'PHP', name: 'Philippine Peso', symbol: '₱' },
+        'philippines': { code: 'PHP', name: 'Philippine Peso', symbol: '₱' },
+        'Vietnam': { code: 'VND', name: 'Vietnamese Dong', symbol: '₫' },
+        'vietnam': { code: 'VND', name: 'Vietnamese Dong', symbol: '₫' },
+        'Thailand': { code: 'THB', name: 'Thai Baht', symbol: '฿' },
+        'thailand': { code: 'THB', name: 'Thai Baht', symbol: '฿' },
+        'Nepal': { code: 'NPR', name: 'Nepalese Rupee', symbol: 'Rs' },
+        'nepal': { code: 'NPR', name: 'Nepalese Rupee', symbol: 'Rs' },
+        'Jordan': { code: 'JOD', name: 'Jordanian Dinar', symbol: 'د.ا' },
+        'jordan': { code: 'JOD', name: 'Jordanian Dinar', symbol: 'د.ا' },
+        'Romania': { code: 'RON', name: 'Romanian Leu', symbol: 'lei' },
+        'romania': { code: 'RON', name: 'Romanian Leu', symbol: 'lei' },
+        'AIESEC Romania': { code: 'RON', name: 'Romanian Leu', symbol: 'lei' },
+        'aiesec romania': { code: 'RON', name: 'Romanian Leu', symbol: 'lei' },
+        
+        // Eurozone countries
+        'Germany': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'germany': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'France': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'france': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Italy': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'italy': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Spain': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'spain': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Netherlands': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'netherlands': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'The Netherlands': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'the netherlands': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Belgium': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'belgium': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Greece': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'greece': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Portugal': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'portugal': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Austria': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'austria': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Finland': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'finland': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Estonia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'estonia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Latvia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'latvia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Lithuania': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'lithuania': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Slovakia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'slovakia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Slovenia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'slovenia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Croatia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'croatia': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'Montenegro': { code: 'EUR', name: 'Euro', symbol: '€' },
+        'montenegro': { code: 'EUR', name: 'Euro', symbol: '€' },
+        
+        // Other European countries
+        'Poland': { code: 'PLN', name: 'Polish Zloty', symbol: 'zł' },
+        'poland': { code: 'PLN', name: 'Polish Zloty', symbol: 'zł' },
+        'Hungary': { code: 'HUF', name: 'Hungarian Forint', symbol: 'Ft' },
+        'hungary': { code: 'HUF', name: 'Hungarian Forint', symbol: 'Ft' },
+        'Czech Republic': { code: 'CZK', name: 'Czech Koruna', symbol: 'Kč' },
+        'czech republic': { code: 'CZK', name: 'Czech Koruna', symbol: 'Kč' },
+        'Sweden': { code: 'SEK', name: 'Swedish Krona', symbol: 'kr' },
+        'sweden': { code: 'SEK', name: 'Swedish Krona', symbol: 'kr' },
+        'Norway': { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr' },
+        'norway': { code: 'NOK', name: 'Norwegian Krone', symbol: 'kr' },
+        'Denmark': { code: 'DKK', name: 'Danish Krone', symbol: 'kr' },
+        'denmark': { code: 'DKK', name: 'Danish Krone', symbol: 'kr' },
+        'Iceland': { code: 'ISK', name: 'Icelandic Krona', symbol: 'kr' },
+        'iceland': { code: 'ISK', name: 'Icelandic Krona', symbol: 'kr' },
+        'Switzerland': { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF' },
+        'switzerland': { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF' },
+        'UK': { code: 'GBP', name: 'British Pound', symbol: '£' },
+        'uk': { code: 'GBP', name: 'British Pound', symbol: '£' },
+        'United Kingdom': { code: 'GBP', name: 'British Pound', symbol: '£' },
+        'united kingdom': { code: 'GBP', name: 'British Pound', symbol: '£' },
+        'Russia': { code: 'RUB', name: 'Russian Ruble', symbol: '₽' },
+        'russia': { code: 'RUB', name: 'Russian Ruble', symbol: '₽' },
+        'Ukraine': { code: 'UAH', name: 'Ukrainian Hryvnia', symbol: '₴' },
+        'ukraine': { code: 'UAH', name: 'Ukrainian Hryvnia', symbol: '₴' },
+        'Moldova': { code: 'MDL', name: 'Moldovan Leu', symbol: 'L' },
+        'moldova': { code: 'MDL', name: 'Moldovan Leu', symbol: 'L' },
+        'Serbia': { code: 'RSD', name: 'Serbian Dinar', symbol: 'дин' },
+        'serbia': { code: 'RSD', name: 'Serbian Dinar', symbol: 'дин' },
+        'Albania': { code: 'ALL', name: 'Albanian Lek', symbol: 'L' },
+        'albania': { code: 'ALL', name: 'Albanian Lek', symbol: 'L' },
+        'Bosnia & Herzegovina': { code: 'BAM', name: 'Bosnia-Herzegovina Convertible Mark', symbol: 'KM' },
+        'bosnia & herzegovina': { code: 'BAM', name: 'Bosnia-Herzegovina Convertible Mark', symbol: 'KM' },
+        'Bosnia and Herzegovina': { code: 'BAM', name: 'Bosnia-Herzegovina Convertible Mark', symbol: 'KM' },
+        'bosnia and herzegovina': { code: 'BAM', name: 'Bosnia-Herzegovina Convertible Mark', symbol: 'KM' },
+        'Bulgaria': { code: 'BGN', name: 'Bulgarian Lev', symbol: 'лв' },
+        'bulgaria': { code: 'BGN', name: 'Bulgarian Lev', symbol: 'лв' },
+        'Republic of Macedonia': { code: 'MKD', name: 'Macedonian Denar', symbol: 'ден' },
+        'republic of macedonia': { code: 'MKD', name: 'Macedonian Denar', symbol: 'ден' },
+        'Macedonia': { code: 'MKD', name: 'Macedonian Denar', symbol: 'ден' },
+        'macedonia': { code: 'MKD', name: 'Macedonian Denar', symbol: 'ден' },
+        'Armenia': { code: 'AMD', name: 'Armenian Dram', symbol: '֏' },
+        'armenia': { code: 'AMD', name: 'Armenian Dram', symbol: '֏' },
+        'Azerbaijan': { code: 'AZN', name: 'Azerbaijani Manat', symbol: '₼' },
+        'azerbaijan': { code: 'AZN', name: 'Azerbaijani Manat', symbol: '₼' },
+        'Georgia': { code: 'GEL', name: 'Georgian Lari', symbol: '₾' },
+        'georgia': { code: 'GEL', name: 'Georgian Lari', symbol: '₾' },
+        'Kazakhstan': { code: 'KZT', name: 'Kazakhstani Tenge', symbol: '₸' },
+        'kazakhstan': { code: 'KZT', name: 'Kazakhstani Tenge', symbol: '₸' },
+        'Kyrgyzstan': { code: 'KGS', name: 'Kyrgystani Som', symbol: 'с' },
+        'kyrgyzstan': { code: 'KGS', name: 'Kyrgystani Som', symbol: 'с' },
+        
+        // Middle East & North Africa
+        'UAE': { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ' },
+        'uae': { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ' },
+        'United Arab Emirates': { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ' },
+        'united arab emirates': { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ' },
+        'Bahrain': { code: 'BHD', name: 'Bahraini Dinar', symbol: 'د.ب' },
+        'bahrain': { code: 'BHD', name: 'Bahraini Dinar', symbol: 'د.ب' },
+        'Kuwait': { code: 'KWD', name: 'Kuwaiti Dinar', symbol: 'د.ك' },
+        'kuwait': { code: 'KWD', name: 'Kuwaiti Dinar', symbol: 'د.ك' },
+        'Lebanon': { code: 'LBP', name: 'Lebanese Pound', symbol: 'ل.ل' },
+        'lebanon': { code: 'LBP', name: 'Lebanese Pound', symbol: 'ل.ل' },
+        'Morocco': { code: 'MAD', name: 'Moroccan Dirham', symbol: 'د.م' },
+        'morocco': { code: 'MAD', name: 'Moroccan Dirham', symbol: 'د.م' },
+        'Algeria': { code: 'DZD', name: 'Algerian Dinar', symbol: 'د.ج' },
+        'algeria': { code: 'DZD', name: 'Algerian Dinar', symbol: 'د.ج' },
+        'Tunisia': { code: 'TND', name: 'Tunisian Dinar', symbol: 'د.ت' },
+        'tunisia': { code: 'TND', name: 'Tunisian Dinar', symbol: 'د.ت' },
+        
+        // Americas
+        'USA': { code: 'USD', name: 'US Dollar', symbol: '$' },
+        'usa': { code: 'USD', name: 'US Dollar', symbol: '$' },
+        'United States': { code: 'USD', name: 'US Dollar', symbol: '$' },
+        'united states': { code: 'USD', name: 'US Dollar', symbol: '$' },
+        'Canada': { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$' },
+        'canada': { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$' },
+        'Mexico': { code: 'MXN', name: 'Mexican Peso', symbol: '$' },
+        'mexico': { code: 'MXN', name: 'Mexican Peso', symbol: '$' },
+        'Brazil': { code: 'BRL', name: 'Brazilian Real', symbol: 'R$' },
+        'brazil': { code: 'BRL', name: 'Brazilian Real', symbol: 'R$' },
+        'Argentina': { code: 'ARS', name: 'Argentine Peso', symbol: '$' },
+        'argentina': { code: 'ARS', name: 'Argentine Peso', symbol: '$' },
+        'Chile': { code: 'CLP', name: 'Chilean Peso', symbol: '$' },
+        'chile': { code: 'CLP', name: 'Chilean Peso', symbol: '$' },
+        'Colombia': { code: 'COP', name: 'Colombian Peso', symbol: '$' },
+        'colombia': { code: 'COP', name: 'Colombian Peso', symbol: '$' },
+        'Peru': { code: 'PEN', name: 'Peruvian Sol', symbol: 'S/' },
+        'peru': { code: 'PEN', name: 'Peruvian Sol', symbol: 'S/' },
+        'Ecuador': { code: 'USD', name: 'US Dollar', symbol: '$' },
+        'ecuador': { code: 'USD', name: 'US Dollar', symbol: '$' },
+        'Bolivia': { code: 'BOB', name: 'Bolivian Boliviano', symbol: 'Bs.' },
+        'bolivia': { code: 'BOB', name: 'Bolivian Boliviano', symbol: 'Bs.' },
+        'Paraguay': { code: 'PYG', name: 'Paraguayan Guaraní', symbol: '₲' },
+        'paraguay': { code: 'PYG', name: 'Paraguayan Guaraní', symbol: '₲' },
+        'Venezuela': { code: 'VES', name: 'Venezuelan Bolívar', symbol: 'Bs.S' },
+        'venezuela': { code: 'VES', name: 'Venezuelan Bolívar', symbol: 'Bs.S' },
+        'Costa Rica': { code: 'CRC', name: 'Costa Rican Colón', symbol: '₡' },
+        'costa rica': { code: 'CRC', name: 'Costa Rican Colón', symbol: '₡' },
+        'Panama': { code: 'PAB', name: 'Panamanian Balboa', symbol: 'B/.' },
+        'panama': { code: 'PAB', name: 'Panamanian Balboa', symbol: 'B/.' },
+        'Nicaragua': { code: 'NIO', name: 'Nicaraguan Córdoba', symbol: 'C$' },
+        'nicaragua': { code: 'NIO', name: 'Nicaraguan Córdoba', symbol: 'C$' },
+        'Guatemala': { code: 'GTQ', name: 'Guatemalan Quetzal', symbol: 'Q' },
+        'guatemala': { code: 'GTQ', name: 'Guatemalan Quetzal', symbol: 'Q' },
+        'El Salvador': { code: 'USD', name: 'US Dollar', symbol: '$' },
+        'el salvador': { code: 'USD', name: 'US Dollar', symbol: '$' },
+        'Dominican Republic': { code: 'DOP', name: 'Dominican Peso', symbol: 'RD$' },
+        'dominican republic': { code: 'DOP', name: 'Dominican Peso', symbol: 'RD$' },
+        
+        // Asia Pacific
+        'Japan': { code: 'JPY', name: 'Japanese Yen', symbol: '¥' },
+        'japan': { code: 'JPY', name: 'Japanese Yen', symbol: '¥' },
+        'Korea': { code: 'KRW', name: 'South Korean Won', symbol: '₩' },
+        'korea': { code: 'KRW', name: 'South Korean Won', symbol: '₩' },
+        'South Korea': { code: 'KRW', name: 'South Korean Won', symbol: '₩' },
+        'south korea': { code: 'KRW', name: 'South Korean Won', symbol: '₩' },
+        'Mainland China': { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+        'mainland china': { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+        'China': { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+        'china': { code: 'CNY', name: 'Chinese Yuan', symbol: '¥' },
+        'Taiwan': { code: 'TWD', name: 'New Taiwan Dollar', symbol: 'NT$' },
+        'taiwan': { code: 'TWD', name: 'New Taiwan Dollar', symbol: 'NT$' },
+        'Hong Kong': { code: 'HKD', name: 'Hong Kong Dollar', symbol: 'HK$' },
+        'hong kong': { code: 'HKD', name: 'Hong Kong Dollar', symbol: 'HK$' },
+        'Singapore': { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$' },
+        'singapore': { code: 'SGD', name: 'Singapore Dollar', symbol: 'S$' },
+        'Australia': { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
+        'australia': { code: 'AUD', name: 'Australian Dollar', symbol: 'A$' },
+        'New Zealand': { code: 'NZD', name: 'New Zealand Dollar', symbol: 'NZ$' },
+        'new zealand': { code: 'NZD', name: 'New Zealand Dollar', symbol: 'NZ$' },
+        'Sri Lanka': { code: 'LKR', name: 'Sri Lankan Rupee', symbol: 'Rs' },
+        'sri lanka': { code: 'LKR', name: 'Sri Lankan Rupee', symbol: 'Rs' },
+        'Myanmar': { code: 'MMK', name: 'Myanmar Kyat', symbol: 'K' },
+        'myanmar': { code: 'MMK', name: 'Myanmar Kyat', symbol: 'K' },
+        'Cambodia': { code: 'KHR', name: 'Cambodian Riel', symbol: '៛' },
+        'cambodia': { code: 'KHR', name: 'Cambodian Riel', symbol: '៛' },
+        'Mongolia': { code: 'MNT', name: 'Mongolian Tugrik', symbol: '₮' },
+        'mongolia': { code: 'MNT', name: 'Mongolian Tugrik', symbol: '₮' },
+        
+        // Africa
+        'South Africa': { code: 'ZAR', name: 'South African Rand', symbol: 'R' },
+        'south africa': { code: 'ZAR', name: 'South African Rand', symbol: 'R' },
+        'Nigeria': { code: 'NGN', name: 'Nigerian Naira', symbol: '₦' },
+        'nigeria': { code: 'NGN', name: 'Nigerian Naira', symbol: '₦' },
+        'Kenya': { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh' },
+        'kenya': { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh' },
+        'Ethiopia': { code: 'ETB', name: 'Ethiopian Birr', symbol: 'Br' },
+        'ethiopia': { code: 'ETB', name: 'Ethiopian Birr', symbol: 'Br' },
+        'Ghana': { code: 'GHS', name: 'Ghanaian Cedi', symbol: '₵' },
+        'ghana': { code: 'GHS', name: 'Ghanaian Cedi', symbol: '₵' },
+        'Tanzania': { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh' },
+        'tanzania': { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh' },
+        'Uganda': { code: 'UGX', name: 'Ugandan Shilling', symbol: 'USh' },
+        'uganda': { code: 'UGX', name: 'Ugandan Shilling', symbol: 'USh' },
+        'Rwanda': { code: 'RWF', name: 'Rwandan Franc', symbol: 'RF' },
+        'rwanda': { code: 'RWF', name: 'Rwandan Franc', symbol: 'RF' },
+        'Senegal': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'senegal': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'Burkina Faso': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'burkina faso': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'Benin': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'benin': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'Togo': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'togo': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'Cameroon': { code: 'XAF', name: 'Central African CFA Franc', symbol: 'FCFA' },
+        'cameroon': { code: 'XAF', name: 'Central African CFA Franc', symbol: 'FCFA' },
+        'Mozambique': { code: 'MZN', name: 'Mozambican Metical', symbol: 'MT' },
+        'mozambique': { code: 'MZN', name: 'Mozambican Metical', symbol: 'MT' },
+        'Malawi': { code: 'MWK', name: 'Malawian Kwacha', symbol: 'MK' },
+        'malawi': { code: 'MWK', name: 'Malawian Kwacha', symbol: 'MK' },
+        'Namibia': { code: 'NAD', name: 'Namibian Dollar', symbol: 'N$' },
+        'namibia': { code: 'NAD', name: 'Namibian Dollar', symbol: 'N$' },
+        'Liberia': { code: 'LRD', name: 'Liberian Dollar', symbol: '$' },
+        'liberia': { code: 'LRD', name: 'Liberian Dollar', symbol: '$' },
+        'Côte d\'Ivoire': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'côte d\'ivoire': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'Cote d\'Ivoire': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'cote d\'ivoire': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'Ivory Coast': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' },
+        'ivory coast': { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA' }
+      };
+      
+      // Get user's home currency with improved matching
+      function getHomeCurrency() {
+        const homeCountry = localStorage.getItem('homeCountry') || 'Turkey';
+        console.log('🔍 Looking up currency for homeCountry:', homeCountry);
+        
+        // Try exact match first
+        if (currencyMap[homeCountry]) {
+          console.log('✅ Found exact match:', currencyMap[homeCountry]);
+          return currencyMap[homeCountry];
+        }
+        
+        // Try case-insensitive match
+        const homeCountryLower = homeCountry.toLowerCase();
+        for (const [key, value] of Object.entries(currencyMap)) {
+          if (key.toLowerCase() === homeCountryLower) {
+            console.log('✅ Found case-insensitive match:', value);
+            return value;
+          }
+        }
+        
+        // Try partial match (e.g., "AIESEC Romania" contains "Romania")
+        // Sort by key length (longer first) to prioritize more specific matches
+        const sortedEntries = Object.entries(currencyMap).sort((a, b) => b[0].length - a[0].length);
+        
+        // First try if homeCountry contains any key (prioritize longer matches)
+        for (const [key, value] of sortedEntries) {
+          const keyLower = key.toLowerCase();
+          // Check if homeCountry contains the key (e.g., "AIESEC India" contains "India")
+          if (homeCountryLower.includes(keyLower) && keyLower.length > 2) {
+            console.log('✅ Found partial match (homeCountry contains key):', key, '->', value);
+            return value;
+          }
+        }
+        // Then try if any key contains homeCountry
+        for (const [key, value] of sortedEntries) {
+          const keyLower = key.toLowerCase();
+          if (keyLower.includes(homeCountryLower) && homeCountryLower.length > 2) {
+            console.log('✅ Found partial match (key contains homeCountry):', key, '->', value);
+            return value;
+          }
+        }
+        
+        // Default to Turkey if no match found
+        console.log('⚠️ No currency match found, defaulting to Turkey');
+        return currencyMap['Turkey'];
+      }
+      
+      // Initialize currency
+      function initializeCurrency() {
+        const storedHomeCountry = localStorage.getItem('homeCountry');
+        console.log('💰 Initializing currency converter with homeCountry:', storedHomeCountry);
+        
+        const userCurrency = getHomeCurrency();
+        homeCurrency = userCurrency.code;
+        currencySymbol = userCurrency.symbol;
+        currencyName = userCurrency.name;
+        
+        console.log('💰 Selected currency:', userCurrency);
+        
+        if (countryCurrencyName) {
+          countryCurrencyName.textContent = `${userCurrency.name} (${userCurrency.symbol})`;
+        }
+      }
+      
+      // Fetch exchange rates
+      async function getExchangeRates() {
+        try {
+          // Get USD to EGP rate
+          const usdResponse = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+          const usdData = await usdResponse.json();
+          exchangeRate = usdData.rates.EGP;
+          
+          // Get country currency to USD rate (1 unit of country currency equals X USD)
+          const countryResponse = await fetch(`https://api.exchangerate-api.com/v4/latest/${homeCurrency}`);
+          const countryData = await countryResponse.json();
+          countryToUsdRate = countryData.rates.USD; // This gives us how many USD per 1 country currency
+        } catch (error) {
+          console.log('Error fetching rates:', error);
+        }
+      }
+      
+      // Converter functions
+      let lastEditedInput = null;
+      
+      function convertFromCountry() {
+        if (lastEditedInput !== 'country') return;
+        
+        const countryValue = parseFloat(countryInput.value);
+        if (!countryValue || countryValue <= 0) {
+          usdInput.value = '';
+          egpInput.value = '';
+          return;
+        }
+        
+        // Convert: Country Currency -> USD -> EGP
+        const usdValue = (countryValue * countryToUsdRate).toFixed(2);
+        const egpValue = (countryValue * countryToUsdRate * exchangeRate).toFixed(2);
+        
+        usdInput.value = usdValue;
+        egpInput.value = egpValue;
+      }
+      
+      function convertFromUsd() {
+        if (lastEditedInput !== 'usd') return;
+        
+        const usdValue = parseFloat(usdInput.value);
+        if (!usdValue || usdValue <= 0) {
+          countryInput.value = '';
+          egpInput.value = '';
+          return;
+        }
+        
+        // Convert: USD -> Country Currency and EGP
+        const countryValue = (usdValue / countryToUsdRate).toFixed(2);
+        const egpValue = (usdValue * exchangeRate).toFixed(2);
+        
+        countryInput.value = countryValue;
+        egpInput.value = egpValue;
+      }
+      
+      function convertFromEgp() {
+        if (lastEditedInput !== 'egp') return;
+        
+        const egpValue = parseFloat(egpInput.value);
+        if (!egpValue || egpValue <= 0) {
+          countryInput.value = '';
+          usdInput.value = '';
+          return;
+        }
+        
+        // Convert: EGP -> USD -> Country Currency
+        const usdValue = (egpValue / exchangeRate).toFixed(2);
+        const countryValue = (usdValue / countryToUsdRate).toFixed(2);
+        
+        usdInput.value = usdValue;
+        countryInput.value = countryValue;
+      }
+      
+      // Function to update currency (can be called from outside)
+      function updateCurrency() {
+        console.log('💰 Updating currency converter...');
+        initializeCurrency();
+        getExchangeRates();
+      }
+      
+      // Store update function globally so event listener can call it
+      currencyConverterFunctions = {
+        updateCurrency: updateCurrency,
+        initializeCurrency: initializeCurrency,
+        getExchangeRates: getExchangeRates
+      };
+      
+      // Initialize currency - wait for EP data to load
+      function initCurrencyConverterInner() {
+        const storedHomeCountry = localStorage.getItem('homeCountry');
+        console.log('💰 Initializing currency converter, current homeCountry:', storedHomeCountry);
+        
+        // Initialize currency
+        initializeCurrency();
+        getExchangeRates();
+        currencyConverterInitialized = true;
+      }
+      
+      // Wait for EP data to load before initializing
+      // Check if EP profile content exists (means we're on the journey page)
+      const epProfileExists = document.getElementById('epProfileContent');
+      
+      if (epProfileExists) {
+        // On journey page - wait for EP data to load
+        console.log('📄 Journey page detected, waiting for EP data...');
+        
+        // Check periodically for homeCountry (wait up to 15 seconds for API call)
+        let checkCount = 0;
+        const maxChecks = 75; // 15 seconds (75 * 200ms)
+        const checkInterval = setInterval(() => {
+          checkCount++;
+          const storedHomeCountry = localStorage.getItem('homeCountry');
+          
+          if (storedHomeCountry && storedHomeCountry !== 'Turkey' && storedHomeCountry.trim() !== '') {
+            console.log('🔄 Found homeCountry in localStorage, initializing currency converter:', storedHomeCountry);
+            if (!currencyConverterInitialized) {
+              initCurrencyConverterInner();
+            } else {
+              updateCurrency();
+            }
+            clearInterval(checkInterval);
+          } else if (checkCount >= maxChecks) {
+            // Stop checking after max attempts
+            console.log('⏱️ Timeout waiting for homeCountry, initializing with default');
+            if (!currencyConverterInitialized) {
+              initCurrencyConverterInner();
+            }
+            clearInterval(checkInterval);
+          }
+        }, 200);
+      } else {
+        // Not on journey page - initialize immediately
+        console.log('📄 Not journey page, initializing currency converter immediately');
+        setTimeout(initCurrencyConverterInner, 100);
+      }
+      
+      // Add event listeners
+      if (countryInput) {
+        countryInput.addEventListener('input', function() {
+          lastEditedInput = 'country';
+          convertFromCountry();
+        });
+      }
+      
+      if (usdInput) {
+        usdInput.addEventListener('input', function() {
+          lastEditedInput = 'usd';
+          convertFromUsd();
+        });
+      }
+      
+      if (egpInput) {
+        egpInput.addEventListener('input', function() {
+          lastEditedInput = 'egp';
+          convertFromEgp();
+        });
+      }
+    }
+    
+    // Initialize currency converter when DOM is ready
+    function startCurrencyConverter() {
+      // Wait a bit to ensure DOM elements are available
+      setTimeout(function() {
+        initCurrencyConverter();
+      }, 300);
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startCurrencyConverter);
+    } else {
+      // DOM already loaded
+      startCurrencyConverter();
+    }
+    
+    // Also check after window fully loads
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const storedHomeCountry = localStorage.getItem('homeCountry');
+        if (storedHomeCountry && storedHomeCountry !== 'Turkey' && storedHomeCountry.trim() !== '') {
+          console.log('🔄 Window loaded, found homeCountry, triggering currency update:', storedHomeCountry);
+          // Dispatch event to trigger currency update
+          window.dispatchEvent(new CustomEvent('homeCountryUpdated', { detail: { homeCountry: storedHomeCountry } }));
+        } else if (currencyConverterFunctions && !currencyConverterInitialized) {
+          // If still not initialized after window load, initialize with default
+          console.log('🔄 Window loaded, no homeCountry found, initializing with default');
+          if (currencyConverterFunctions.initializeCurrency) {
+            currencyConverterFunctions.initializeCurrency();
+            currencyConverterFunctions.getExchangeRates();
+            currencyConverterInitialized = true;
+          }
+        }
+      }, 2000);
+    });
+  </script>
+  
+  <script>
+    // moving text (same as index.html)
+    let line1 = document.getElementById('line-one');
+    let line2 = document.getElementById('line-two');
+    let line3 = document.getElementById('line-three');
+
+    window.addEventListener('scroll', () => {
+      let scrolled = window.scrollY;
+      let val = scrolled * 0.5;
+
+      line1.style.transform = `translateX(-${0.35 * val}px)`;
+      line2.style.transform = `translateX(${0.35 * val}px)`;
+      line3.style.transform = `translateX(-${0.35 * val}px)`;
+    })
+  </script>
+    <script>
+    // slider for destinations
+    var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      loop: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 100,
+        modifier: 4,
+        slideShadows: false
+      },
+      keyboard: {
+        enabled: true
+      },
+      mousewheel: {
+        thresholdDelta: 70
+      },
+      initialSlide: 0,
+      on: {
+        click(event) {
+          swiper.slideTo(this.clickedIndex);
+        }
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: "auto"
+        }
+      }
+    });
+
+    // slider for cuisine
+    var cuisineSwiper = new Swiper(".mySwiperCuisine", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      loop: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 100,
+        modifier: 4,
+        slideShadows: false
+      },
+      keyboard: {
+        enabled: true
+      },
+      mousewheel: {
+        thresholdDelta: 70
+      },
+      initialSlide: 0,
+      on: {
+        click(event) {
+          // Don't navigate on click, show modal instead
+          const clickedSlide = event.target.closest('.swiper-slide');
+          if (clickedSlide && clickedSlide.dataset.food) {
+            showFoodModal(clickedSlide.dataset.food);
+          }
+        }
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: "auto"
+        }
+      }
+    });
+
+    // Food descriptions data
+    const foodDescriptions = {
+      'koshari': {
+        name: 'Koshari',
+        image: 'assets/images/cuisine/koushary.webp',
+        description: 'Koshari is Egypt\'s national dish and a beloved street food. This hearty vegetarian meal combines rice, lentils, chickpeas, and macaroni, topped with a spicy tomato sauce and crispy fried onions. It\'s a perfect blend of textures and flavors that represents the diverse culinary influences in Egyptian cuisine.'
+      },
+      'ful-medames': {
+        name: 'Ful Medames',
+        image: 'assets/images/cuisine/ful medms.webp',
+        description: 'Ful Medames is a traditional Egyptian breakfast dish made from fava beans slow-cooked until tender. Served with olive oil, lemon juice, garlic, and spices, it\'s often eaten with bread and is considered one of the oldest dishes in the Middle East. This protein-rich meal has been a staple of Egyptian cuisine for thousands of years.'
+      },
+      'falafel': {
+        name: 'Falafel',
+        image: 'assets/images/cuisine/falafl.webp',
+        description: 'Egyptian falafel, also known as ta\'ameya, is made from fava beans instead of chickpeas, giving it a unique green color and distinct flavor. These crispy, deep-fried balls are typically served in pita bread with tahini sauce, vegetables, and pickles. They\'re a popular street food and breakfast item throughout Egypt.'
+      },
+      'shawarma': {
+        name: 'Shawarma',
+        image: 'assets/images/cuisine/shawarma.webp',
+        description: 'Shawarma is a popular Middle Eastern dish featuring marinated meat (chicken, beef, or lamb) that\'s slow-roasted on a vertical spit. The tender, flavorful meat is shaved off and typically wrapped in pita bread with tahini sauce, pickles, and fresh vegetables. It\'s a favorite fast food option in Egypt, available at street vendors and restaurants.'
+      },
+      'mahshi': {
+        name: 'Mahshi',
+        image: 'assets/images/cuisine/mahshi.webp',
+        description: 'Mahshi is a traditional Egyptian dish of vegetables stuffed with a flavorful mixture of rice, herbs, and spices. Common vegetables used include zucchini, bell peppers, tomatoes, eggplants, and vine leaves. The stuffed vegetables are then cooked in a tomato-based sauce, creating a delicious and aromatic meal that\'s often served during special occasions and family gatherings.'
+      },
+      'sayadieh': {
+        name: 'Sayadieh',
+        image: 'assets/images/cuisine/sayadeya.webp',
+        description: 'Sayadieh is a classic Egyptian seafood dish featuring spiced rice topped with fried fish, typically served with a tangy tahini sauce and caramelized onions. The rice is cooked with aromatic spices like cumin and coriander, creating a fragrant base for the crispy fish. This dish is especially popular in coastal cities like Alexandria.'
+      },
+      'feteer': {
+        name: 'Feteer',
+        image: 'assets/images/cuisine/feteer.webp',
+        description: 'Feteer is a flaky, layered Egyptian pastry that can be either sweet or savory. Made from thin layers of dough brushed with butter or ghee, it\'s baked until golden and crispy. Sweet versions are filled with honey, nuts, or cheese, while savory versions may include meat, vegetables, or eggs. It\'s a traditional treat enjoyed throughout Egypt.'
+      },
+      'molokhia': {
+        name: 'Molokhia',
+        image: 'assets/images/cuisine/molokhia.webp',
+        description: 'Molokhia is a traditional Egyptian soup made from jute leaves (also called molokhia), cooked with garlic, coriander, and often served with chicken or rabbit. The leaves create a unique, slightly slimy texture that\'s beloved in Egyptian cuisine. This nutritious dish is typically served over rice and is considered a comfort food in many Egyptian households.'
+      },
+      'baklava': {
+        name: 'Baklava',
+        image: 'assets/images/cuisine/baklava.webp',
+        description: 'Baklava is a rich, sweet pastry made of layers of phyllo dough filled with chopped nuts (typically pistachios, walnuts, or almonds) and sweetened with honey or syrup. While it has origins in the Ottoman Empire, baklava is widely enjoyed in Egypt and throughout the Middle East. It\'s a popular dessert during celebrations and special occasions.'
+      },
+      'basbousa': {
+        name: 'Basbousa',
+        image: 'assets/images/cuisine/basbosa.webp',
+        description: 'Basbousa is a sweet semolina cake soaked in syrup, popular throughout the Middle East and especially in Egypt. Made from semolina, sugar, butter, and yogurt, it\'s baked until golden and then drenched in a sweet syrup flavored with rose water or orange blossom water. Often topped with almonds or coconut, it\'s a beloved dessert served at gatherings and celebrations.'
+      }
+    };
+
+    // Function to show food modal
+    function showFoodModal(foodId) {
+      const food = foodDescriptions[foodId];
+      if (!food) return;
+
+      const modal = document.getElementById('foodModal');
+      const modalImage = document.getElementById('foodModalImage');
+      const modalTitle = document.getElementById('foodModalTitle');
+      const modalDescription = document.getElementById('foodModalDescription');
+
+      modalImage.src = food.image;
+      modalImage.alt = food.name;
+      modalTitle.textContent = food.name;
+      modalDescription.textContent = food.description;
+
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Function to close food modal
+    function closeFoodModal() {
+      const modal = document.getElementById('foodModal');
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Add event listeners for food modal
+    document.addEventListener('DOMContentLoaded', function() {
+      const closeBtn = document.getElementById('closeFoodModal');
+      const modal = document.getElementById('foodModal');
+      const blocker = document.querySelector('.food-modal-blocker');
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeFoodModal);
+      }
+
+      if (blocker) {
+        blocker.addEventListener('click', closeFoodModal);
+      }
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+          closeFoodModal();
+        }
+      });
+
+      // Add click handlers to cuisine slides
+      const cuisineSlides = document.querySelectorAll('.mySwiperCuisine .swiper-slide');
+      cuisineSlides.forEach(slide => {
+        slide.addEventListener('click', function(e) {
+          if (slide.dataset.food) {
+            e.stopPropagation();
+            showFoodModal(slide.dataset.food);
+          }
+        });
+      });
+    });
+
+  </script>
+  <script>
+    // Initialize AOS for scroll animations
+    function initAOS() {
+      if (window.AOS && typeof AOS.init === 'function') {
+        AOS.init({
+          duration: 1200,
+          once: true,
+          offset: 100
+        });
+        // Refresh AOS to detect new elements
+        AOS.refresh();
+      } else {
+        // If AOS is not available, ensure sections are visible
+        const aosElements = document.querySelectorAll('[data-aos]');
+        aosElements.forEach(el => {
+          el.style.opacity = '1';
+          el.style.visibility = 'visible';
+        });
+      }
+    }
+    
+    // Initialize AOS when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(initAOS, 100);
+      });
+    } else {
+      setTimeout(initAOS, 100);
+    }
+    
+    // Also refresh AOS after page fully loads
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        if (window.AOS) {
+          AOS.refresh();
+        }
+      }, 500);
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer class="container" style="padding-top: 12px !important;">
+    <p>
+      Made with 💛 in Egypt, Powered by AIESEC,<br />Developed by
+      <a class="omar" href="https://www.linkedin.com/in/mohamed-wael-407945228/" target="_blank" rel="noopener noreferrer">Mohamed Wael</a>
+    </p>
+  </footer>
+</body>
+</html>
