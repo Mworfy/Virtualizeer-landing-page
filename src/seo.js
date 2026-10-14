@@ -30,7 +30,7 @@ export const ROUTES = {
   '/virtual-tours': {
     title: '360° Virtual Tours for Real Estate in Egypt',
     description:
-      'Immersive 360° virtual tours for apartments, villas, compounds, hotels and showrooms in Cairo and across Egypt. Floor plans, hotspots, VR and Google Street View publishing.',
+      '360° virtual tours for hotels, furniture showrooms, real estate, car showrooms, restaurants, schools, nurseries and gyms in Cairo and across Egypt. Floor plans, hotspots, VR and Google Street View.',
     priority: 0.9,
   },
   '/digital-twins': {

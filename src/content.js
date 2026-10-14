@@ -38,7 +38,17 @@ export const services = [
       { icon: 'Map', title: 'Google Street View', text: 'Publish to Google Maps so customers find you and look inside.' },
       { icon: 'Share2', title: 'Share & embed', text: 'One link for listings, social posts, QR codes and your website.' },
     ],
-    useCases: ['Real estate listings', 'Hotels & resorts', 'Restaurants & cafés', 'Retail showrooms', 'Universities & schools', 'Event venues'],
+    useCases: ['Hotels & resorts', 'Furniture showrooms', 'Real estate', 'Automotive showrooms', 'Restaurants & cafés', 'Schools & universities', 'Nurseries', 'Gyms & fitness clubs'],
+    sectors: [
+      { icon: 'BedDouble', name: 'Hotels and resorts', text: 'Let guests explore rooms, suites, pools and event spaces before they book, right from your booking page and Google Maps.' },
+      { icon: 'Sofa', name: 'Furniture showrooms', text: 'Show every room set and collection online, with hotspots that link to products, finishes and prices.' },
+      { icon: 'Building2', name: 'Real estate', text: 'Apartments, villas and compounds buyers can walk through remotely, with floor plans and measurements.' },
+      { icon: 'Car', name: 'Automotive showrooms', text: 'Walk customers around your showroom and lineup, and highlight models, offers and service areas.' },
+      { icon: 'UtensilsCrossed', name: 'Restaurants and cafés', text: 'Show the atmosphere, seating and private dining areas so guests book a table with confidence.' },
+      { icon: 'GraduationCap', name: 'Schools and universities', text: 'Give families and students a tour of classrooms, labs, libraries and sports facilities from anywhere.' },
+      { icon: 'Baby', name: 'Nurseries', text: 'Reassure parents with a calm look inside classrooms, play areas and safety features before they visit.' },
+      { icon: 'Dumbbell', name: 'Gyms and fitness clubs', text: 'Show equipment zones, studios, pools and changing rooms to turn browsers into members.' },
+    ],
     deliverables: ['Hosted 360° tour with shareable link', 'Embed code for your website', 'Floor plan and dollhouse view', 'Branded intro and hotspots', 'HD stills for marketing'],
   },
   {

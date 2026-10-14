@@ -31,7 +31,7 @@ const realCompounds = COMPOUNDS.filter((c) => !c.concept)
 const nav = `<nav aria-label="Main"><a href="/">Virtualizeer</a> · ${services.map((s) => `<a href="${s.path}">${esc(s.name)}</a>`).join(' · ')} · <a href="/new-zayed-atlas">New Zayed Atlas</a> · <a href="/projects">Projects</a> · <a href="/about">About</a> · <a href="/contact">Contact</a></nav>`
 const footer = `<footer><p>${esc(ORG_DESCRIPTION)}</p><p>Email: <a href="mailto:${esc(company.email)}">${esc(company.email)}</a> · ${esc(company.location)}</p><p>${company.socials.map((s) => `<a href="${esc(s.href)}">${esc(s.label)}</a>`).join(' · ')}</p></footer>`
 const faqHtml = (items) => `<section><h2>Frequently asked questions</h2>${items.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join('')}</section>`
-const serviceHtml = (s) => `<section><h2>${esc(s.name)}</h2><p>${esc(s.intro)}</p><ul>${s.features.map((f) => `<li><strong>${esc(f.title)}:</strong> ${esc(f.text)}</li>`).join('')}</ul><p>Use cases: ${esc(s.useCases.join(', '))}.</p><p>What you receive: ${esc(s.deliverables.join(', '))}.</p></section>`
+const serviceHtml = (s) => `<section><h2>${esc(s.name)}</h2><p>${esc(s.intro)}</p><ul>${s.features.map((f) => `<li><strong>${esc(f.title)}:</strong> ${esc(f.text)}</li>`).join('')}</ul>${s.sectors ? `<h3>Who it is for</h3><ul>${s.sectors.map((x) => `<li><strong>${esc(x.name)}:</strong> ${esc(x.text)}</li>`).join('')}</ul>` : `<p>Use cases: ${esc(s.useCases.join(', '))}.</p>`}<p>What you receive: ${esc(s.deliverables.join(', '))}.</p></section>`
 const stepsHtml = `<section><h2>How it works</h2><ol>${steps.map((p) => `<li><strong>${esc(p.title)}:</strong> ${esc(p.text)}</li>`).join('')}</ol></section>`
 
 // ── Route bodies ──

@@ -785,3 +785,5 @@ main { min-height: 60vh; }
   .wd-url { order: 3; flex-basis: 100%; }
 }
 @media (pointer: coarse) { .wd-devices button, .wd-iconbtn { min-height: 44px; min-width: 44px; } }
+.sector-card .icon-tile { margin-bottom: 16px; }
+.sector-card h3 { margin-bottom: 8px; }

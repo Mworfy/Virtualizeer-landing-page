@@ -46,6 +46,27 @@ export default function ServicePage({ slug }) {
       </section>
       )}
 
+      {s.sectors && (
+        <section className="section section--alt" aria-labelledby="sectors-title">
+          <div className="container">
+            <SectionHeader
+              eyebrow="Who it’s for"
+              title={<span id="sectors-title">Virtual tours for every kind of space.</span>}
+              lead="From hotel suites to gym floors, a tour lets people look around before they visit, book or buy."
+            />
+            <div className="grid grid-4">
+              {s.sectors.map((x, i) => (
+                <Reveal key={x.name} delay={(i % 4) * 60} className="card sector-card">
+                  <div className="icon-tile icon-tile--navy"><Icon name={x.icon} /></div>
+                  <h3 className="h3">{x.name}</h3>
+                  <p>{x.text}</p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="section" aria-labelledby="features-title">
         <div className="container">
           <SectionHeader eyebrow="Features" title={<span id="features-title">Everything included.</span>} />
@@ -68,9 +89,13 @@ export default function ServicePage({ slug }) {
               eyebrow="Use cases"
               title={<span id="usecases-title">Where it makes the biggest difference.</span>}
             />
-            <Reveal className="pill-grid">
-              {s.useCases.map((u) => <span key={u} className="pill" style={{ paddingLeft: 20 }}>{u}</span>)}
-            </Reveal>
+            {s.sectors ? (
+              <p className="lead">Every tour is shot, built and published by our team, ready to share the same week.</p>
+            ) : (
+              <Reveal className="pill-grid">
+                {s.useCases.map((u) => <span key={u} className="pill" style={{ paddingLeft: 20 }}>{u}</span>)}
+              </Reveal>
+            )}
           </div>
           <Reveal className="card">
             <h3 className="h3" style={{ marginBottom: 20 }}>What you receive</h3>
