@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Hand } from 'lucide-react'
-import { EYE, HUB, POINTS, WALLS } from './scene.js'
+import { EYE, HUB, POINTS, WALLS, buildScene } from './scene.js'
 
 // Interactive first-person tour of a small apartment, rendered with Three.js.
 // Drag (or arrow keys) to look around; click the floor rings or use the arrows to move between rooms.
@@ -22,10 +22,9 @@ export default function VirtualTour({ label = 'Interactive 3D virtual tour', com
     let cleanup = () => {}
 
     ;(async () => {
-      let THREE, buildScene
+      let THREE
       try {
         THREE = await import('three')
-        ;({ buildScene } = await import('./scene.js'))
       } catch {
         setStatus('error')
         return

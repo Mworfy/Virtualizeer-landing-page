@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import Art from '../components/Art.jsx'
+import TwinUseCases from '../components/compound/TwinUseCases.jsx'
 import Icon from '../components/Icon.jsx'
 import {
   CTABand, PageHero, ProjectCard, Reveal, SectionHeader, TourEmbed, usePageMeta,
@@ -27,7 +28,10 @@ export default function ServicePage({ slug }) {
         </div>
       </PageHero>
 
-      <section className="section--tight" aria-label={`${s.name} preview`}>
+      {slug === 'digital-twins' ? (
+        <TwinUseCases />
+      ) : (
+        <section className="section--tight" aria-label={`${s.name} preview`}>
         <div className="container">
           <Reveal>
             {category === 'tours' ? (
@@ -40,6 +44,7 @@ export default function ServicePage({ slug }) {
           </Reveal>
         </div>
       </section>
+      )}
 
       <section className="section" aria-labelledby="features-title">
         <div className="container">

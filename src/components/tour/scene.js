@@ -29,7 +29,7 @@ export const WALLS = [
   [0, 1.5, 0, 3],
 ]
 
-function canvasTexture(THREE, w, h, draw) {
+export function canvasTexture(THREE, w, h, draw) {
   const c = document.createElement('canvas')
   c.width = w
   c.height = h
@@ -39,7 +39,7 @@ function canvasTexture(THREE, w, h, draw) {
   return t
 }
 
-function woodTexture(THREE) {
+export function woodTexture(THREE) {
   const t = canvasTexture(THREE, 512, 512, (g) => {
     let seed = 7
     const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
