@@ -13,15 +13,15 @@ export const STATUS = {
   reserved: { label: 'Reserved', color: '#f0a33a' },
   sold: { label: 'Sold', color: '#9aa5b1' },
 }
-const STATUS_SEQ = ['available', 'sold', 'available', 'reserved', 'available', 'available', 'reserved', 'available', 'sold', 'available', 'available', 'sold']
+const STATUS_SEQ = ['available', 'sold', 'available', 'reserved', 'available', 'available', 'reserved', 'available', 'sold', 'available']
 
-export const UNITS = Array.from({ length: 12 }, (_, i) => {
-  const left = i < 6
-  const n = i % 6
+export const UNITS = Array.from({ length: 10 }, (_, i) => {
+  const left = i < 5
+  const n = i % 5
   return {
     id: `${left ? 'A' : 'B'}-${String(n + 1).padStart(2, '0')}`,
     x: left ? -17 : 17,
-    z: -50 + n * 20,
+    z: -44 + n * 22,
     rot: left ? Math.PI / 2 : -Math.PI / 2,
     status: STATUS_SEQ[i],
     price: `EGP ${(9.2 + ((i * 7) % 5) * 0.3).toFixed(1)}M`,
@@ -357,49 +357,14 @@ export function buildCompound(THREE) {
     return h
   })
 
-  // trees (instanced)
-  const trees = []
-  const rnd = seeded(11)
-  for (let z = -56; z <= 60; z += 8) trees.push([0, z, 0.75])
-  UNITS.forEach((u) => {
-    const side = u.x < 0 ? -5 : 5
-    trees.push([side, u.z - 4.5, 0.9], [side, u.z + 4.5, 0.9])
-  })
-  houses.forEach((h, i) => {
-    const p = h.toWorld([6.5, -6.6])
-    trees.push([p.x, p.z, 0.9 + (i % 3) * 0.12])
-  })
-  for (let i = 0; i < 70; i++) {
-    const side = i % 2 ? 1 : -1
-    trees.push([side * (29 + rnd() * 11), -108 + rnd() * 186, 0.9 + rnd() * 0.5])
-  }
-  for (let i = 0; i < 16; i++) trees.push([-26 + rnd() * 52, -106 - rnd() * 4 + (i % 2) * 2, 1 + rnd() * 0.4])
-  ;[[-14, -84], [14, -84], [-16, -94], [16, -94], [-8, -66], [8, -66]].forEach(([x, z]) => trees.push([x, z, 1.1]))
-
-  const trunkGeo = new THREE.CylinderGeometry(0.16, 0.24, 2.4, 8)
-  const crownGeo = new THREE.IcosahedronGeometry(1.8, 1)
-  const trunks = new THREE.InstancedMesh(trunkGeo, M.trunk, trees.length)
-  const crowns = new THREE.InstancedMesh(crownGeo, M.leaf, trees.length)
-  const m4 = new THREE.Matrix4()
-  const q = new THREE.Quaternion()
-  trees.forEach(([x, z, s], i) => {
-    m4.compose(new THREE.Vector3(x, 1.2 * s, z), q, new THREE.Vector3(s, s, s))
-    trunks.setMatrixAt(i, m4)
-    m4.compose(new THREE.Vector3(x, (2.4 + 1.2) * s, z), q, new THREE.Vector3(s, s * 0.9, s))
-    crowns.setMatrixAt(i, m4)
-  })
-  ;[trunks, crowns].forEach((im) => {
-    im.castShadow = true
-    im.receiveShadow = true
-    scene.add(im)
-  })
+  greenery(THREE, scene, houses, seeded(11))
 
   // lighting
-  scene.add(new THREE.HemisphereLight("#eef6ff", "#b3a98f", 2.3))
+  scene.add(new THREE.HemisphereLight("#eef6ff", "#b3a98f", 0.9))
   const sun = new THREE.DirectionalLight('#fff3df', 2.6)
   sun.position.set(70, 120, 45)
   sun.castShadow = true
-  sun.shadow.mapSize.set(2048, 2048)
+  sun.shadow.mapSize.set(4096, 4096)
   Object.assign(sun.shadow.camera, { left: -115, right: 115, top: 115, bottom: -115, near: 10, far: 330 })
   sun.shadow.bias = -0.0004
   sun.shadow.normalBias = 0.03
@@ -514,4 +479,117 @@ export function buildInterior(THREE, M, H, markTexture) {
   B(0.4, 0.42, 0.6, M.white, 1.0, 0, -4.6)
 
   return g
+}
+
+// ── Greenery ─────────────────────────────────────────────
+// Instanced planting: multi-cluster broadleaf trees with per-tree colour variation,
+// palms, hedges, shrubs and flower beds. Everything is instanced to keep draw calls low.
+function greenery(THREE, scene, houses, rnd) {
+  const dummy = new THREE.Object3D()
+  const GREENS = ['#3f6b3d', '#4d7d45', '#5b8d4f', '#6f9a58', '#35603a', '#7aa463']
+  const FLOWERS = ['#f5c6d6', '#ffe27a', '#ffffff', '#f08a9e', '#c9a7f0']
+  const leafMat = new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.85 })
+  const trunkMat = new THREE.MeshStandardMaterial({ color: '#7a5a3c', roughness: 0.9 })
+  const frondMat = new THREE.MeshStandardMaterial({ color: '#4f8a46', roughness: 0.7, side: THREE.DoubleSide })
+  const pick = (arr) => arr[Math.floor(rnd() * arr.length)]
+
+  const place = (geo, mat, list, colors, { cast = true } = {}) => {
+    const mesh = new THREE.InstancedMesh(geo, mat, list.length)
+    list.forEach((p, i) => {
+      dummy.position.set(p.x, p.y ?? 0, p.z)
+      dummy.rotation.set(p.rx ?? 0, p.ry ?? rnd() * Math.PI * 2, p.rz ?? 0)
+      dummy.scale.set(p.sx ?? p.s, p.sy ?? p.s, p.sz ?? p.s)
+      dummy.updateMatrix()
+      mesh.setMatrixAt(i, dummy.matrix)
+      if (colors) mesh.setColorAt(i, new THREE.Color(pick(colors)))
+    })
+    mesh.instanceMatrix.needsUpdate = true
+    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true
+    mesh.castShadow = cast
+    mesh.receiveShadow = true
+    scene.add(mesh)
+    return mesh
+  }
+
+  // Trees: boulevard median, villa gardens and the outer belt
+  const trees = []
+  for (let z = -60; z <= 62; z += 6.5) trees.push({ x: 0, z, s: 0.8 + rnd() * 0.25 })
+  houses.forEach((h) => {
+    ;[[-6.6, -8.6], [-6.6, 8.6], [6.6, -8.6], [6.6, 8.6], [-9.2, 0.2], [9.2, 0.2]].forEach(([lx, lz]) => {
+      const p = h.toWorld([lx, lz])
+      trees.push({ x: p.x, z: p.z, s: 0.9 + rnd() * 0.35 })
+    })
+  })
+  for (let i = 0; i < 120; i++) {
+    const side = i % 2 ? 1 : -1
+    trees.push({ x: side * (29 + rnd() * 13), z: -110 + rnd() * 196, s: 0.95 + rnd() * 0.6 })
+  }
+  for (let i = 0; i < 22; i++) trees.push({ x: -28 + rnd() * 56, z: -108 - rnd() * 3 + (i % 2) * 2, s: 1.05 + rnd() * 0.4 })
+  ;[[-14, -84], [14, -84], [-16, -94], [16, -94], [-8, -66], [8, -66], [-30, -60], [30, -60], [-34, 12], [34, 12]].forEach(([x, z]) =>
+    trees.push({ x, z, s: 1.15 + rnd() * 0.2 }),
+  )
+
+  // trunks
+  place(new THREE.CylinderGeometry(0.16, 0.26, 2.4, 8), trunkMat,
+    trees.map((t) => ({ x: t.x, y: 0, z: t.z, s: t.s, sy: t.s })), null)
+  // three-cluster crowns for an organic silhouette
+  const clusters = [
+    { ox: 0, oy: 3.6, oz: 0, r: 1.9 },
+    { ox: -0.95, oy: 3.1, oz: 0.5, r: 1.35 },
+    { ox: 0.85, oy: 4.1, oz: -0.4, r: 1.45 },
+  ]
+  const crownGeo = new THREE.IcosahedronGeometry(1, 2)
+  clusters.forEach((c) =>
+    place(crownGeo, leafMat, trees.map((t) => ({ x: t.x + c.ox * t.s, y: c.oy * t.s, z: t.z + c.oz * t.s, s: c.r * t.s })), GREENS),
+  )
+
+  // Palms along the clubhouse and the entrance
+  const palms = [[-18, -80], [18, -80], [-22, -92], [22, -92], [-6, -58], [6, -58], [-30, -30], [30, -30], [-30, 20], [30, 20]]
+  palms.forEach(([x, z]) => {
+    const h = 6.5 + rnd() * 2
+    const g = new THREE.Group()
+    g.position.set(x, 0, z)
+    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.24, h, 10), trunkMat)
+    trunk.position.y = h / 2
+    trunk.castShadow = true
+    g.add(trunk)
+    for (let k = 0; k < 8; k++) {
+      const f = new THREE.Mesh(new THREE.ConeGeometry(0.22, 3.2, 4, 1, true), frondMat)
+      const a = (k / 8) * Math.PI * 2
+      f.geometry.translate(0, -1.6, 0)
+      f.rotation.set(Math.PI / 2 - 0.5, a, 0, 'YXZ')
+      f.position.y = h
+      f.castShadow = true
+      g.add(f)
+    }
+    scene.add(g)
+  })
+
+  // Hedges and shrubs along each plot's frontage, leaving the driveway clear
+  const shrubs = []
+  const flowers = []
+  houses.forEach((h) => {
+    for (let i = 0; i < 26; i++) {
+      const lx = -9 + rnd() * 18
+      const lz = 9.1 + rnd() * 0.5 - (rnd() < 0.5 ? 0 : 0)
+      if (Math.abs(lx) < 2.2) continue
+      const p = h.toWorld([lx, lz])
+      shrubs.push({ x: p.x, y: 0.45, z: p.z, s: 0.55 + rnd() * 0.35, sy: 0.6 + rnd() * 0.3 })
+    }
+    for (let i = 0; i < 16; i++) {
+      const side = i % 2 ? 1 : -1
+      const lz = -8.5 + rnd() * 17
+      const p = h.toWorld([side * (9.1 + rnd() * 0.3), lz])
+      shrubs.push({ x: p.x, y: 0.45, z: p.z, s: 0.5 + rnd() * 0.3, sy: 0.6 })
+    }
+    for (let i = 0; i < 22; i++) {
+      const lx = -8 + rnd() * 16
+      const lz = 4 + rnd() * 4.5
+      if (Math.abs(lx) < 2.4) continue
+      const p = h.toWorld([lx, lz])
+      flowers.push({ x: p.x, y: 0.12, z: p.z, s: 0.22 + rnd() * 0.12 })
+    }
+  })
+  place(new THREE.IcosahedronGeometry(1, 2), leafMat, shrubs, GREENS)
+  place(new THREE.IcosahedronGeometry(1, 1), new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.7 }), flowers, FLOWERS, { cast: false })
 }

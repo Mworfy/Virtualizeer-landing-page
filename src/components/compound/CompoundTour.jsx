@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Hand, Minus, Plus } from 'lucide-react'
 import * as mod from './compoundScene.js'
 import { EYE, NODES, STATUS, STOPS, UNITS, UNIT_SPEC, findPath, planLines } from './compoundScene.js'
@@ -61,6 +62,11 @@ export default function CompoundTour() {
       if (disposed) return renderer.dispose()
 
       const { scene, houses, lamps, M, H } = mod.buildCompound(THREE)
+      // Image-based lighting: soft sky reflections and bounce light on every surface
+      const pmrem = new THREE.PMREMGenerator(renderer)
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+      scene.environmentIntensity = 0.6
+      pmrem.dispose()
       const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 900)
       camera.rotation.order = 'YXZ'
       const rm = reducedMotion()
@@ -531,7 +537,7 @@ export default function CompoundTour() {
           {/* Top bar */}
           <div className="ctour__top">
             {mode === 'aerial' ? (
-              <span className="chip chip--live">Masterplan · 12 villas</span>
+              <span className="chip chip--live">Masterplan · {UNITS.length} villas</span>
             ) : (
               <button className="chip ctour__back" onClick={() => api.current.exitHouse?.()} disabled={mode === 'flying' || moving}>
                 <ArrowLeft /> Compound view
