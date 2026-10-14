@@ -296,37 +296,6 @@ const faqs = [
   { q: 'Do you look after the site after launch?', a: 'Yes. We offer hosting, updates and improvements after launch.' },
 ]
 
-// Hero illustration: a site being assembled (wireframe browser, code and phone), not a screenshot
-function HeroArt() {
-  return (
-    <div className="wd-art">
-      <div className="wd-art__browser">
-        <div className="wd-art__bar"><i /><i /><i /><span /></div>
-        <div className="wd-art__page">
-          <div className="wd-art__nav"><b /><span /><span /><span /><em /></div>
-          <div className="wd-art__hero">
-            <div><span className="l1" /><span className="l2" /><span className="l3" /><em /></div>
-            <div className="wd-art__visual"><i className="r1" /><i className="r2" /><i className="dot" /></div>
-          </div>
-          <div className="wd-art__cards"><span /><span /><span /></div>
-        </div>
-      </div>
-      <div className="wd-art__code">
-        <p><span className="k">const</span> <span className="v">site</span> = {'{'}</p>
-        <p className="in"><span className="p">fast</span>: <span className="b">true</span>,</p>
-        <p className="in"><span className="p">languages</span>: [<span className="s">'ar'</span>, <span className="s">'en'</span>],</p>
-        <p className="in"><span className="p">seo</span>: <span className="s">'search + AI'</span>,</p>
-        <p>{'}'}</p>
-      </div>
-      <div className="wd-art__phone">
-        <b /><span className="l1" /><span className="l2" /><div className="blk" /><span className="l3" /><em />
-      </div>
-      <div className="wd-art__chip wd-art__chip--a"><Gauge aria-hidden="true" />Fast</div>
-      <div className="wd-art__chip wd-art__chip--b"><Languages aria-hidden="true" />AR · EN</div>
-    </div>
-  )
-}
-
 export default function WebDevelopment() {
   usePageMeta('Web Development')
   return (
@@ -349,7 +318,8 @@ export default function WebDevelopment() {
             </ul>
           </div>
           <div className="wd-hero__shot intro" style={{ '--delay': '150ms' }} aria-hidden="true">
-            <HeroArt />
+            <div className="wd-hero__browser"><img src="/work/where-it-all-begins-desktop.jpg" alt="" /></div>
+            <div className="wd-hero__phone"><img src="/work/y2b-mobile.jpg" alt="" /></div>
           </div>
         </div>
       </section>

@@ -723,47 +723,13 @@ main { min-height: 60vh; }
 .wd-hero__ticks { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 28px; color: var(--ink-2); font-weight: 500; font-size: 0.95rem; }
 .wd-hero__ticks li { display: inline-flex; align-items: center; gap: 6px; }
 .wd-hero__ticks svg { width: 18px; height: 18px; color: var(--success); }
-.wd-hero__shot { position: relative; }
-@media (max-width: 960px) { .wd-hero__grid { grid-template-columns: 1fr; } }
-/* Hero illustration */
-.wd-art { position: relative; padding: 24px 28px 56px 0; }
-.wd-art__browser { border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-lg); }
-.wd-art__bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; background: #f1f2f4; border-bottom: 1px solid var(--line); }
-.wd-art__bar i { width: 9px; height: 9px; border-radius: 50%; background: #d5dae0; }
-.wd-art__bar i:first-child { background: #ff5f57; } .wd-art__bar i:nth-child(2) { background: #febc2e; } .wd-art__bar i:nth-child(3) { background: #28c840; }
-.wd-art__bar span { margin-left: 12px; height: 14px; flex: 0 1 46%; border-radius: 7px; background: #fff; border: 1px solid var(--line); }
-.wd-art__page { padding: 16px 20px 22px; }
-.wd-art__nav { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
-.wd-art__nav b { width: 54px; height: 12px; border-radius: 6px; background: var(--navy); margin-right: auto; }
-.wd-art__nav span { width: 34px; height: 7px; border-radius: 4px; background: #dfe4ea; }
-.wd-art__nav em { width: 52px; height: 18px; border-radius: 9px; background: var(--navy); }
-.wd-art__hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 18px; align-items: center; margin-bottom: 22px; }
-.wd-art__hero span { display: block; height: 12px; border-radius: 6px; background: #1e3a52; margin-bottom: 9px; }
-.wd-art__hero .l1 { width: 92%; height: 16px; } .wd-art__hero .l2 { width: 70%; height: 16px; } .wd-art__hero .l3 { width: 84%; height: 7px; background: #cfd6de; margin-top: 14px; }
-.wd-art__hero em { display: block; width: 74px; height: 22px; border-radius: 11px; background: #c9a35a; margin-top: 16px; }
-.wd-art__visual { position: relative; aspect-ratio: 1; border-radius: 14px; background: radial-gradient(120% 120% at 30% 20%, #2f6fa8, #0f2a40); overflow: hidden; }
-.wd-art__visual i { position: absolute; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); inset: 18%; animation: wdSpin 14s linear infinite; border-top-color: #fff; }
-.wd-art__visual .r2 { inset: 32%; animation-duration: 9s; animation-direction: reverse; border-top-color: #c9a35a; }
-.wd-art__visual .dot { inset: auto; width: 12px; height: 12px; left: calc(50% - 6px); top: calc(50% - 6px); background: #fff; border: 0; animation: none; }
-.wd-art__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.wd-art__cards span { height: 54px; border-radius: 10px; background: #f3f5f8; border: 1px solid var(--line); }
-.wd-art__code { position: absolute; left: -22px; bottom: 6px; width: 58%; padding: 14px 16px; border-radius: 14px; background: #0f2a40; color: #e6edf3; font: 500 0.78rem/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; box-shadow: var(--shadow-lg); }
-.wd-art__code p { margin: 0; white-space: nowrap; }
-.wd-art__code .in { padding-left: 16px; }
-.wd-art__code .k { color: #7fb6ea; } .wd-art__code .v { color: #fff; } .wd-art__code .p { color: #a9c1d6; } .wd-art__code .s { color: #e7c487; } .wd-art__code .b { color: #8fd3a6; }
-.wd-art__phone { position: absolute; right: 0; bottom: 0; width: 25%; aspect-ratio: 9 / 18; padding: 18px 10px; border-radius: 22px; background: #fff; border: 6px solid #0f2a40; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 7px; }
-.wd-art__phone b { width: 40%; height: 8px; border-radius: 4px; background: var(--navy); margin-bottom: 6px; }
-.wd-art__phone span { height: 8px; border-radius: 4px; background: #1e3a52; } .wd-art__phone .l2 { width: 70%; } .wd-art__phone .l3 { background: #cfd6de; height: 6px; }
-.wd-art__phone .blk { flex: 1; border-radius: 10px; background: radial-gradient(120% 120% at 30% 20%, #2f6fa8, #0f2a40); }
-.wd-art__phone em { height: 18px; border-radius: 9px; background: #c9a35a; }
-.wd-art__chip { position: absolute; display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 999px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-lg); font-weight: 600; font-size: 0.82rem; color: var(--navy); }
-.wd-art__chip svg { width: 16px; height: 16px; color: #2f6fa8; }
-.wd-art__chip--a { top: 0; right: 14%; animation: wdFloat 5s ease-in-out infinite; }
-.wd-art__chip--b { top: 54%; left: -18px; animation: wdFloat 6s ease-in-out infinite reverse; }
-@keyframes wdSpin { to { transform: rotate(360deg); } }
-@keyframes wdFloat { 50% { transform: translateY(-8px); } }
-@media (prefers-reduced-motion: reduce) { .wd-art__visual i, .wd-art__chip { animation: none; } }
-@media (max-width: 560px) { .wd-art { padding: 16px 12px 48px 0; } .wd-art__code { left: 0; width: 72%; font-size: 0.68rem; } .wd-art__chip--b { left: 0; } }
+.wd-hero__shot { position: relative; padding: 0 0 40px 0; }
+.wd-hero__browser { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--line); background: #fff; }
+.wd-hero__browser::before { content: ''; display: block; height: 28px; background: #f1f2f4 radial-gradient(circle, #ff5f57 4px, transparent 5px) 14px 50% / 18px 18px no-repeat; border-bottom: 1px solid var(--line); }
+.wd-hero__browser img { display: block; width: 100%; height: auto; }
+.wd-hero__phone { position: absolute; right: -8px; bottom: 0; width: 26%; border-radius: 24px; overflow: hidden; border: 6px solid #0f2a40; box-shadow: var(--shadow-lg); background: #fff; }
+.wd-hero__phone img { display: block; width: 100%; height: auto; }
+@media (max-width: 960px) { .wd-hero__grid { grid-template-columns: 1fr; } .wd-hero__phone { right: 8px; } }
 
 .wd-preview { border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow-lg); }
 .wd-preview__bar { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #f4f5f7; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
