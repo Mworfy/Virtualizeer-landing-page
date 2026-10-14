@@ -4,7 +4,6 @@ import { Reveal, SectionHeader } from '../ui.jsx'
 
 const CompoundTour = lazy(() => import('./CompoundTour.jsx'))
 const FactoryTour = lazy(() => import('../factory/FactoryTour.jsx'))
-const ZayedTour = lazy(() => import('../zayed/ZayedTour.jsx'))
 
 const Spinner = () => (
   <div className="vtour"><div className="vtour__loading"><span className="vtour__spinner" aria-label="Loading 3D view" /></div></div>
@@ -48,19 +47,6 @@ const useCases = [
       { icon: Activity, title: 'Live status on the 3D floor', text: 'Sensor and MES data mapped onto each machine, so the whole plant reads at a glance.' },
       { icon: Factory, title: 'Catch issues before downtime', text: 'Alerts and trends flag overheating and vibration early, with predicted failure windows.' },
       { icon: Wrench, title: 'Maintenance, in context', text: 'Open work orders from the machine itself; technicians see exactly where and what to fix.' },
-    ],
-  },
-  {
-    id: 'usecase-zayed',
-    eyebrow: 'Interactive use case 03 · Zayed Reimagined',
-    title: 'Zayed Reimagined: a 10-villa compound, fully walkable.',
-    lead: 'A reimagined compound with dense greenery and realistic light. Start from the bird’s-eye masterplan, click any villa to fly in, then walk through every room. Hotspots carry you between spaces.',
-    className: 'tour--compound',
-    Demo: ZayedTour,
-    benefits: [
-      { icon: Building2, title: 'Ten villas, one masterplan', text: 'Every villa sits in a landscaped plot with trees, palms, hedges and flower beds.' },
-      { icon: MousePointerClick, title: 'Hotspots, not loading screens', text: 'Move from the masterplan to the front door and between rooms in one continuous camera move.' },
-      { icon: Eye, title: 'See the light before it’s built', text: 'Image-based lighting and soft shadows show how the homes will feel in the afternoon sun.' },
     ],
   },
 ]
