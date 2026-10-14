@@ -178,7 +178,7 @@ export const projects = [
   {
     slug: 'youth-speak-forum',
     title: 'Youth Speak Forum',
-    client: 'AIESEC in the United States',
+    client: '',
     category: 'web',
     location: 'Online',
     year: '2026',

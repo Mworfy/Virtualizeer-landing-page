@@ -64,7 +64,7 @@ export default function ProjectDetail() {
           </div>
           <aside className="detail-aside" aria-label="Project details">
             <dl>
-              <div><dt>Client</dt><dd>{p.client}</dd></div>
+              {p.client && <div><dt>Client</dt><dd>{p.client}</dd></div>}
               <div><dt>Service</dt><dd>{categoryLabels[p.category]}</dd></div>
               <div><dt>Location</dt><dd>{p.location}</dd></div>
               <div><dt>Year</dt><dd>{p.year}</dd></div>

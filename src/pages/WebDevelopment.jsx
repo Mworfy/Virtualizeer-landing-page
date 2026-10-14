@@ -11,7 +11,21 @@ const SCRATCH = 'Built from scratch'
 const CODEV = 'Co developed'
 const PROJECTS = [
   {
-    id: 'ysf', name: 'Youth Speak Forum', client: 'AIESEC in the United States', type: 'Event website and registration', origin: SCRATCH,
+    id: 'wiab', name: 'Where it all begins', client: 'AIESEC in Egypt', type: 'Exchange programmes website', origin: CODEV,
+    src: '/work/where-it-all-begins/index.html', live: 'https://whereitallbegins.aiesec.org.eg/', host: 'whereitallbegins.aiesec.org.eg',
+    posters: { desktop: '/work/where-it-all-begins-desktop.jpg', mobile: '/work/where-it-all-begins-mobile.jpg' }, demo: true,
+    summary: 'A cinematic website inviting international students to Egypt, with destination stories, the volunteer, talent and teacher programmes and a personal journey after sign in.',
+    built: [
+      'A layered parallax hero: sky, pyramids and title move at different depths with the cursor.',
+      'A Why Egypt page with parallax hot air balloons and destination cards for Cairo, Luxor, Aswan, Dahab and more.',
+      'Programme pages for Global Volunteer, Global Talent and Global Teacher, linked to live AIESEC opportunities.',
+      'Sign in with AIESEC accounts and a personal journey page loaded from the AIESEC API.',
+      'Scroll animations and a multilingual "Egypt" ticker that sets the tone.',
+    ],
+    stack: ['HTML', 'CSS', 'JavaScript', 'AOS', 'Swiper', 'AIESEC OAuth', 'GraphQL API'],
+  },
+  {
+    id: 'ysf', name: 'Youth Speak Forum', client: '', type: 'Event website and registration', origin: SCRATCH,
     src: '/work/ysf/site.html', live: 'https://ysf.aiesecus.org/', host: 'ysf.aiesecus.org',
     posters: { desktop: '/work/ysf-desktop.jpg', mobile: '/work/ysf-mobile.jpg' }, demo: true,
     summary: 'An event website with a living, interactive hero and registrations that land straight in Google Sheets.',
@@ -39,6 +53,8 @@ const PROJECTS = [
     ],
     stack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'REST API', 'Docker'],
   },
+]
+const MORE = [
   {
     id: 'y2b', name: 'Youth to Business (Y2B)', client: 'AIESEC in Egypt', type: 'Conference website and ticketing', origin: SCRATCH,
     src: '/work/y2b/index.html', live: 'https://youth2business.aiesec.org.eg/', host: 'youth2business.aiesec.org.eg',
@@ -53,8 +69,6 @@ const PROJECTS = [
     ],
     stack: ['Django', 'Python', 'HTML', 'CSS', 'JavaScript', 'Google Apps Script', 'DigitalOcean', 'Docker'],
   },
-]
-const MORE = [
   {
     id: 'mea-xlds', name: 'MEA XLDS 2026', client: 'AIESEC in the Middle East and Africa', type: 'Leadership conference website', origin: SCRATCH,
     src: '/work/mea-xlds/index.html', live: 'https://mea-xlds.aiesec.org.eg/', host: 'mea-xlds.aiesec.org.eg',
@@ -62,13 +76,7 @@ const MORE = [
     summary: 'The regional leadership conference site, with a Python backend for content and registrations.',
   },
   {
-    id: 'wiab', name: 'Where it all begins', client: 'AIESEC in Egypt', type: 'Exchange programmes and Why Egypt', origin: CODEV,
-    src: '/work/where-it-all-begins/index.html', live: 'https://whereitallbegins.aiesec.org.eg/', host: 'whereitallbegins.aiesec.org.eg',
-    posters: { desktop: '/work/where-it-all-begins-desktop.jpg', mobile: '/work/where-it-all-begins-mobile.jpg' }, demo: true,
-    summary: 'Inviting international students to Egypt: destination stories, the volunteer, talent and teacher programmes, and an AIESEC sign in journey.',
-  },
-  {
-    id: 'aiesec-us', name: 'AIESEC in the United States', client: 'AIESEC in the United States', type: 'National website with a CMS', origin: SCRATCH,
+    id: 'aiesec-us', name: 'AIESEC in the United States', client: '', type: 'National website with a CMS', origin: CODEV,
     src: 'https://aiesecus.org/', live: 'https://aiesecus.org/', host: 'aiesecus.org',
     posters: { desktop: '/work/aiesec-us-desktop.jpg', mobile: '/work/aiesec-us-mobile.jpg' },
     summary: 'The national site for volunteering, internships and youth leadership: programme sign ups, a blog and news, donations, a 70th anniversary page and a CMS for the team.',
@@ -190,7 +198,7 @@ function FeaturedWork() {
         </div>
         <div className="card wd-case__facts">
           <dl>
-            <div><dt>Client</dt><dd>{p.client}</dd></div>
+            {p.client && <div><dt>Client</dt><dd>{p.client}</dd></div>}
             <div><dt>Project</dt><dd>{p.type}</dd></div>
             <div><dt>How we worked</dt><dd>{p.origin}</dd></div>
           </dl>
@@ -229,7 +237,7 @@ function MoreWork() {
               </button>
               <OriginBadge origin={x.origin} />
               <h3 className="h3">{x.name}</h3>
-              <p className="wd-more__meta">{x.client} · {x.type}</p>
+              <p className="wd-more__meta">{x.client ? `${x.client} · ${x.type}` : x.type}</p>
               <p>{x.summary}</p>
               <div className="wd-more__links">
                 <button className="link-arrow" onClick={() => setViewing(x)}>Preview on any device <ArrowRight aria-hidden="true" /></button>
@@ -294,6 +302,37 @@ const faqs = [
   { q: 'Do you look after the site after launch?', a: 'Yes. We offer hosting, updates and improvements after launch.' },
 ]
 
+// Hero illustration: a site being assembled (wireframe browser, code and phone), not a screenshot
+function HeroArt() {
+  return (
+    <div className="wd-art">
+      <div className="wd-art__browser">
+        <div className="wd-art__bar"><i /><i /><i /><span /></div>
+        <div className="wd-art__page">
+          <div className="wd-art__nav"><b /><span /><span /><span /><em /></div>
+          <div className="wd-art__hero">
+            <div><span className="l1" /><span className="l2" /><span className="l3" /><em /></div>
+            <div className="wd-art__visual"><i className="r1" /><i className="r2" /><i className="dot" /></div>
+          </div>
+          <div className="wd-art__cards"><span /><span /><span /></div>
+        </div>
+      </div>
+      <div className="wd-art__code">
+        <p><span className="k">const</span> <span className="v">site</span> = {'{'}</p>
+        <p className="in"><span className="p">fast</span>: <span className="b">true</span>,</p>
+        <p className="in"><span className="p">languages</span>: [<span className="s">'ar'</span>, <span className="s">'en'</span>],</p>
+        <p className="in"><span className="p">seo</span>: <span className="s">'search + AI'</span>,</p>
+        <p>{'}'}</p>
+      </div>
+      <div className="wd-art__phone">
+        <b /><span className="l1" /><span className="l2" /><div className="blk" /><span className="l3" /><em />
+      </div>
+      <div className="wd-art__chip wd-art__chip--a"><Gauge aria-hidden="true" />Fast</div>
+      <div className="wd-art__chip wd-art__chip--b"><Languages aria-hidden="true" />AR · EN</div>
+    </div>
+  )
+}
+
 export default function WebDevelopment() {
   usePageMeta('Web Development')
   return (
@@ -316,8 +355,7 @@ export default function WebDevelopment() {
             </ul>
           </div>
           <div className="wd-hero__shot intro" style={{ '--delay': '150ms' }} aria-hidden="true">
-            <div className="wd-hero__browser"><img src={PROJECTS[0].posters.desktop} alt="" /></div>
-            <div className="wd-hero__phone"><img src={PROJECTS[0].posters.mobile} alt="" /></div>
+            <HeroArt />
           </div>
         </div>
       </section>
