@@ -668,3 +668,7 @@ main { min-height: 60vh; }
 @media (prefers-contrast: more) {
   .vtour .chip, .vtour__nav, .vtour__hint, .ctour__legend, .ctour__select, .ctour__zoom { background-color: #0a1e2e; }
 }
+
+/* Zayed Reimagined showcase */
+.tour--zayed { aspect-ratio: 16 / 9.5; }
+@media (max-width: 560px) { .tour--zayed { aspect-ratio: 3 / 4.2; } }

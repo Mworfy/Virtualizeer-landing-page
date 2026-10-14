@@ -1,0 +1,121 @@
+/* Zayed Reimagined — scoped to .zx so nothing leaks into the site */
+.zx { position: absolute; inset: 0; overflow: hidden; background: #0f2a40; color: #fff; font-family: var(--font-body); }
+.zx:fullscreen { border-radius: 0; }
+.zx button { font: inherit; color: inherit; }
+.zx svg { display: block; }
+.zx__glass { background: rgba(10,30,46,0.72); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%); border-radius: 999px; color: #fff; }
+
+/* ── Map ── */
+.zmap { position: absolute; inset: 0; }
+.zmap__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.zmap__world { transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.9s ease; }
+.zmap.is-zooming .zmap__world { transform: scale(4.2); opacity: 0.35; }
+.zmap.is-zooming .zmap__ours, .zmap.is-zooming .zmap__legend { opacity: 0; transition: opacity .3s; }
+.zmap__district { fill: #e9c98f; font: 800 15px var(--font-display); letter-spacing: 0.18em; }
+.zmap__road { fill: #d8e2ea; font: 600 9.5px var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; }
+.zmap__place { fill: #ffffff; fill-opacity: 0.55; font: 700 13px var(--font-display); letter-spacing: 0.12em; }
+.zmap__landmark { fill: #c9d5df; font: 500 10.5px var(--font-body); }
+.zmap__projlabel { fill: #ffffff; font: 600 11px var(--font-body); paint-order: stroke; stroke: #0f2a40; stroke-width: 3px; }
+.zmap__ours { position: absolute; transform: translate(-50%, -50%); border: 0; background: none; padding: 0; cursor: pointer; display: grid; place-items: center; }
+.zmap__dot { position: relative; z-index: 1; width: 36px; height: 36px; border-radius: 50%; background: #e9c98f; color: #0f2a40; font: 800 15px var(--font-display); display: grid; place-items: center; box-shadow: 0 0 0 4px rgba(15,42,64,0.9), 0 8px 24px -6px rgba(0,0,0,.5); transition: transform .2s; }
+.zmap__pulse { position: absolute; width: 36px; height: 36px; border-radius: 50%; background: #e9c98f; animation: zping 2s ease-out infinite; }
+@keyframes zping { from { transform: scale(1); opacity: .6; } to { transform: scale(2.8); opacity: 0; } }
+.zmap__ours:hover .zmap__dot, .zmap__ours:focus-visible .zmap__dot { transform: scale(1.08); }
+.zmap__ours:focus-visible { outline: none; }
+.zmap__ours:focus-visible .zmap__dot { box-shadow: 0 0 0 4px #8fd3ff; }
+.zmap__card {
+  position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%); white-space: nowrap; text-align: left;
+  display: grid; gap: 2px; padding: 12px 16px; border-radius: 14px; background: #fff; color: var(--ink); box-shadow: 0 14px 30px -10px rgba(0,0,0,.5);
+}
+.zmap__card::after { content: ''; position: absolute; left: 50%; top: 100%; transform: translateX(-50%); border: 7px solid transparent; border-top-color: #fff; }
+.zmap__card strong { font: 800 1.05rem var(--font-display); }
+.zmap__card span { font-size: 0.82rem; color: var(--ink-2); }
+.zmap__card em { font-style: normal; font-weight: 700; font-size: 0.85rem; color: #2f6fa8; margin-top: 4px; }
+.zmap__legend { position: absolute; left: 16px; bottom: 16px; display: flex; gap: 14px; flex-wrap: wrap; padding: 10px 14px; border-radius: 999px; background: rgba(10,30,46,0.72); border: 1px solid rgba(255,255,255,0.18); font-size: 0.78rem; font-weight: 600; }
+.zmap__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.zmap__k { width: 10px; height: 10px; border-radius: 50%; background: #fff; }
+.zmap__k--ours { background: #e9c98f; }
+.zmap__k--road { width: 16px; height: 4px; border-radius: 2px; background: #d8b77d; }
+.zmap__note { position: absolute; right: 16px; bottom: 18px; font-size: 0.72rem; color: #9fb3c4; }
+
+/* ── 3D stage ── */
+.zx__stage { position: absolute; inset: 0; animation: zfade .6s ease both; }
+@keyframes zfade { from { opacity: 0; } }
+.zx__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; }
+.zx__canvas:focus-visible { outline: 3px solid #8fd3ff; outline-offset: -3px; }
+.zx__loading { position: absolute; inset: 0; display: grid; place-items: center; color: #c9d5df; background: linear-gradient(160deg, #163a57, #0a1e2e); }
+.zx__top { position: absolute; left: 14px; right: 14px; top: 14px; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
+.zx__top > *, .zx__topright > * { pointer-events: auto; }
+.zx__topright { display: flex; gap: 8px; }
+.zx__btn { display: inline-flex; align-items: center; gap: 7px; min-height: 42px; padding: 0 15px; cursor: pointer; font-weight: 600; font-size: 0.86rem; }
+.zx__btn svg { width: 17px; height: 17px; }
+.zx__btn:disabled { opacity: .55; cursor: default; }
+.zx__btn[aria-pressed='true'] svg { color: #e9c98f; }
+.zx__icon { width: 42px; padding: 0; justify-content: center; }
+.zx__hint { position: absolute; left: 50%; top: 68px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border-radius: 999px; background: rgba(10,30,46,0.72); font-size: 0.84rem; font-weight: 600; white-space: nowrap; pointer-events: none; }
+.zx__hint svg { width: 17px; height: 17px; }
+
+.zx__pins { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.zx__pin { position: absolute; left: 0; top: 0; pointer-events: auto; cursor: pointer; border: 0; background: none; padding: 0; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: opacity .25s; }
+.zx__pin--unit { margin: -18px 0 0 -14px; padding: 6px 12px 6px 8px; border-radius: 999px; background: rgba(255,255,255,0.95); color: var(--ink) !important; box-shadow: 0 6px 18px -6px rgba(0,0,0,.35); font-weight: 700; font-size: 0.8rem; }
+.zx__pin--unit::after { content: ''; position: absolute; left: 14px; top: 100%; width: 2px; height: 14px; background: rgba(255,255,255,0.9); }
+.zx__more { display: none; font-weight: 500; color: var(--ink-2); }
+.zx__pin--unit:hover .zx__more, .zx__pin--unit.is-hover .zx__more, .zx__pin--unit:focus-visible .zx__more { display: inline; }
+.zx__pin--unit:hover, .zx__pin--unit.is-hover { z-index: 2; }
+.zx__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
+.zx__pin--room { margin: -21px 0 0 -21px; flex-direction: column; gap: 6px; }
+.zx__ring { position: relative; width: 42px; height: 42px; border-radius: 50%; border: 3px solid #fff; background: rgba(15,42,64,0.45); animation: zring 2s ease-out infinite; }
+.zx__ring::after { content: ''; position: absolute; inset: 12px; border-radius: 50%; background: #fff; }
+@keyframes zring { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.55); } 100% { box-shadow: 0 0 0 16px rgba(255,255,255,0); } }
+.zx__roomlabel { padding: 5px 11px; border-radius: 999px; background: rgba(10,30,46,0.78); border: 1px solid rgba(255,255,255,0.2); font-weight: 600; font-size: 0.8rem; }
+.zx__pin--room[data-occluded='true'] { opacity: 0.45; }
+
+.zx__strip { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 2px; padding: 5px; max-width: calc(100% - 200px); overflow-x: auto; scrollbar-width: none; }
+.zx__strip button { display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; cursor: pointer; font-weight: 600; font-size: 0.82rem; white-space: nowrap; }
+.zx__strip button:hover, .zx__strip button.is-hover { background: rgba(255,255,255,0.16); }
+.zx__zoom { position: absolute; right: 14px; bottom: 16px; display: flex; gap: 4px; padding: 4px; }
+.zx__zoom button, .zx__arrow { width: 38px; height: 38px; border: 0; border-radius: 50%; background: rgba(255,255,255,0.12); cursor: pointer; display: grid; place-items: center; flex: none; }
+.zx__zoom button:hover, .zx__arrow:hover:not(:disabled) { background: rgba(255,255,255,0.26); }
+.zx__zoom svg, .zx__arrow svg { width: 18px; height: 18px; }
+.zx__legend { position: absolute; left: 14px; bottom: 16px; display: flex; gap: 12px; padding: 11px 14px; font-size: 0.78rem; font-weight: 600; }
+.zx__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.zx__legend i { width: 9px; height: 9px; border-radius: 50%; }
+
+.zx__card { position: absolute; right: 14px; top: 66px; width: min(280px, calc(100% - 28px)); padding: 15px 17px; border-radius: 16px; background: rgba(255,255,255,0.96); color: var(--ink); box-shadow: 0 12px 30px -12px rgba(0,0,0,.45); opacity: 0; transform: translateY(-6px); transition: opacity .4s, transform .4s; pointer-events: none; }
+.zx__card.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.zx__cardhead { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 5px; }
+.zx__cardhead strong { font: 800 1.1rem var(--font-display); }
+.zx__status { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; }
+.zx__status i { width: 8px; height: 8px; border-radius: 50%; }
+.zx__card p { font-size: 0.84rem; color: var(--ink-2); }
+.zx__price { font-weight: 700; color: var(--ink) !important; font-size: 1rem !important; margin: 5px 0 10px; }
+.zx__cta { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 16px; border-radius: 999px; background: var(--navy); color: #fff !important; font-weight: 600; font-size: 0.86rem; }
+.zx__cta svg { width: 16px; height: 16px; }
+.zx__rooms { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; align-items: center; gap: 2px; padding: 5px; max-width: calc(100% - 180px); overflow-x: auto; scrollbar-width: none; }
+.zx__room { min-height: 38px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; cursor: pointer; font-weight: 600; font-size: 0.82rem; white-space: nowrap; color: #dbe4eb !important; }
+.zx__room:hover:not(:disabled) { background: rgba(255,255,255,0.14); }
+.zx__room[aria-current] { background: #fff; color: var(--navy) !important; }
+.zx__room:disabled, .zx__arrow:disabled { opacity: .5; cursor: default; }
+.zx__plan { position: absolute; right: 14px; bottom: 16px; width: 120px; aspect-ratio: 136 / 176; border-radius: 16px; padding: 8px; pointer-events: none; }
+
+@media (max-width: 760px) {
+  .zmap__card { display: none; }
+  .zmap__road { font-size: 8px; }
+  .zx__legend, .zx__plan, .zmap__note { display: none; }
+  .zx__strip, .zx__rooms { left: 12px; right: 12px; transform: none; max-width: none; bottom: 12px; }
+  .zx__zoom { bottom: 66px; right: 12px; }
+  .zx__card { top: auto; bottom: 64px; left: 12px; right: 12px; width: auto; padding: 12px 14px; }
+  .zx__card p:not(.zx__price) { display: none; }
+  .zx__hint { top: 64px; font-size: 0.76rem; white-space: normal; text-align: center; max-width: calc(100% - 28px); }
+  .zx__btn { font-size: 0.8rem; padding: 0 12px; }
+}
+@media (pointer: coarse) {
+  .zx__btn, .zx__strip button, .zx__room { min-height: 44px; }
+  .zx__zoom button, .zx__arrow, .zx__icon { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zmap__world, .zx__stage, .zmap__pulse, .zx__ring { transition: none !important; animation: none !important; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .zx__glass, .zx__hint, .zx__roomlabel, .zmap__legend { background: rgba(10,30,46,0.96); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}

@@ -1,9 +1,10 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { Activity, Building2, Eye, Factory, MousePointerClick, Wrench } from 'lucide-react'
+import { Activity, Building2, Eye, Factory, MapPin, MousePointerClick, Trees, Wrench } from 'lucide-react'
 import { Reveal, SectionHeader } from '../ui.jsx'
 
 const CompoundTour = lazy(() => import('./CompoundTour.jsx'))
 const FactoryTour = lazy(() => import('../factory/FactoryTour.jsx'))
+const ZayedExperience = lazy(() => import('../zayed/ZayedExperience.jsx'))
 
 const Spinner = () => (
   <div className="vtour"><div className="vtour__loading"><span className="vtour__spinner" aria-label="Loading 3D view" /></div></div>
@@ -47,6 +48,19 @@ const useCases = [
       { icon: Activity, title: 'Live status on the 3D floor', text: 'Sensor and MES data mapped onto each machine, so the whole plant reads at a glance.' },
       { icon: Factory, title: 'Catch issues before downtime', text: 'Alerts and trends flag overheating and vibration early, with predicted failure windows.' },
       { icon: Wrench, title: 'Maintenance, in context', text: 'Open work orders from the machine itself; technicians see exactly where and what to fix.' },
+    ],
+  },
+  {
+    id: 'usecase-zayed',
+    eyebrow: 'Project 03 · Zayed Reimagined · New Zayed',
+    title: 'Zayed Reimagined: find it on the map, then walk inside.',
+    lead: 'Our third project sits in New Zayed, next to VYE and Belle Vie. Start on the map, open the project, orbit the 10-villa masterplan, then fly into any villa and walk through every room. Try it: click the gold pin.',
+    className: 'tour--zayed',
+    Demo: ZayedExperience,
+    benefits: [
+      { icon: MapPin, title: 'From the map to the front door', text: 'Location first: buyers see where the project sits in New Zayed, then open it in 3D.' },
+      { icon: Trees, title: 'New villa design, real setting', text: 'Courtyard villas in stucco, travertine and timber, set in trees, palms and private pools.' },
+      { icon: MousePointerClick, title: 'Hotspots in every room', text: 'Labelled hotspots and floor rings move you through each villa in one continuous camera move.' },
     ],
   },
 ]

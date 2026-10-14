@@ -136,7 +136,7 @@ export function makeMaterials(THREE) {
     clad: std('#23415c', { roughness: 0.7 }),
     roof: std('#e9e6e0'),
     frame: std('#2a2f35', { roughness: 0.5 }),
-    glass: new THREE.MeshStandardMaterial({ color: '#9fc0dc', roughness: 0.05, metalness: 0.2, transparent: true, opacity: 0.25, depthWrite: false }),
+    glass: new THREE.MeshStandardMaterial({ color: '#cfe0ec', roughness: 0.04, metalness: 0, transparent: true, opacity: 0.14, depthWrite: false, side: THREE.DoubleSide, envMapIntensity: 0.6 }),
     darkGlass: std('#1d3347', { roughness: 0.15, metalness: 0.4 }),
     water: std('#4fa8dc', { roughness: 0.08, metalness: 0.1 }),
     hedge: std('#5b884d'),
@@ -202,16 +202,26 @@ function buildWall(THREE, H, parent, M, w) {
     piece(o.a, o.b, 0, o.y0)
     piece(o.a, o.b, o.y1, WALL_H)
     if (o.glass) {
+      // Single clean pane (a thin box gave two overlapping transparent faces that shimmered),
+      // frames sit just inside the opening so no faces coincide with the wall (no z-fighting).
       const len = o.b - o.a
       const c = (o.a + o.b) / 2
+      const h = o.y1 - o.y0
       const f = 0.05
       const noShadow = { cast: false, receive: false }
-      seg(len, o.y1 - o.y0, 0.03, M.glass, c, o.y0, noShadow)
-      seg(len + f * 2, f, t + 0.03, M.frame, c, o.y1, noShadow)
-      if (o.y0 > 0.1) seg(len + f * 2, f, t + 0.03, M.frame, c, o.y0 - f, noShadow)
-      seg(f, o.y1 - o.y0, t + 0.03, M.frame, o.a - f / 2, o.y0, noShadow)
-      seg(f, o.y1 - o.y0, t + 0.03, M.frame, o.b + f / 2, o.y0, noShadow)
-      if (len > 2.4) seg(f * 0.8, o.y1 - o.y0, t + 0.02, M.frame, c, o.y0, noShadow)
+      const pane = H.mesh(new THREE.PlaneGeometry(len, h), M.glass, parent, noShadow)
+      if (w.axis === 'x') pane.position.set(c, o.y0 + h / 2, w.at)
+      else {
+        pane.rotation.y = Math.PI / 2
+        pane.position.set(w.at, o.y0 + h / 2, c)
+      }
+      pane.renderOrder = 2
+      pane.userData.noAO = true
+      seg(len, f, t + 0.03, M.frame, c, o.y1 - f, noShadow)
+      if (o.y0 > 0.1) seg(len, f, t + 0.03, M.frame, c, o.y0, noShadow)
+      seg(f, h - (o.y0 > 0.1 ? 2 * f : f), t + 0.03, M.frame, o.a + f / 2, o.y0 + (o.y0 > 0.1 ? f : 0), noShadow)
+      seg(f, h - (o.y0 > 0.1 ? 2 * f : f), t + 0.03, M.frame, o.b - f / 2, o.y0 + (o.y0 > 0.1 ? f : 0), noShadow)
+      if (len > 2.4) seg(f * 0.8, h - f, t + 0.02, M.frame, c, o.y0, noShadow)
     }
     cur = o.b
   })
