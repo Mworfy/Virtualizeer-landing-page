@@ -1,7 +1,7 @@
 // Schematic map of New Zayed and its surroundings (original illustration, not to scale).
 // Zayed Reimagined is the third project inside New Zayed; clicking it opens the 3D experience.
 
-const ROADS = [
+export const ROADS = [
   { name: 'Cairo–Alex Desert Road', d: 'M250 0 C 290 110, 300 190, 380 215 S 520 240, 600 290 S 730 400, 790 470 S 880 540, 900 560', major: true, label: [470, 236, 14] },
   { name: 'Al Dabaa Axis', d: 'M0 262 C 120 262, 260 262, 330 258 S 400 250, 425 238', major: true, label: [90, 252, 0] },
   { name: 'Rod El Farag Axis', d: 'M420 236 C 450 200, 480 160, 560 150 S 760 168, 1000 158', major: true, label: [700, 150, 0] },
@@ -11,14 +11,14 @@ const ROADS = [
   { name: 'Ring Road', d: 'M990 40 C 960 160, 930 280, 900 360 S 820 500, 790 560', label: [940, 230, -72] },
 ]
 
-const PLACES = [
+export const PLACES = [
   { name: 'New Sphinx City', x: 70, y: 150 },
   { name: 'Sheikh Zayed City', x: 560, y: 300 },
   { name: '6th of October', x: 360, y: 505 },
   { name: 'New Giza', x: 720, y: 430 },
 ]
 
-const LANDMARKS = [
+export const LANDMARKS = [
   { name: 'Sphinx International Airport', x: 372, y: 112 },
   { name: 'Smart Village', x: 640, y: 236 },
   { name: 'Mall of Arabia', x: 520, y: 470 },

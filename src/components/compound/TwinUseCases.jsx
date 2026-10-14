@@ -1,5 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { Activity, Building2, Eye, Factory, MapPin, MousePointerClick, Trees, Wrench } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import NewZayedMap from '../zayed/NewZayedMap.jsx'
+import { Activity, ArrowRight, Building2, Eye, Factory, Layers, MapPin, MousePointerClick, Scale, Trees, Wrench } from 'lucide-react'
 import { Reveal, SectionHeader } from '../ui.jsx'
 
 const CompoundTour = lazy(() => import('./CompoundTour.jsx'))
@@ -66,7 +68,9 @@ const useCases = [
 ]
 
 export default function TwinUseCases() {
-  return useCases.map((u, n) => (
+  return (
+    <>
+      {useCases.map((u, n) => (
     <section key={u.id} className={`section${n % 2 ? ' section--alt' : ''}`} aria-labelledby={u.id}>
       <div className="container">
         <SectionHeader eyebrow={u.eyebrow} title={<span id={u.id}>{u.title}</span>} lead={u.lead} />
@@ -86,5 +90,48 @@ export default function TwinUseCases() {
         </div>
       </div>
     </section>
-  ))
+  ))}
+      <AtlasTeaser />
+    </>
+  )
 }
+
+const atlasPoints = [
+  { icon: Layers, title: 'A visual identity for the region', text: 'New Zayed, the airport, Sheikh Zayed and the desert road in one stylised 3D map.' },
+  { icon: Scale, title: 'Look up and compare compounds', text: 'Search 23 compounds by name or developer, filter by type and compare them side by side.' },
+  { icon: MapPin, title: 'Sourced, not guessed', text: 'Every figure links to its public source, with the date it was checked.' },
+]
+
+function AtlasTeaser() {
+  return (
+    <section className="section section--alt" aria-labelledby="usecase-atlas">
+      <div className="container">
+        <SectionHeader
+          eyebrow="Project 04 · New Zayed Atlas"
+          title={<span id="usecase-atlas">A 3D reference map for New Zayed.</span>}
+          lead="An interactive web app for Egypt's newest western district: explore the area in 3D, see the landmarks and roads around it, and look up and compare every compound we could source."
+        />
+        <Reveal>
+          <div className="tour tour--atlas">
+            <div className="atlas-teaser" aria-hidden="true"><NewZayedMap zooming={false} onOpen={() => {}} /></div>
+            <div className="atlas-teaser__cta">
+              <strong>New Zayed <em>Atlas</em></strong>
+              <span>Full-screen 3D map · compound directory · side-by-side comparison</span>
+              <Link to="/new-zayed-atlas" className="btn btn--light">Open the Atlas <ArrowRight aria-hidden="true" /></Link>
+            </div>
+          </div>
+        </Reveal>
+        <div className="grid grid-3" style={{ marginTop: 32 }}>
+          {atlasPoints.map(({ icon: I, title, text }, i) => (
+            <Reveal key={title} delay={i * 80} className="card">
+              <div className="icon-tile"><I aria-hidden="true" /></div>
+              <h3 className="h3">{title}</h3>
+              <p>{text}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+

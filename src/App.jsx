@@ -7,10 +7,14 @@ import ProjectDetail from './pages/ProjectDetail.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
 import NotFound from './pages/NotFound.jsx'
+import { lazy, Suspense } from 'react'
+
+const NewZayedAtlas = lazy(() => import('./pages/NewZayedAtlas.jsx'))
 
 export default function App() {
   return (
     <Routes>
+      <Route path="new-zayed-atlas" element={<Suspense fallback={<div style={{ position: 'fixed', inset: 0, background: '#efe6d3' }} />}><NewZayedAtlas /></Suspense>} />
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="virtual-tours" element={<ServicePage key="vt" slug="virtual-tours" />} />
