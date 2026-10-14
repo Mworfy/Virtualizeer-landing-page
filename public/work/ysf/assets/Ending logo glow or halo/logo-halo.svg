@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-label="Subtle lavender halo">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#EEE8FF" stop-opacity="0.95"/>
+      <stop offset="28%" stop-color="#EEE8FF" stop-opacity="0.72"/>
+      <stop offset="52%" stop-color="#EEE8FF" stop-opacity="0.38"/>
+      <stop offset="72%" stop-color="#EEE8FF" stop-opacity="0.16"/>
+      <stop offset="88%" stop-color="#EEE8FF" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#EEE8FF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#softBlur)">
+    <circle cx="600" cy="600" r="360" fill="url(#halo)"/>
+    <circle cx="600" cy="600" r="250" fill="#F5F1FF" opacity="0.22"/>
+  </g>
+</svg>

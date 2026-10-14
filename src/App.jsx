@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
 import Home from './pages/Home.jsx'
 import ServicePage from './pages/ServicePage.jsx'
+import WebDevelopment from './pages/WebDevelopment.jsx'
 import Projects from './pages/Projects.jsx'
 import ProjectDetail from './pages/ProjectDetail.jsx'
 import About from './pages/About.jsx'
@@ -19,7 +20,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="virtual-tours" element={<ServicePage key="vt" slug="virtual-tours" />} />
         <Route path="digital-twins" element={<ServicePage key="dt" slug="digital-twins" />} />
-        <Route path="web-development" element={<ServicePage key="wd" slug="web-development" />} />
+        <Route path="web-development" element={<WebDevelopment />} />
         <Route path="projects" element={<Projects />} />
         <Route path="projects/:slug" element={<ProjectDetail />} />
         <Route path="about" element={<About />} />

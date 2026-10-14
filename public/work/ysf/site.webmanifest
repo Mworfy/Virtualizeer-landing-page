@@ -1,0 +1,22 @@
+{
+  "name": "Youth Speak Forum",
+  "short_name": "YSF",
+  "description": "Official Youth Speak Forum by AIESEC. Isolated Together: rebuilding connection in a digital age.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F6F2",
+  "theme_color": "#7552CC",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "./assets/logo/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/logo/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

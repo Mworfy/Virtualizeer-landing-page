@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 320 160"
+     role="img"
+     aria-labelledby="title desc">
+  <title id="title">Move to create cursor indicator</title>
+  <desc id="desc">A purple cursor with a short curved motion trail.</desc>
+
+  <defs>
+    <linearGradient id="trailGradient" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7552CC" stop-opacity="0"/>
+      <stop offset="0.42" stop-color="#7552CC" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#7552CC" stop-opacity="0.7"/>
+    </linearGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <path d="M24 112
+           C72 112, 84 74, 126 76
+           C158 78, 168 96, 198 88"
+        fill="none"
+        stroke="url(#trailGradient)"
+        stroke-width="5"
+        stroke-linecap="round"/>
+
+  <path d="M205 42
+           L205 118
+           L226 99
+           L242 132
+           L259 124
+           L243 92
+           L270 92
+           Z"
+        fill="#FFFFFF"
+        stroke="#7552CC"
+        stroke-width="7"
+        stroke-linejoin="round"
+        filter="url(#softGlow)"/>
+</svg>

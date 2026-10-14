@@ -50,7 +50,12 @@ const bodies = {
       <h3>Zayed Reimagined, New Zayed</h3><p>A concept compound of 10 L shaped courtyard villas around an oval park and lagoon, opened from a map of New Zayed and fully walkable room by room.</p>
       <h3><a href="/new-zayed-atlas">New Zayed Atlas</a></h3><p>A 3D reference map of New Zayed with its compounds, Sphinx International Airport, Sheikh Zayed City and the Cairo Alex Desert Road.</p>
     </section>${stepsHtml}`,
-  '/web-development': () => `<h1>Real estate website development with virtual tours built in</h1>${serviceHtml(services[2])}${stepsHtml}`,
+  '/web-development': () => `<h1>Websites people remember, built to rank and convert</h1>
+    <p>We design and build fast, interactive websites for real estate, events and brands: 3D experiences, Arabic and English, forms wired to your tools, and SEO that works for search engines and AI assistants.</p>
+    <section><h2>Featured project: Youth Speak Forum for AIESEC</h2><p>An event website with a living, interactive canvas hero, a scroll driven logo assembly, and delegate and partner registration that saves to Google Sheets with branded confirmation emails. Live at <a href="https://ysf.aiesecus.org/">ysf.aiesecus.org</a>.</p></section>
+    <section><h2>What we build</h2><ul><li>Real estate websites and portals with virtual tours, 3D masterplans and live availability</li><li>Event and campaign sites with registration, QR codes and confirmation emails</li><li>Interactive 3D experiences, digital twins and maps</li><li>Company websites</li><li>Web apps and dashboards</li><li>Ecommerce</li></ul></section>
+    <section><h2>Built in on every site</h2><ul><li>Fast on any connection</li><li>Prerendered pages, structured data, sitemaps and llms.txt for search engines and AI assistants</li><li>Arabic and English with right to left layouts</li><li>Forms connected to Google Sheets, email or your CRM</li><li>Accessibility</li><li>Full ownership and a clean handover</li></ul></section>
+    ${serviceHtml(services[2])}`,
   '/new-zayed-atlas': () => `<h1>New Zayed Atlas: interactive 3D map of New Zayed compounds</h1>
     <p>${esc(REGION.summary)} New Zayed covers about 35 million m².</p>
     <p>The map highlights Sphinx International Airport, Sheikh Zayed City, 6th of October, New Giza, New Sphinx City, Smart Village, Mall of Arabia, the Grand Egyptian Museum and the Giza Pyramids, connected by the Cairo Alex Desert Road, Al Dabaa Axis, Rod El Farag Axis and 26th of July Axis.</p>
@@ -67,7 +72,11 @@ const routeLd = {
   '/': () => [orgLd(), websiteLd(), faqLd()],
   '/virtual-tours': () => [orgLd(), serviceLd('virtual-tours'), crumbs('/virtual-tours', 'Virtual Tours')],
   '/digital-twins': () => [orgLd(), serviceLd('digital-twins'), crumbs('/digital-twins', 'Digital Twins')],
-  '/web-development': () => [orgLd(), serviceLd('web-development'), crumbs('/web-development', 'Web Development')],
+  '/web-development': () => [
+    orgLd(), serviceLd('web-development'),
+    { '@context': 'https://schema.org', '@type': 'CreativeWork', name: 'Youth Speak Forum website', url: 'https://ysf.aiesecus.org/', description: 'Event website and registration for AIESEC Youth Speak Forum, with an interactive canvas hero and registrations saved to Google Sheets.', creator: { '@id': `${SITE_URL}/#organization` } },
+    crumbs('/web-development', 'Web Development'),
+  ],
   '/new-zayed-atlas': () => [
     orgLd(),
     {

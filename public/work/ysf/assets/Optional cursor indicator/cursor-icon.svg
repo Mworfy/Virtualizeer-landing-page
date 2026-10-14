@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 96 96"
+     role="img"
+     aria-labelledby="title desc">
+  <title id="title">Purple cursor icon</title>
+  <desc id="desc">A clean purple outlined cursor icon.</desc>
+
+  <path d="M18 10
+           L18 74
+           L35 58
+           L49 86
+           L64 78
+           L50 51
+           L77 51
+           Z"
+        fill="#FFFFFF"
+        stroke="#7552CC"
+        stroke-width="6"
+        stroke-linejoin="round"/>
+</svg>
