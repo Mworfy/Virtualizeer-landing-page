@@ -10,7 +10,7 @@ import NotFound from './NotFound.jsx'
 export default function ProjectDetail() {
   const { slug } = useParams()
   const p = projects.find((x) => x.slug === slug)
-  usePageMeta(p?.title, p?.summary, { noindex: true }) // sample projects stay out of search until real
+  usePageMeta(p?.title, p?.summary, { noindex: !p?.live }) // sample projects stay out of search until real
   if (!p) return <NotFound />
   const more = projects.filter((x) => x.slug !== p.slug).slice(0, 3)
 
@@ -57,9 +57,9 @@ export default function ProjectDetail() {
             <p>{p.challenge}</p>
             <h2 className="h3">Our solution</h2>
             <p>{p.solution}</p>
-            <h2 className="h3">Results</h2>
+            <h2 className="h3">{p.delivered ? 'What we delivered' : 'Results'}</h2>
             <ul className="check-list">
-              {p.results.map((r) => <li key={r}><CheckCircle2 aria-hidden="true" />{r}</li>)}
+              {(p.delivered ?? p.results).map((r) => <li key={r}><CheckCircle2 aria-hidden="true" />{r}</li>)}
             </ul>
           </div>
           <aside className="detail-aside" aria-label="Project details">
@@ -69,6 +69,7 @@ export default function ProjectDetail() {
               <div><dt>Location</dt><dd>{p.location}</dd></div>
               <div><dt>Year</dt><dd>{p.year}</dd></div>
             </dl>
+            {p.live && <a href={p.live} target="_blank" rel="noopener" className="link-arrow" style={{ marginTop: 20, display: 'inline-flex' }}>Visit the live site</a>}
             <Link to="/contact" className="btn btn--primary" style={{ width: '100%', marginTop: 28 }}>
               Start a similar project
             </Link>
