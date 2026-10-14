@@ -1,11 +1,18 @@
-// Zayed Reimagined (New Zayed) — procedural 10-villa compound with its own villa design.
-// World units are metres. The boulevard runs along z; villas face it from both sides.
+// Zayed Reimagined (New Zayed) — procedural compound with its own masterplan and villa type.
+// Masterplan: an oval ring road around a central park and lagoon; villas sit outside the ring,
+// facing in. Villa: L-shaped courtyard house — day wing + two-storey night tower around a pool.
 import { noiseTexture, paverTexture, woodTexture } from './textures.js'
 
 export const EYE = 1.65
 const WALL_H = 3.0
 const T_EXT = 0.22
 const T_INT = 0.12
+
+// ── Masterplan geometry ─────────────────────────────────
+const RX = 36 // ring road centreline radii
+const RZ = 50
+const ROAD = 7
+const PLOT_OFFSET = ROAD / 2 + 1.5 + 11 // road half-width + sidewalk + plot front depth
 
 // ── Units ───────────────────────────────────────────────
 export const STATUS = {
@@ -14,36 +21,46 @@ export const STATUS = {
   sold: { label: 'Sold', color: '#9aa5b1' },
 }
 const STATUS_SEQ = ['available', 'sold', 'available', 'reserved', 'available', 'available', 'reserved', 'available', 'sold', 'available']
+const ANGLES = [40, 65, 90, 115, 140, -40, -65, -90, -115, -140]
 
-export const UNITS = Array.from({ length: 10 }, (_, i) => {
-  const left = i < 5
-  const n = i % 5
+export const UNITS = ANGLES.map((deg, i) => {
+  const t = (deg * Math.PI) / 180
+  const px = RX * Math.sin(t)
+  const pz = -RZ * Math.cos(t)
+  let nx = px / (RX * RX)
+  let nz = pz / (RZ * RZ)
+  const nl = Math.hypot(nx, nz)
+  nx /= nl
+  nz /= nl
   return {
     id: `V-${String(i + 1).padStart(2, '0')}`,
-    x: left ? -17 : 17,
-    z: -44 + n * 22,
-    rot: left ? Math.PI / 2 : -Math.PI / 2,
+    x: px + nx * PLOT_OFFSET,
+    z: pz + nz * PLOT_OFFSET,
+    rot: Math.atan2(-nx, -nz), // local +z (the front door) faces the ring road
     status: STATUS_SEQ[i],
-    price: `EGP ${(14.2 + ((i * 7) % 5) * 0.45).toFixed(1)}M`,
-    pool: true,
+    price: `EGP ${(15.4 + ((i * 7) % 5) * 0.55).toFixed(1)}M`,
     car: i % 2 === 0,
   }
 })
-export const UNIT_SPEC = { type: 'Courtyard Villa', beds: 2, area: '210 m²', plot: '420 m²', delivery: 'Q2 2028', location: 'New Zayed' }
+export const UNIT_SPEC = { type: 'L-shaped Courtyard Villa', beds: 2, area: '185 m²', plot: '420 m²', delivery: 'Q2 2028', location: 'New Zayed' }
 
-// ── Villa plan (local coords: x across the frontage, +z towards the street) ──
+// ── Villa plan (local coords: +z towards the street) ─────
+// Day wing x[-7,5] z[1,6]: entrance & dining hall | living + kitchen.
+// Night wing x[-7,-1] z[-7,1]: bedroom 2, master bedroom, glazed pool gallery x[-2.4,-1].
+// Courtyard with pool x[-1,5] z[-7,1].
 const win = (a, b, y0 = 0.9, y1 = 2.4) => ({ a, b, y0, y1, glass: true })
 const door = (a, b, y1 = 2.3) => ({ a, b, y0: 0, y1 })
 export const HOUSE_WALLS = [
-  { axis: 'x', at: 5, from: -6, to: 6, ext: true, openings: [win(-5, -2), door(-0.7, 0.7, 2.4), win(2.2, 5.2)] },
-  { axis: 'x', at: -5, from: -6, to: 6, ext: true, openings: [win(-5, -2.5), win(-0.6, 0.6, 1.6, 2.3), win(2.2, 5.2, 1.1, 2.3)] },
-  { axis: 'z', at: -6, from: -5, to: 5, ext: true, openings: [win(-2, 0)] },
-  { axis: 'z', at: 6, from: -5, to: 5, ext: true, openings: [win(-4, -2, 1.1, 2.3), win(0.5, 4.2, 0.05, 2.6)] },
-  { axis: 'z', at: -1.5, from: -5, to: 5, openings: [door(-1.6, -0.6), door(2.4, 3.4)] },
-  { axis: 'x', at: 0.5, from: -6, to: -1.5, openings: [] },
-  { axis: 'z', at: 1.5, from: -5, to: 5, openings: [door(0.5, 4, 2.6)] },
-  { axis: 'x', at: -1, from: 1.5, to: 6, openings: [door(2.5, 5.2, 2.6)] },
-  { axis: 'x', at: -2, from: -1.5, to: 1.5, openings: [door(-0.45, 0.45, 2.2)] },
+  { axis: 'x', at: 6, from: -7, to: 5, ext: true, openings: [win(-6.4, -5.4), door(-4.7, -3.3, 2.4), win(-0.2, 4.4, 0.3, 2.6)] },
+  { axis: 'z', at: 5, from: 1, to: 6, ext: true, openings: [win(1.6, 4.6, 1.1, 2.3)] },
+  { axis: 'x', at: 1, from: -1, to: 5, ext: true, openings: [win(-0.6, 4.4, 0.05, 2.6)] },
+  { axis: 'z', at: -1, from: -7, to: 1, ext: true, openings: [win(-6.4, 0.4, 0.05, 2.6)] },
+  { axis: 'x', at: -7, from: -7, to: -1, ext: true, openings: [] },
+  { axis: 'z', at: -7, from: -7, to: 6, ext: true, openings: [win(-6.2, -4.4), win(-2.2, -0.4), win(2.4, 4.6)] },
+  { axis: 'x', at: 1, from: -7, to: -2.4, openings: [] },
+  { axis: 'z', at: -2.4, from: -7, to: 1, openings: [door(-5, -4), door(-1.6, -0.6)] },
+  { axis: 'x', at: -3, from: -7, to: -2.4, openings: [] },
+  { axis: 'z', at: -1, from: 1, to: 6, openings: [door(1.6, 4.6, 2.6)] },
 ]
 
 // Floor-plan lines for the minimap (gaps at doorways)
@@ -51,12 +68,11 @@ export function planLines() {
   const lines = []
   HOUSE_WALLS.forEach((w) => {
     let cur = w.from
-    const gaps = w.openings.filter((o) => o.y0 < 0.1).sort((a, b) => a.a - b.a)
     const push = (a, b) => {
       if (b - a < 0.01) return
       lines.push(w.axis === 'x' ? [a, w.at, b, w.at] : [w.at, a, w.at, b])
     }
-    gaps.forEach((o) => {
+    w.openings.filter((o) => o.y0 < 0.1).sort((a, b) => a.a - b.a).forEach((o) => {
       push(cur, o.a)
       cur = o.b
     })
@@ -65,24 +81,27 @@ export function planLines() {
   return lines
 }
 
-// Navigation graph (local coords). Waypoints are doorways the camera walks through.
+// Navigation graph (local coords). Unnamed nodes are doorway waypoints.
 export const NODES = {
-  front: { pos: [0, 9.5], yaw: 0, name: 'Front garden' },
-  hall: { pos: [0, 3.2], yaw: -Math.PI / 2 + 0.35, name: 'Entrance hall' },
-  living: { pos: [2.4, 3.6], yaw: -0.48, name: 'Living room' },
-  kitchen: { pos: [3.8, -1.6], yaw: 0.1, name: 'Kitchen' },
-  master: { pos: [-2.8, -0.1], yaw: 0.35, name: 'Master bedroom' },
-  bed2: { pos: [-3.0, 2.0], yaw: Math.PI / 2, name: 'Bedroom 2' },
-  dLiv: { pos: [1.5, 3.4] },
-  lk: { pos: [2.1, -0.2] },
-  dB2: { pos: [-1.5, 2.9] },
-  hallMid: { pos: [0, 0.6] },
-  dMas: { pos: [-1.5, -1.1] },
+  front: { pos: [-4, 9.5], yaw: 0, name: 'Front garden', lookAt: [-4, 4.5] },
+  hall: { pos: [-4, 3.4], yaw: -Math.PI / 2 + 0.35, name: 'Entrance & dining' },
+  living: { pos: [0.6, 4.8], yaw: -0.96, name: 'Living room' },
+  kitchen: { pos: [2.2, 2.0], yaw: -Math.PI / 2, name: 'Kitchen' },
+  gallery: { pos: [-1.7, -1.9], yaw: -Math.PI / 2, name: 'Pool gallery' },
+  bed2: { pos: [-3.8, 0.2], yaw: 0.25, name: 'Bedroom 2' },
+  master: { pos: [-3.4, -3.6], yaw: 0.35, name: 'Master bedroom' },
+  dLiv: { pos: [-1, 3.2] },
+  gEntry: { pos: [-1.7, 2.0] },
+  gB2: { pos: [-1.7, -1.1] },
+  dB2: { pos: [-2.4, -1.1] },
+  gMas: { pos: [-1.7, -4.5] },
+  dMas: { pos: [-2.4, -4.5] },
 }
-export const STOPS = ['front', 'hall', 'living', 'kitchen', 'master', 'bed2']
+export const STOPS = ['front', 'hall', 'living', 'kitchen', 'gallery', 'bed2', 'master']
 const EDGES = [
-  ['front', 'hall'], ['hall', 'dLiv'], ['dLiv', 'living'], ['living', 'lk'], ['lk', 'kitchen'],
-  ['hall', 'dB2'], ['dB2', 'bed2'], ['hall', 'hallMid'], ['hallMid', 'dMas'], ['dMas', 'master'],
+  ['front', 'hall'], ['hall', 'dLiv'], ['dLiv', 'living'], ['living', 'kitchen'],
+  ['hall', 'gEntry'], ['gEntry', 'gB2'], ['gB2', 'gallery'], ['gB2', 'dB2'], ['dB2', 'bed2'],
+  ['gallery', 'gMas'], ['gMas', 'dMas'], ['dMas', 'master'],
 ]
 
 export function findPath(from, to) {
@@ -109,19 +128,19 @@ export function findPath(from, to) {
   return path
 }
 
-// Interior lights (local), repositioned onto whichever villa is open
+// Interior lights (local x, y, z), moved onto whichever villa is open
 export const LAMP_SPOTS = [
-  [3.8, 2.6, 1.4],
-  [3.8, 2.6, -3.0],
-  [-3.7, 2.6, -2.4],
-  [-3.7, 2.6, 2.7],
+  [2.6, 2.6, 4.2],
+  [3.0, 2.6, 2.0],
+  [-4.6, 2.6, -1.0],
+  [-4.6, 2.6, -5.0],
 ]
 
 // ── Materials & helpers ─────────────────────────────────
 export function makeMaterials(THREE) {
   const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.85, ...o })
   const floorTex = woodTexture(THREE)
-  floorTex.repeat.set(6, 5)
+  floorTex.repeat.set(6, 3)
   return {
     sand: new THREE.MeshStandardMaterial({ map: noiseTexture(THREE, '#d8c7a4', { repeat: 120, seed: 4 }), roughness: 1 }),
     grass: new THREE.MeshStandardMaterial({ map: noiseTexture(THREE, '#86ad6e', { repeat: 40, light: 0.08, dark: 0.12, seed: 5 }), roughness: 1 }),
@@ -238,88 +257,108 @@ function addCar(H, g, M, x, z, dark) {
   ;[[-0.95, 1.4], [0.95, 1.4], [-0.95, -1.4], [0.95, -1.4]].forEach(([dx, dz]) => H.box(g, 0.26, 0.66, 0.66, M.tyre, x + dx, 0, z + dz))
 }
 
+// ── L-shaped courtyard villa ─────────────────────────────
+function gable(THREE, H, parent, mat, x, z0, z1, y0, y1) {
+  // triangular infill under the mono-pitch roof, on a side wall at `x`
+  const s = new THREE.Shape()
+  s.moveTo(z0, y0)
+  s.lineTo(z1, y0)
+  s.lineTo(z1, y1)
+  s.lineTo(z0, y0)
+  const geo = new THREE.ExtrudeGeometry(s, { depth: T_EXT, bevelEnabled: false })
+  const m = H.mesh(geo, mat, parent)
+  m.rotation.y = -Math.PI / 2
+  m.position.set(x + T_EXT / 2, 0, 0)
+  return m
+}
+
 function buildHouse(THREE, H, M, unit, index) {
   const g = new THREE.Group()
+  const noShadow = { cast: false, receive: false }
 
-  // plot
+  // plot: lawn, entrance path, driveway, hedges
   H.flat(g, 20, 20, M.lawn, 0, 0.012, 1)
-  H.flat(g, 1.6, 6, M.pavers, 0, 0.02, 8)
-  H.flat(g, 3.2, 6.2, M.concrete, 7.6, 0.02, 8)
+  H.flat(g, 1.6, 5, M.pavers, -4, 0.02, 8.5)
+  H.flat(g, 3.2, 9, M.concrete, 7.6, 0.02, 6.5)
   H.box(g, 0.6, 1.1, 20, M.hedge, -9.7, 0, 1)
   H.box(g, 0.6, 1.1, 20, M.hedge, 9.7, 0, 1)
   H.box(g, 19.4, 1.1, 0.6, M.hedge, 0, 0, -8.7)
-  H.box(g, 8.6, 0.6, 0.5, M.hedge, -5.1, 0, 10.6)
-  H.box(g, 5.2, 0.6, 0.5, M.hedge, 3.4, 0, 10.6)
+  H.box(g, 4.2, 0.6, 0.5, M.hedge, -7.3, 0, 10.6)
+  H.box(g, 8.4, 0.6, 0.5, M.hedge, 1.4, 0, 10.6)
 
-  // house
-  H.flat(g, 12, 10, M.floor, 0, 0.022, 0)
-  HOUSE_WALLS.forEach((w) => buildWall(THREE, H, g, M, w))
-  const ceil = H.mesh(new THREE.PlaneGeometry(12, 10), M.ceiling, g, { cast: false, receive: false })
-  ceil.rotation.x = Math.PI / 2
-  ceil.position.set(0, WALL_H - 0.002, 0)
-
-  const roofMat = M.roof.clone()
-  H.box(g, 12.6, 0.35, 10.6, roofMat, 0, WALL_H, 0)
-  H.box(g, 12.6, 0.45, 0.2, roofMat, 0, WALL_H + 0.35, 5.2)
-  H.box(g, 12.6, 0.45, 0.2, roofMat, 0, WALL_H + 0.35, -5.2)
-  H.box(g, 0.2, 0.45, 10.6, roofMat, 6.2, WALL_H + 0.35, 0)
-  // upper volume (roof suite) in brand navy
-  H.box(g, 5.8, 2.8, 7, M.clad, -3.1, WALL_H + 0.35, -1.2)
-  H.box(g, 6.1, 0.25, 7.3, roofMat, -3.1, WALL_H + 3.15, -1.2)
-  H.box(g, 4.6, 1.3, 0.05, M.darkGlass, -3.1, WALL_H + 1.0, 2.33, { cast: false })
-  H.box(g, 0.05, 1.3, 4.6, M.darkGlass, -0.18, WALL_H + 1.0, -1.2, { cast: false })
-  // entrance canopy + open front door
-  H.box(g, 3.4, 0.15, 1.8, M.clad, 0, 2.55, 5.95)
-  // Zayed Reimagined design: travertine portal, cantilevered roof, timber louvres, rooftop pergola
-  H.box(g, 0.45, 2.95, 0.55, M.travertine, -1.0, 0, 5.32)
-  H.box(g, 0.45, 2.95, 0.55, M.travertine, 1.0, 0, 5.32)
-  H.box(g, 2.45, 0.3, 0.55, M.travertine, 0, 2.95, 5.32)
-  H.box(g, 12.6, 0.2, 1.6, roofMat, 0, WALL_H + 0.15, 6.1)
-  for (let k = 0; k < 10; k++) H.box(g, 0.07, 2.3, 0.12, M.clad, -5.35 + k * 0.5, WALL_H + 0.6, 2.42)
-  ;[[0.7, 1.9], [5.7, 1.9], [0.7, 4.7], [5.7, 4.7]].forEach(([px, pz]) => H.box(g, 0.12, 2.4, 0.12, M.clad, px, WALL_H + 0.35, pz))
-  H.box(g, 5.2, 0.12, 0.14, M.clad, 3.2, WALL_H + 2.75, 1.9)
-  H.box(g, 5.2, 0.12, 0.14, M.clad, 3.2, WALL_H + 2.75, 4.7)
-  for (let k = 0; k < 9; k++) H.box(g, 0.08, 0.1, 3.0, M.clad, 0.8 + k * 0.6, WALL_H + 2.87, 3.3)
-  ;[-1.9, 1.9].forEach((px) => {
-    H.box(g, 1.1, 0.5, 1.1, M.travertine, px, 0, 7.4)
-    const bush = H.mesh(new THREE.IcosahedronGeometry(0.55, 2), M.hedge, g)
-    bush.position.set(px, 0.85, 7.4)
+  // floors + ceilings for both wings
+  H.flat(g, 12, 5, M.floor, -1, 0.022, 3.5)
+  H.flat(g, 6, 8, M.floor, -4, 0.022, -3)
+  ;[[12, 5, -1, 3.5], [6, 8, -4, -3]].forEach(([w, d, x, z]) => {
+    const c = H.mesh(new THREE.PlaneGeometry(w, d), M.ceiling, g, noShadow)
+    c.rotation.x = Math.PI / 2
+    c.position.set(x, WALL_H - 0.002, z)
   })
+  HOUSE_WALLS.forEach((w) => buildWall(THREE, H, g, M, w))
+
+  // Day wing: mono-pitch roof rising towards the street, with infill above the walls
+  const roofMat = M.roof.clone()
+  const run = 6.2
+  const rise = 1.4
+  const a = Math.atan2(rise, run)
+  const slab = H.box(g, 12.8, 0.25, Math.hypot(run, rise), roofMat, -1, 0, 0)
+  slab.rotation.x = -a
+  slab.position.set(-1, WALL_H + 0.15 + rise / 2, 0.7 + run / 2)
+  H.box(g, 12.44, rise, T_EXT, M.wallExt, -1, WALL_H, 6)
+  gable(THREE, H, g, M.wallExt, -7, 1, 6, WALL_H, WALL_H + rise * (5.3 / run))
+  gable(THREE, H, g, M.wallExt, 5, 1, 6, WALL_H, WALL_H + rise * (5.3 / run))
+
+  // Night wing: two-storey timber tower with glass bands and a flat roof
+  H.box(g, 6.44, 3.0, 8.44, M.clad, -4, WALL_H, -3)
+  H.box(g, 0.05, 1.3, 6, M.darkGlass, -0.76, WALL_H + 0.9, -3, noShadow)
+  H.box(g, 4.4, 1.3, 0.05, M.darkGlass, -4, WALL_H + 0.9, -7.24, noShadow)
+  H.box(g, 0.05, 1.3, 4, M.darkGlass, -7.24, WALL_H + 0.9, -3, noShadow)
+  H.box(g, 6.9, 0.28, 8.9, roofMat, -4, WALL_H + 3.0, -3)
+  for (let k = 0; k < 9; k++) H.box(g, 0.08, 2.4, 0.1, M.travertine, -6.4 + k * 0.6, WALL_H + 0.3, 1.27)
+
+  // Travertine entrance portal + open front door
+  H.box(g, 0.4, 2.9, 0.5, M.travertine, -5.05, 0, 6.3)
+  H.box(g, 0.4, 2.9, 0.5, M.travertine, -2.95, 0, 6.3)
+  H.box(g, 2.5, 0.3, 0.5, M.travertine, -4, 2.9, 6.3)
   const hinge = new THREE.Group()
-  hinge.position.set(-0.7, 0, 4.95)
+  hinge.position.set(-4.7, 0, 5.95)
   hinge.rotation.y = 1.35
   H.box(hinge, 1.38, 2.38, 0.06, M.clad, 0.69, 0, 0)
   g.add(hinge)
-  // status marker on the roof
+
+  // Courtyard: timber deck, pool, travertine garden walls, shade pergola
+  H.flat(g, 6, 8, M.deck, 2, 0.03, -3)
+  H.box(g, 4.0, 0.12, 5.6, M.travertine, 2.6, 0, -3.6, { cast: false })
+  H.flat(g, 3.6, 5.2, M.water, 2.6, 0.13, -3.6)
+  H.box(g, 0.3, 1.8, 8, M.travertine, 5.0, 0, -3)
+  H.box(g, 6.3, 1.8, 0.3, M.travertine, 2, 0, -7)
+  ;[[-0.6, -0.9], [4.6, -0.9], [-0.6, 0.6], [4.6, 0.6]].forEach(([px, pz]) => H.box(g, 0.12, 2.7, 0.12, M.clad, px, 0, pz))
+  for (let k = 0; k < 10; k++) H.box(g, 0.08, 0.1, 1.8, M.clad, -0.5 + k * 0.56, 2.7, -0.15)
+  H.box(g, 0.7, 0.3, 1.8, M.white, 0.4, 0, -5.6)
+  H.box(g, 0.7, 0.3, 1.8, M.white, 1.4, 0, -5.6)
+
+  // status marker on the tower roof
   const status = STATUS[unit.status]
   const disc = H.mesh(
-    new THREE.CylinderGeometry(1.5, 1.5, 0.1, 40),
+    new THREE.CylinderGeometry(1.6, 1.6, 0.1, 40),
     new THREE.MeshStandardMaterial({ color: status.color, emissive: status.color, emissiveIntensity: 0.45 }),
     g,
-    { cast: false, receive: false },
+    noShadow,
   )
-  disc.position.set(3, WALL_H + 0.42, 0)
+  disc.position.set(-4, WALL_H + 3.36, -3)
 
-  // garden extras
-  if (unit.pool) {
-    H.flat(g, 9.4, 3.6, M.deck, -1.5, 0.03, -6.95)
-    H.box(g, 5.6, 0.12, 2.8, M.travertine, -1.5, 0, -7.1, { cast: false })
-    H.flat(g, 5, 2.2, M.water, -1.5, 0.13, -7.1)
-  }
   if (unit.car) addCar(H, g, M, 7.6, 8, index % 4 === 0)
 
-  // invisible hit volume for picking from the air
   const pick = new THREE.Mesh(
-    new THREE.BoxGeometry(13, 7, 11),
+    new THREE.BoxGeometry(13, 7, 14),
     new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false, colorWrite: false }),
   )
-  pick.position.set(0, 3.5, 0)
+  pick.position.set(-1, 3.5, -0.5)
   pick.userData.unit = index
   g.add(pick)
 
   g.position.set(unit.x, 0, unit.z)
   g.rotation.y = unit.rot
-
   const cos = Math.cos(unit.rot)
   const sin = Math.sin(unit.rot)
   const toWorld = ([lx, lz], y = 0) => new THREE.Vector3(unit.x + lx * cos + lz * sin, y, unit.z - lx * sin + lz * cos)
@@ -331,6 +370,21 @@ function seeded(seed) {
   return () => (s = (s * 16807) % 2147483647) / 2147483647
 }
 
+// Flat elliptical ring (or disc when inner = 0), lying on the ground
+function ellipseRing(THREE, H, parent, mat, ox, oz, inner, y) {
+  const shape = new THREE.Shape()
+  shape.absellipse(0, 0, ox, oz, 0, Math.PI * 2, false, 0)
+  if (inner) {
+    const hole = new THREE.Path()
+    hole.absellipse(0, 0, inner[0], inner[1], 0, Math.PI * 2, true, 0)
+    shape.holes.push(hole)
+  }
+  const m = H.mesh(new THREE.ShapeGeometry(shape, 96), mat, parent, { cast: false, receive: true })
+  m.rotation.x = -Math.PI / 2
+  m.position.y = y
+  return m
+}
+
 export function buildCompound(THREE) {
   const M = makeMaterials(THREE)
   const H = helpers(THREE)
@@ -339,43 +393,46 @@ export function buildCompound(THREE) {
 
   // ground: desert outside, landscaped inside the wall
   H.flat(scene, 900, 900, M.sand, 0, -0.02, 0)
-  H.flat(scene, 84, 196, M.grass, 0, 0, -14)
+  H.flat(scene, 144, 196, M.grass, 0, 0, -4)
 
-  // perimeter wall with gate
+  // perimeter wall with a south gate
   const wallH = 2.2
-  H.box(scene, 0.4, wallH, 196, M.perimeter, -42, 0, -14)
-  H.box(scene, 0.4, wallH, 196, M.perimeter, 42, 0, -14)
-  H.box(scene, 84, wallH, 0.4, M.perimeter, 0, 0, -112)
-  H.box(scene, 36, wallH, 0.4, M.perimeter, -24, 0, 84)
-  H.box(scene, 36, wallH, 0.4, M.perimeter, 24, 0, 84)
-  H.box(scene, 1.4, 3.6, 1.4, M.clad, -6.4, 0, 84)
-  H.box(scene, 1.4, 3.6, 1.4, M.clad, 6.4, 0, 84)
-  H.box(scene, 4, 3, 4, M.wallExt, 10, 0, 80)
-  H.box(scene, 4.6, 0.2, 4.6, M.clad, 10, 3, 80)
+  H.box(scene, 0.4, wallH, 196, M.perimeter, -72, 0, -4)
+  H.box(scene, 0.4, wallH, 196, M.perimeter, 72, 0, -4)
+  H.box(scene, 144, wallH, 0.4, M.perimeter, 0, 0, -102)
+  H.box(scene, 65, wallH, 0.4, M.perimeter, -39.5, 0, 94)
+  H.box(scene, 65, wallH, 0.4, M.perimeter, 39.5, 0, 94)
+  H.box(scene, 1.4, 3.8, 1.4, M.clad, -6.6, 0, 94)
+  H.box(scene, 1.4, 3.8, 1.4, M.clad, 6.6, 0, 94)
+  H.box(scene, 4, 3, 4, M.wallExt, 11, 0, 90)
+  H.box(scene, 4.6, 0.2, 4.6, M.clad, 11, 3, 90)
 
-  // roads
-  H.box(scene, 8, 0.04, 146, M.asphalt, 0, 0, 11, { cast: false })
-  H.box(scene, 2, 0.08, 146, M.sidewalk, -5, 0, 11, { cast: false })
-  H.box(scene, 2, 0.08, 146, M.sidewalk, 5, 0, 11, { cast: false })
-  H.box(scene, 1.2, 0.18, 118, M.lawn, 0, 0, 0, { cast: false })
-  const round = H.mesh(new THREE.CylinderGeometry(11, 11, 0.04, 56), M.asphalt, scene, { cast: false })
-  round.position.set(0, 0.02, -72)
-  const island = H.mesh(new THREE.CylinderGeometry(5.5, 5.5, 0.25, 48), M.lawn, scene, { cast: false })
-  island.position.set(0, 0.12, -72)
-  const fountain = H.mesh(new THREE.CylinderGeometry(3, 3.2, 0.6, 40), M.stone, scene)
-  fountain.position.set(0, 0.3, -72)
-  const fWater = H.mesh(new THREE.CylinderGeometry(2.7, 2.7, 0.1, 40), M.water, scene, { cast: false })
-  fWater.position.set(0, 0.6, -72)
-  H.box(scene, 0.5, 2.2, 0.5, M.stone, 0, 0, -72)
+  // Oval ring road with sidewalks, gate road and clubhouse spur
+  ellipseRing(THREE, H, scene, M.sidewalk, RX + ROAD / 2 + 1.5, RZ + ROAD / 2 + 1.5, [RX + ROAD / 2, RZ + ROAD / 2], 0.015)
+  ellipseRing(THREE, H, scene, M.asphalt, RX + ROAD / 2, RZ + ROAD / 2, [RX - ROAD / 2, RZ - ROAD / 2], 0.02)
+  ellipseRing(THREE, H, scene, M.sidewalk, RX - ROAD / 2, RZ - ROAD / 2, [RX - ROAD / 2 - 1.5, RZ - ROAD / 2 - 1.5], 0.015)
+  H.box(scene, 8, 0.04, 42, M.asphalt, 0, 0, RZ + 21 + 2, { cast: false })
+  H.box(scene, 7, 0.04, 26, M.asphalt, 0, 0, -RZ - 13 - 2, { cast: false })
 
-  // clubhouse + pool
-  H.flat(scene, 30, 9, M.pavers, 0, 0.03, -87.5)
-  H.box(scene, 20, 0.15, 5, M.stone, 0, 0, -87.5, { cast: false })
-  H.flat(scene, 18.6, 3.8, M.water, 0, 0.16, -87.5)
-  H.box(scene, 26, 5.5, 12, M.wallExt, 0, 0, -98)
-  H.box(scene, 22, 4, 0.1, M.darkGlass, 0, 0.6, -91.95, { cast: false })
-  H.box(scene, 28, 0.4, 14, M.clad, 0, 5.5, -98)
-  ;[-9, -3, 3, 9].forEach((x) => H.box(scene, 0.3, 0.3, 4, M.white, x, 0.15, -82.5)) // loungers
+  // Central park: lawn, jogging loop, lagoon with stone rim, pavilion
+  ellipseRing(THREE, H, scene, M.lawn, RX - ROAD / 2 - 1.5, RZ - ROAD / 2 - 1.5, null, 0.01)
+  ellipseRing(THREE, H, scene, M.pavers, 23, 35, [21.5, 33.5], 0.025)
+  ellipseRing(THREE, H, scene, M.travertine, 13.2, 21.2, [12, 20], 0.06)
+  ellipseRing(THREE, H, scene, M.water, 12, 20, null, 0.05)
+  const pav = new THREE.Group()
+  pav.position.set(15, 0, -6)
+  ;[[-2, -2], [2, -2], [-2, 2], [2, 2]].forEach(([x, z]) => H.box(pav, 0.25, 3, 0.25, M.clad, x, 0, z))
+  H.box(pav, 5, 0.3, 5, M.roof, 0, 3, 0)
+  H.flat(pav, 5, 5, M.deck, 0, 0.04, 0)
+  scene.add(pav)
+
+  // Clubhouse + pool at the head of the oval
+  H.flat(scene, 30, 10, M.pavers, 0, 0.03, -RZ - 33)
+  H.box(scene, 20, 0.15, 5, M.travertine, 0, 0, -RZ - 33, { cast: false })
+  H.flat(scene, 18.6, 3.8, M.water, 0, 0.16, -RZ - 33)
+  H.box(scene, 26, 5.5, 12, M.wallExt, 0, 0, -RZ - 44)
+  H.box(scene, 22, 4, 0.1, M.darkGlass, 0, 0.6, -RZ - 37.95, { cast: false })
+  H.box(scene, 28, 0.4, 14, M.clad, 0, 5.5, -RZ - 44)
 
   // villas
   const houses = UNITS.map((u, i) => {
@@ -387,7 +444,7 @@ export function buildCompound(THREE) {
   greenery(THREE, scene, houses, seeded(11))
 
   // lighting
-  scene.add(new THREE.HemisphereLight("#eef6ff", "#b3a98f", 0.9))
+  scene.add(new THREE.HemisphereLight('#eef6ff', '#b3a98f', 0.9))
   const sun = new THREE.DirectionalLight('#fff3df', 2.6)
   sun.position.set(70, 120, 45)
   sun.castShadow = true
@@ -395,9 +452,8 @@ export function buildCompound(THREE) {
   Object.assign(sun.shadow.camera, { left: -115, right: 115, top: 115, bottom: -115, near: 10, far: 330 })
   sun.shadow.bias = -0.0004
   sun.shadow.normalBias = 0.03
-  sun.target.position.set(0, 0, -14)
+  sun.target.position.set(0, 0, -4)
   scene.add(sun, sun.target)
-
   const fillLight = new THREE.DirectionalLight('#e3edf7', 0.9)
   fillLight.position.set(-60, 50, -30)
   scene.add(fillLight)
@@ -411,7 +467,7 @@ export function buildCompound(THREE) {
   return { scene, houses, lamps, M, H }
 }
 
-// Furnished interior, added only to the villa being visited
+// ── Interiors (added only to the villa being visited) ────
 export function buildInterior(THREE, M, H, markTexture) {
   const g = new THREE.Group()
   const o = { cast: false, receive: false }
@@ -429,88 +485,94 @@ export function buildInterior(THREE, M, H, markTexture) {
     ball(0.24 * s, M.leaf, x + 0.12 * s, 0.98 * s, z + 0.05 * s)
   }
 
-  // Living
-  rug(3.2, 2.4, 4.0, 1.2)
-  B(2.6, 0.42, 0.95, M.fabric, 4.0, 0, -0.2)
-  B(2.6, 0.5, 0.22, M.fabric, 4.0, 0.42, -0.57)
-  B(0.2, 0.62, 0.95, M.fabric, 2.7, 0, -0.2)
-  B(0.2, 0.62, 0.95, M.fabric, 5.3, 0, -0.2)
-  B(1.15, 0.12, 0.7, M.fabricDark, 3.42, 0.42, -0.12)
-  B(1.15, 0.12, 0.7, M.fabricDark, 4.58, 0.42, -0.12)
-  B(0.42, 0.38, 0.12, M.navy, 3.1, 0.54, -0.42)
-  B(0.42, 0.38, 0.12, M.navySoft, 4.9, 0.54, -0.42)
-  B(1.1, 0.05, 0.6, M.woodLight, 4.0, 0.36, 1.3)
-  B(0.9, 0.3, 0.4, M.wood, 4.0, 0.06, 1.3)
-  B(0.85, 0.42, 0.85, M.navySoft, 5.3, 0, 2.5)
-  B(0.2, 0.45, 0.85, M.navySoft, 5.62, 0.42, 2.5)
-  plant(5.5, 4.4)
-  B(0.04, 1.5, 0.04, M.black, 1.95, 0, 4.55)
-  const shade = H.mesh(new THREE.CylinderGeometry(0.16, 0.24, 0.3, 20, 1, true), M.lamp, g, o)
-  shade.position.set(1.95, 1.6, 4.55)
-
-  // Kitchen
-  B(3.8, 0.88, 0.62, M.navy, 3.9, 0, -4.64)
-  B(3.86, 0.04, 0.66, M.stone, 3.9, 0.88, -4.62)
-  B(0.6, 0.02, 0.45, M.black, 3.0, 0.92, -4.6)
-  B(0.5, 0.02, 0.4, M.white, 4.8, 0.92, -4.6)
-  B(3.2, 0.04, 0.28, M.woodLight, 3.9, 2.45, -4.82)
-  B(0.7, 2.1, 0.62, M.white, 5.6, 0, -1.45)
-  B(2.2, 0.9, 0.9, M.navySoft, 3.9, 0, -2.9)
-  B(2.3, 0.04, 1.0, M.stone, 3.9, 0.9, -2.9)
-  ;[3.3, 4.5].forEach((x) => {
-    B(0.38, 0.04, 0.38, M.woodLight, x, 0.65, -2.1)
-    B(0.04, 0.65, 0.04, M.black, x, 0, -2.1)
-    B(0.01, 0.75, 0.01, M.black, x, 2.25, -2.9)
-    ball(0.12, M.lamp, x, 2.17, -2.9)
+  // Entrance & dining hall
+  rug(3, 2.2, -4, 3.6)
+  B(1.7, 0.05, 0.95, M.woodLight, -5.2, 0.74, 2.0)
+  ;[[-5.85, 1.62], [-5.85, 2.38], [-4.55, 1.62], [-4.55, 2.38]].forEach(([x, z]) => B(0.06, 0.74, 0.06, M.wood, x, 0, z))
+  ;[[-5.6, 1.3], [-4.8, 1.3], [-5.6, 2.7], [-4.8, 2.7]].forEach(([x, z]) => {
+    B(0.42, 0.45, 0.42, M.navySoft, x, 0, z)
+    B(0.42, 0.45, 0.06, M.navySoft, x, 0.45, z + (z > 2 ? 0.18 : -0.18))
   })
-
-  // Master bedroom
-  B(2.0, 1.1, 0.08, M.woodLight, -3.75, 0, -4.86)
-  B(1.9, 0.32, 2.1, M.wood, -3.75, 0, -3.8)
-  B(1.8, 0.22, 2.0, M.linen, -3.75, 0.32, -3.8)
-  B(1.84, 0.07, 1.3, M.navy, -3.75, 0.54, -3.4)
-  B(0.65, 0.14, 0.36, M.white, -4.2, 0.54, -4.55)
-  B(0.65, 0.14, 0.36, M.white, -3.3, 0.54, -4.55)
-  B(0.45, 0.5, 0.4, M.wood, -5.15, 0, -4.65)
-  B(0.45, 0.5, 0.4, M.wood, -2.35, 0, -4.65)
-  ball(0.11, M.lamp, -5.15, 0.65, -4.65)
-  ball(0.11, M.lamp, -2.35, 0.65, -4.65)
-  B(2.2, 2.3, 0.6, M.white, -4.7, 0, 0.12)
-  rug(2.6, 1.6, -3.75, -2.1)
-
-  // Bedroom 2
-  B(2.0, 0.3, 1.2, M.wood, -4.95, 0, 2.7)
-  B(1.95, 0.2, 1.15, M.linen, -4.95, 0.3, 2.7)
-  B(1.3, 0.06, 1.18, M.navySoft, -4.6, 0.5, 2.7)
-  B(0.35, 0.12, 0.6, M.white, -5.7, 0.5, 2.7)
-  B(1.4, 0.04, 0.6, M.woodLight, -3.8, 0.74, 4.5)
-  B(0.04, 0.74, 0.6, M.woodLight, -4.48, 0, 4.5)
-  B(0.04, 0.74, 0.6, M.woodLight, -3.12, 0, 4.5)
-  B(0.45, 0.45, 0.45, M.navy, -3.8, 0, 3.9)
-  B(0.45, 0.5, 0.06, M.navy, -3.8, 0.45, 3.7)
-
-  // Entrance hall
-  B(0.35, 0.8, 1.4, M.wood, -1.25, 0, 0.9)
-  B(0.03, 0.95, 0.95, M.navy, -1.42, 1.2, 0.9)
+  B(0.01, 0.8, 0.01, M.black, -5.2, 2.2, 2.0)
+  ball(0.16, M.lamp, -5.2, 2.12, 2.0)
+  B(0.4, 0.8, 1.6, M.wood, -6.75, 0, 3.5)
+  B(0.03, 0.95, 0.95, M.navy, -1.08, 1.2, 5.3)
   if (markTexture) {
     const art = H.mesh(new THREE.PlaneGeometry(0.62, 0.64), new THREE.MeshBasicMaterial({ map: markTexture, transparent: true }), g, o)
-    art.position.set(-1.39, 1.67, 0.9)
-    art.rotation.y = Math.PI / 2
+    art.position.set(-1.11, 1.67, 5.3)
+    art.rotation.y = -Math.PI / 2
   }
-  plant(1.05, 4.45, 1.1)
+  plant(-6.4, 5.4, 1.1)
 
-  // Bathroom
-  B(1.2, 0.85, 0.5, M.woodLight, 0, 0, -4.7)
-  B(1.25, 0.04, 0.54, M.white, 0, 0.85, -4.7)
-  B(0.9, 0.8, 0.03, M.darkGlass, 0, 1.2, -4.92)
-  B(0.4, 0.42, 0.6, M.white, 1.0, 0, -4.6)
+  // Living room
+  rug(3.4, 2.4, 3.0, 4.4)
+  B(2.6, 0.42, 0.95, M.fabric, 3.2, 0, 5.35)
+  B(2.6, 0.5, 0.22, M.fabric, 3.2, 0.42, 5.72)
+  B(0.2, 0.62, 0.95, M.fabric, 1.9, 0, 5.35)
+  B(0.2, 0.62, 0.95, M.fabric, 4.5, 0, 5.35)
+  B(1.15, 0.12, 0.7, M.fabricDark, 2.62, 0.42, 5.28)
+  B(1.15, 0.12, 0.7, M.fabricDark, 3.78, 0.42, 5.28)
+  B(0.42, 0.38, 0.12, M.navy, 2.3, 0.54, 5.55)
+  B(0.42, 0.38, 0.12, M.navySoft, 4.1, 0.54, 5.55)
+  B(1.1, 0.05, 0.6, M.woodLight, 3.2, 0.36, 4.2)
+  B(0.9, 0.3, 0.4, M.wood, 3.2, 0.06, 4.2)
+  B(0.85, 0.42, 0.85, M.navySoft, 0.2, 0, 3.4)
+  B(0.85, 0.45, 0.2, M.navySoft, 0.2, 0.42, 3.72)
+  plant(4.7, 3.6)
+  B(0.04, 1.5, 0.04, M.black, -0.6, 0, 5.6)
+  const shade = H.mesh(new THREE.CylinderGeometry(0.16, 0.24, 0.3, 20, 1, true), M.lamp, g, o)
+  shade.position.set(-0.6, 1.6, 5.6)
+
+  // Kitchen
+  B(0.62, 0.88, 1.8, M.navy, 4.65, 0, 2.1)
+  B(0.66, 0.04, 1.84, M.stone, 4.64, 0.88, 2.1)
+  B(0.45, 0.02, 0.6, M.black, 4.65, 0.92, 2.5)
+  B(0.4, 0.02, 0.5, M.white, 4.65, 0.92, 1.6)
+  B(0.62, 2.1, 0.7, M.white, 4.65, 0, 3.45)
+  B(0.9, 0.9, 1.8, M.navySoft, 3.6, 0, 2.0)
+  B(1.0, 0.04, 1.9, M.stone, 3.6, 0.9, 2.0)
+  ;[1.55, 2.45].forEach((z) => {
+    B(0.38, 0.04, 0.38, M.woodLight, 2.95, 0.65, z)
+    B(0.04, 0.65, 0.04, M.black, 2.95, 0, z)
+    B(0.01, 0.75, 0.01, M.black, 3.6, 2.25, z)
+    ball(0.12, M.lamp, 3.6, 2.17, z)
+  })
+
+  // Pool gallery
+  B(0.4, 0.42, 2.4, M.woodLight, -2.15, 0, -5.6)
+  plant(-1.35, -6.6)
+  plant(-2.1, 0.55, 0.9)
+
+  // Bedroom 2
+  B(1.5, 1.0, 0.08, M.woodLight, -4.7, 0, -2.92)
+  B(1.4, 0.3, 2.0, M.wood, -4.7, 0, -1.95)
+  B(1.35, 0.2, 1.95, M.linen, -4.7, 0.3, -1.95)
+  B(1.38, 0.06, 1.2, M.navySoft, -4.7, 0.5, -1.55)
+  B(0.6, 0.12, 0.35, M.white, -4.7, 0.5, -2.65)
+  B(0.6, 0.04, 1.3, M.woodLight, -6.65, 0.74, -1.3)
+  B(0.6, 0.74, 0.04, M.woodLight, -6.65, 0, -1.93)
+  B(0.6, 0.74, 0.04, M.woodLight, -6.65, 0, -0.67)
+  B(0.45, 0.45, 0.45, M.navy, -6.1, 0, -1.3)
+  B(2.0, 2.2, 0.6, M.white, -5.6, 0, 0.65)
+
+  // Master bedroom
+  B(2.0, 1.1, 0.08, M.woodLight, -4.7, 0, -6.92)
+  B(1.9, 0.32, 2.1, M.wood, -4.7, 0, -5.85)
+  B(1.8, 0.22, 2.0, M.linen, -4.7, 0.32, -5.85)
+  B(1.84, 0.07, 1.3, M.navy, -4.7, 0.54, -5.45)
+  B(0.65, 0.14, 0.36, M.white, -5.15, 0.54, -6.6)
+  B(0.65, 0.14, 0.36, M.white, -4.25, 0.54, -6.6)
+  B(0.45, 0.5, 0.4, M.wood, -6.0, 0, -6.7)
+  B(0.45, 0.5, 0.4, M.wood, -3.4, 0, -6.7)
+  ball(0.11, M.lamp, -6.0, 0.65, -6.7)
+  ball(0.11, M.lamp, -3.4, 0.65, -6.7)
+  B(2.0, 2.2, 0.6, M.white, -5.8, 0, -3.35)
+  rug(2.6, 1.6, -4.7, -4.4)
 
   return g
 }
 
-// ── Greenery ─────────────────────────────────────────────
-// Instanced planting: multi-cluster broadleaf trees with per-tree colour variation,
-// palms, hedges, shrubs and flower beds. Everything is instanced to keep draw calls low.
+// ── Greenery (all instanced) ─────────────────────────────
 function greenery(THREE, scene, houses, rnd) {
   const dummy = new THREE.Object3D()
   const GREENS = ['#3f6b3d', '#4d7d45', '#5b8d4f', '#6f9a58', '#35603a', '#7aa463']
@@ -519,13 +581,12 @@ function greenery(THREE, scene, houses, rnd) {
   const trunkMat = new THREE.MeshStandardMaterial({ color: '#7a5a3c', roughness: 0.9 })
   const frondMat = new THREE.MeshStandardMaterial({ color: '#4f8a46', roughness: 0.7, side: THREE.DoubleSide })
   const pick = (arr) => arr[Math.floor(rnd() * arr.length)]
-
   const place = (geo, mat, list, colors, { cast = true } = {}) => {
     const mesh = new THREE.InstancedMesh(geo, mat, list.length)
     list.forEach((p, i) => {
       dummy.position.set(p.x, p.y ?? 0, p.z)
-      dummy.rotation.set(p.rx ?? 0, p.ry ?? rnd() * Math.PI * 2, p.rz ?? 0)
-      dummy.scale.set(p.sx ?? p.s, p.sy ?? p.s, p.sz ?? p.s)
+      dummy.rotation.set(0, rnd() * Math.PI * 2, 0)
+      dummy.scale.set(p.s, p.sy ?? p.s, p.s)
       dummy.updateMatrix()
       mesh.setMatrixAt(i, dummy.matrix)
       if (colors) mesh.setColorAt(i, new THREE.Color(pick(colors)))
@@ -535,85 +596,95 @@ function greenery(THREE, scene, houses, rnd) {
     mesh.castShadow = cast
     mesh.receiveShadow = true
     scene.add(mesh)
-    return mesh
   }
+  const onEllipse = (rx, rz, t) => [rx * Math.sin(t), -rz * Math.cos(t)]
+  const nearHouse = (x, z, d) => houses.some((h) => Math.hypot(x - h.unit.x, z - h.unit.z) < d)
 
-  // Trees: boulevard median, villa gardens and the outer belt
   const trees = []
-  for (let z = -60; z <= 62; z += 6.5) trees.push({ x: 0, z, s: 0.8 + rnd() * 0.25 })
+  // avenue trees on the park side of the ring
+  for (let k = 0; k < 40; k++) {
+    const t = (k / 40) * Math.PI * 2
+    if (Math.abs(Math.sin(t / 2)) < 0.08) continue // keep the clubhouse spur clear
+    if (Math.abs(Math.cos(t / 2)) < 0.08) continue // keep the gate road clear
+    const [x, z] = onEllipse(RX - 7, RZ - 7, t)
+    trees.push({ x, z, s: 0.85 + rnd() * 0.2 })
+  }
+  // park clusters between the jogging loop and the lagoon
+  for (let k = 0; k < 26; k++) {
+    const t = rnd() * Math.PI * 2
+    const f = 0.62 + rnd() * 0.12
+    const [x, z] = onEllipse((RX - 7) * f + 3, (RZ - 7) * f + 3, t)
+    if (Math.hypot(x - 15, z + 6) < 5) continue
+    trees.push({ x, z, s: 0.9 + rnd() * 0.4 })
+  }
+  // garden trees on every plot
   houses.forEach((h) => {
-    ;[[-6.6, -8.6], [-6.6, 8.6], [6.6, -8.6], [6.6, 8.6], [-9.2, 0.2], [9.2, 0.2]].forEach(([lx, lz]) => {
+    ;[[-8.6, -8.2], [8.6, -8.2], [8.8, 9.2], [-9, 9.2], [7.6, 0]].forEach(([lx, lz]) => {
       const p = h.toWorld([lx, lz])
       trees.push({ x: p.x, z: p.z, s: 0.9 + rnd() * 0.35 })
     })
   })
-  for (let i = 0; i < 120; i++) {
-    const side = i % 2 ? 1 : -1
-    trees.push({ x: side * (29 + rnd() * 13), z: -110 + rnd() * 196, s: 0.95 + rnd() * 0.6 })
+  // outer belt between the plots and the wall
+  for (let k = 0, tries = 0; k < 110 && tries < 2000; tries++) {
+    const x = -69 + rnd() * 138
+    const z = -99 + rnd() * 190
+    const inside = (x / (RX + 30)) ** 2 + (z / (RZ + 30)) ** 2 < 1
+    if (inside || nearHouse(x, z, 16) || Math.abs(x) < 7 || (Math.abs(x) < 18 && z < -RZ - 26)) continue
+    trees.push({ x, z, s: 0.95 + rnd() * 0.6 })
+    k++
   }
-  for (let i = 0; i < 22; i++) trees.push({ x: -28 + rnd() * 56, z: -108 - rnd() * 3 + (i % 2) * 2, s: 1.05 + rnd() * 0.4 })
-  ;[[-14, -84], [14, -84], [-16, -94], [16, -94], [-8, -66], [8, -66], [-30, -60], [30, -60], [-34, 12], [34, 12]].forEach(([x, z]) =>
-    trees.push({ x, z, s: 1.15 + rnd() * 0.2 }),
-  )
 
-  // trunks
-  place(new THREE.CylinderGeometry(0.16, 0.26, 2.4, 8), trunkMat,
-    trees.map((t) => ({ x: t.x, y: 0, z: t.z, s: t.s, sy: t.s })), null)
-  // three-cluster crowns for an organic silhouette
-  const clusters = [
+  place(new THREE.CylinderGeometry(0.16, 0.26, 2.4, 8), trunkMat, trees.map((t) => ({ x: t.x, y: 1.2 * t.s, z: t.z, s: t.s })), null)
+  const crownGeo = new THREE.IcosahedronGeometry(1, 2)
+  ;[
     { ox: 0, oy: 3.6, oz: 0, r: 1.9 },
     { ox: -0.95, oy: 3.1, oz: 0.5, r: 1.35 },
     { ox: 0.85, oy: 4.1, oz: -0.4, r: 1.45 },
-  ]
-  const crownGeo = new THREE.IcosahedronGeometry(1, 2)
-  clusters.forEach((c) =>
-    place(crownGeo, leafMat, trees.map((t) => ({ x: t.x + c.ox * t.s, y: c.oy * t.s, z: t.z + c.oz * t.s, s: c.r * t.s })), GREENS),
-  )
+  ].forEach((c) => place(crownGeo, leafMat, trees.map((t) => ({ x: t.x + c.ox * t.s, y: c.oy * t.s, z: t.z + c.oz * t.s, s: c.r * t.s })), GREENS))
 
-  // Palms along the clubhouse and the entrance
-  const palms = [[-18, -80], [18, -80], [-22, -92], [22, -92], [-6, -58], [6, -58], [-30, -30], [30, -30], [-30, 20], [30, 20]]
+  // palms ringing the lagoon and flanking the clubhouse and gate
+  const palms = []
+  for (let k = 0; k < 14; k++) palms.push(onEllipse(15.5, 23.5, (k / 14) * Math.PI * 2 + 0.2))
+  palms.push([-16, -RZ - 30], [16, -RZ - 30], [-10, 88], [10, 86])
   palms.forEach(([x, z]) => {
     const h = 6.5 + rnd() * 2
-    const g = new THREE.Group()
-    g.position.set(x, 0, z)
+    const pg = new THREE.Group()
+    pg.position.set(x, 0, z)
     const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.24, h, 10), trunkMat)
     trunk.position.y = h / 2
     trunk.castShadow = true
-    g.add(trunk)
+    pg.add(trunk)
     for (let k = 0; k < 8; k++) {
       const f = new THREE.Mesh(new THREE.ConeGeometry(0.22, 3.2, 4, 1, true), frondMat)
-      const a = (k / 8) * Math.PI * 2
       f.geometry.translate(0, -1.6, 0)
-      f.rotation.set(Math.PI / 2 - 0.5, a, 0, 'YXZ')
+      f.rotation.set(Math.PI / 2 - 0.5, (k / 8) * Math.PI * 2, 0, 'YXZ')
       f.position.y = h
       f.castShadow = true
-      g.add(f)
+      pg.add(f)
     }
-    scene.add(g)
+    scene.add(pg)
   })
 
-  // Hedges and shrubs along each plot's frontage, leaving the driveway clear
+  // shrubs along each frontage and flower beds by the door (path and driveway kept clear)
   const shrubs = []
   const flowers = []
+  const clear = (lx) => (lx > -5.3 && lx < -2.7) || (lx > 5.6 && lx < 9.6)
   houses.forEach((h) => {
-    for (let i = 0; i < 26; i++) {
+    for (let i = 0; i < 24; i++) {
       const lx = -9 + rnd() * 18
-      const lz = 9.1 + rnd() * 0.5 - (rnd() < 0.5 ? 0 : 0)
-      if (Math.abs(lx) < 2.2) continue
-      const p = h.toWorld([lx, lz])
+      if (clear(lx)) continue
+      const p = h.toWorld([lx, 9.1 + rnd() * 0.5])
       shrubs.push({ x: p.x, y: 0.45, z: p.z, s: 0.55 + rnd() * 0.35, sy: 0.6 + rnd() * 0.3 })
     }
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 14; i++) {
       const side = i % 2 ? 1 : -1
-      const lz = -8.5 + rnd() * 17
-      const p = h.toWorld([side * (9.1 + rnd() * 0.3), lz])
+      const p = h.toWorld([side * (9.1 + rnd() * 0.3), -8.5 + rnd() * 17])
       shrubs.push({ x: p.x, y: 0.45, z: p.z, s: 0.5 + rnd() * 0.3, sy: 0.6 })
     }
     for (let i = 0; i < 22; i++) {
-      const lx = -8 + rnd() * 16
-      const lz = 4 + rnd() * 4.5
-      if (Math.abs(lx) < 2.4) continue
-      const p = h.toWorld([lx, lz])
+      const lx = -8.5 + rnd() * 13
+      if (clear(lx)) continue
+      const p = h.toWorld([lx, 6.9 + rnd() * 1.6])
       flowers.push({ x: p.x, y: 0.12, z: p.z, s: 0.22 + rnd() * 0.12 })
     }
   })

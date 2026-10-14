@@ -96,7 +96,7 @@ export default function NewZayedMap({ zooming, onOpen }) {
         <span className="zmap__dot" aria-hidden="true">3</span>
         <span className="zmap__card">
           <strong>Zayed Reimagined</strong>
-          <span>10 courtyard villas · New Zayed</span>
+          <span>10 L-shaped courtyard villas · New Zayed</span>
           <em>Explore in 3D →</em>
         </span>
       </button>

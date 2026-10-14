@@ -197,7 +197,7 @@ export default function ZayedExperience() {
                 <strong>Villa {u.id}</strong>
                 <span className="zx__status"><i style={{ background: STATUS[u.status].color }} />{STATUS[u.status].label}</span>
               </div>
-              <p>{UNIT_SPEC.type} · {UNIT_SPEC.beds} bedrooms + roof suite · {UNIT_SPEC.area}</p>
+              <p>{UNIT_SPEC.type} · {UNIT_SPEC.beds} bedrooms + tower suite · {UNIT_SPEC.area}</p>
               <p className="zx__price">From {u.price}</p>
               <Link to="/contact" state={{ service: 'Digital Twins' }} className="zx__cta">Book a viewing <ArrowRight aria-hidden="true" /></Link>
             </aside>
@@ -213,7 +213,7 @@ export default function ZayedExperience() {
                 <button className="zx__arrow" onClick={() => stepStop(1)} disabled={moving} aria-label="Next room"><ChevronRight aria-hidden="true" /></button>
               </nav>
               <div className="zx__plan zx__glass" aria-hidden="true">
-                <svg viewBox="-68 -58 136 176" width="100%" height="100%">
+                <svg viewBox="-80 -80 140 200" width="100%" height="100%">
                   <g stroke="#fff" strokeOpacity=".85" strokeWidth="2.2" strokeLinecap="round">
                     {plan.map(([x1, z1, x2, z2], i) => <line key={i} x1={x1 * 10} y1={z1 * 10} x2={x2 * 10} y2={z2 * 10} />)}
                   </g>

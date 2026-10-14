@@ -84,8 +84,8 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
     quality,
     theta: 0.95,
     phi: 1.08,
-    radius: 175,
-    target: new THREE.Vector3(0, 0, -10),
+    radius: 210,
+    target: new THREE.Vector3(0, 0, -4),
     autoSpin: !rm,
     house: null,
     houseIndex: null,
@@ -186,7 +186,7 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
     on.unit?.(i)
     on.stop?.('front')
     const P1 = house.toWorld(NODES.front.pos, EYE)
-    const T1 = house.toWorld([0, 0], 2.1)
+    const T1 = house.toWorld(NODES.front.lookAt ?? [0, 0], 2.1)
     setMode('flying')
     S.fly = {
       P0: camera.position.clone(),
@@ -316,6 +316,15 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
   // HTML hotspot pins: villa pins from the air, room pins on the ground
   const pinEls = () => pinRoot.querySelectorAll('[data-pin]')
   const occluder = new THREE.Raycaster()
+  const nbCache = {}
+  const neighbours = (from) =>
+    (nbCache[from] ||= new Set(
+      STOPS.filter((k) => {
+        if (k === from) return false
+        const path = findPath(from, k)
+        return path && path.slice(1, -1).every((n) => !STOPS.includes(n))
+      }),
+    ))
   const v3 = new THREE.Vector3()
   const updatePins = () => {
     const w = container.clientWidth
@@ -326,7 +335,7 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
       if (kind === 'unit' && S.mode === 'aerial') {
         houses[+id].group.getWorldPosition(v3)
         world = v3.set(v3.x, 9.5, v3.z)
-      } else if (kind === 'room' && S.mode === 'ground' && S.house && id !== S.stop) {
+      } else if (kind === 'room' && S.mode === 'ground' && S.house && id !== S.stop && neighbours(S.stop).has(id)) {
         world = nodeWorld(id, 1.25)
       }
       if (!world) {
@@ -345,6 +354,10 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
         occluder.set(camera.position, world.clone().sub(camera.position).normalize())
         occluder.far = dist - 0.3
         occluded = occluder.intersectObject(S.house.group, true).some((hit) => hit.object.visible && hit.object.material?.opacity !== 0 && !hit.object.material?.transparent)
+      }
+      if (occluded && dist > 7) {
+        el.style.visibility = 'hidden'
+        return
       }
       el.style.visibility = 'visible'
       el.dataset.occluded = occluded ? 'true' : 'false'
@@ -503,7 +516,7 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
 
   return {
     units: UNITS,
-    start: () => orbitTo({ theta: 0.75, phi: 0.92, radius: 128, target: new THREE.Vector3(0, 0, -8) }),
+    start: () => orbitTo({ theta: 0.6, phi: 0.88, radius: 165, target: new THREE.Vector3(0, 0, -4) }),
     enterHouse,
     exitHouse,
     walkTo,

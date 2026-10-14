@@ -96,7 +96,7 @@
 .zx__room:hover:not(:disabled) { background: rgba(255,255,255,0.14); }
 .zx__room[aria-current] { background: #fff; color: var(--navy) !important; }
 .zx__room:disabled, .zx__arrow:disabled { opacity: .5; cursor: default; }
-.zx__plan { position: absolute; right: 14px; bottom: 16px; width: 120px; aspect-ratio: 136 / 176; border-radius: 16px; padding: 8px; pointer-events: none; }
+.zx__plan { position: absolute; right: 14px; bottom: 16px; width: 118px; aspect-ratio: 140 / 200; border-radius: 16px; padding: 8px; pointer-events: none; }
 
 @media (max-width: 760px) {
   .zmap__card { display: none; }
