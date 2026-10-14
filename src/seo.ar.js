@@ -77,6 +77,7 @@ export const AR_NAV = [
   ['/ar/digital-twins', 'التوأم الرقمي'],
   ['/ar/web-development', 'تصميم المواقع'],
   ['/ar/new-zayed-atlas', 'أطلس زايد الجديدة'],
+  ['/ar/guides/virtual-tour-companies-egypt', 'دليل الشركات'],
   ['/ar/about', 'من نحن'],
   ['/ar/contact', 'تواصل معنا'],
 ]

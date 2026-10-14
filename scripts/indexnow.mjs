@@ -2,10 +2,11 @@
 //   node scripts/indexnow.mjs
 import { ROUTES, SITE_URL } from '../src/seo.js'
 import { AR_ROUTES } from '../src/seo.ar.js'
+import { GUIDES, LOCATIONS, AR_GUIDE } from '../src/seo.guides.js'
 
 const key = 'd02303ca986a0fc1aaa32609ec52b6ee'
 const host = new URL(SITE_URL).host
-const urlList = [...Object.keys(ROUTES), ...Object.keys(AR_ROUTES)].map((p) => `${SITE_URL}${p === '/' ? '/' : p}`)
+const urlList = [...Object.keys(ROUTES), ...Object.keys(AR_ROUTES), ...GUIDES.map((g) => g.path), ...LOCATIONS.map((l) => l.path), AR_GUIDE.path].map((p) => `${SITE_URL}${p === '/' ? '/' : p}`)
 const res = await fetch('https://api.indexnow.org/indexnow', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json; charset=utf-8' },

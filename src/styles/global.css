@@ -442,7 +442,8 @@ main { min-height: 60vh; }
 
 /* ── Footer ─────────────────────────────────────────────── */
 .footer { background: var(--navy-deep); color: var(--on-navy-2); padding: 72px 0 32px; }
-.footer__grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 40px; }
+.footer__grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 36px; }
+.footer h2.footer__sub { margin-top: 22px; }
 .footer__brand img { height: 34px; width: auto; margin-bottom: 18px; }
 .footer__brand p { max-width: 22rem; }
 .footer h2 { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #fff; margin-bottom: 14px; }

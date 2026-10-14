@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ArrowRight, Menu, X } from 'lucide-react'
 import { company, services } from '../content.js'
+import { GUIDES, LOCATIONS } from '../seo.guides.js'
 
 const navItems = [
   ...services.map((s) => ({ to: s.path, label: s.name })),
@@ -114,6 +115,22 @@ function Footer() {
               <li><Link to="/projects">Projects</Link></li>
               <li><Link to="/about">About</Link></li>
               <li><Link to="/contact">Contact</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Guides</h2>
+            <ul>
+              {/* Static prerendered pages: plain links so they load as full pages */}
+              {GUIDES.map((g) => (
+                <li key={g.path}><a href={g.path}>{g.h1.split(':')[0]}</a></li>
+              ))}
+              <li><a href="/new-zayed-atlas">New Zayed Atlas</a></li>
+            </ul>
+            <h2 className="footer__sub">Areas</h2>
+            <ul>
+              {LOCATIONS.map((l) => (
+                <li key={l.path}><a href={l.path}>{l.area}</a></li>
+              ))}
             </ul>
           </div>
           <div>

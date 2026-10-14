@@ -16,6 +16,7 @@ import {
   AR_NAME, AR_ORG_DESCRIPTION, AR_PATH, AR_ROUTES, AR_NAV, AR_SERVICES, AR_PROCESS, AR_INDUSTRIES, AR_FAQS,
   AR_REGION, AR_LANDMARKS, unitAr, deliveryAr, acresToFeddan,
 } from '../src/seo.ar.js'
+import { GUIDES, LOCATIONS, AR_GUIDE, GUIDES_UPDATED } from '../src/seo.guides.js'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
@@ -338,6 +339,133 @@ for (const [path, meta] of Object.entries(AR_ROUTES)) {
   } else write(path, html)
 }
 
+// ── English guides and location pages (static, linked from the site footer) ──
+const enCss = arCss.replace("font-family: 'IBM Plex Sans Arabic', system-ui, sans-serif;", "font-family: 'Inter', system-ui, sans-serif;")
+  + ` h1, h2 { font-family: 'Manrope', 'Inter', sans-serif; letter-spacing: -0.02em; } h1 { letter-spacing: -0.03em; } .note { font-size: .9rem; color: var(--ink2); background: var(--bg2); border-radius: 12px; padding: 10px 14px; margin-top: 18px; }`
+const EN_NAV = [['/', 'Home'], ['/virtual-tours', 'Virtual Tours'], ['/digital-twins', 'Digital Twins'], ['/web-development', 'Web Development'], ['/new-zayed-atlas', 'New Zayed Atlas'], ['/contact', 'Contact']]
+const enNav = `<nav aria-label="Main">${EN_NAV.map(([p, l]) => `<a href="${p}">${l}</a>`).join('')}</nav>`
+const enFooter = (arPath) => `<footer><div class="wrap">
+  <p>${esc(ORG_DESCRIPTION)}</p>
+  <p>Email: <a href="mailto:${esc(company.email)}">${esc(company.email)}</a> · ${esc(company.location)}</p>
+  <p>Guides: ${GUIDES.map((g) => `<a href="${g.path}">${esc(g.h1.split(':')[0])}</a>`).join(' · ')}</p>
+  <p>Areas: ${LOCATIONS.map((l) => `<a href="${l.path}">${esc(l.area)}</a>`).join(' · ')}</p>
+  ${arPath ? `<p><a href="${arPath}" hreflang="ar" lang="ar">العربية</a></p>` : ''}
+</div></footer>`
+const sectionHtml = (sec) => `<section><div class="wrap"><h2>${esc(sec.h2)}</h2>
+  ${(sec.p ?? []).map((t) => `<p class="muted">${esc(t)}</p>`).join('')}
+  ${sec.list ? `<ul class="list">${sec.list.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+  ${sec.table ? `<table><thead><tr>${sec.table.head.map((h) => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${sec.table.rows.map((r) => `<tr>${r.map((c, i) => (i ? `<td>${esc(c)}</td>` : `<th scope="row">${esc(c)}</th>`)).join('')}</tr>`).join('')}</tbody></table>` : ''}
+</div></section>`
+const faqSection = (items, h2 = 'Frequently asked questions') => `<section><div class="wrap"><h2>${h2}</h2>${items.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div></section>`
+const faqLdFrom = (items, lang = 'en') => ({ '@context': 'https://schema.org', '@type': 'FAQPage', inLanguage: lang, mainEntity: items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) })
+const articleLd = (path, meta, lang = 'en') => ({
+  '@context': 'https://schema.org', '@type': 'Article', headline: meta.h1, description: meta.description, inLanguage: lang,
+  datePublished: GUIDES_UPDATED, dateModified: GUIDES_UPDATED, mainEntityOfPage: `${SITE_URL}${path}`, image: OG_IMAGE,
+  author: { '@id': `${SITE_URL}/#organization` }, publisher: { '@id': `${SITE_URL}/#organization` },
+})
+const crumbsLd = (trail) => ({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: trail.map(([n, p], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: `${SITE_URL}${p}` })) })
+
+function staticPage({ lang, path, title, description, h1, lead, body, jsonld, alternates, cta = true }) {
+  const ar = lang === 'ar'
+  const fullTitle = `${title} | Virtualizeer`
+  const alts = alternates ? Object.entries(alternates).map(([hl, p]) => `<link rel="alternate" hreflang="${hl}" href="${SITE_URL}${p}" />`).join('\n    ') : ''
+  return `<!doctype html>
+<html lang="${lang}"${ar ? ' dir="rtl"' : ''}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${esc(fullTitle)}</title>
+    <meta name="description" content="${esc(description)}" />
+    <link rel="canonical" href="${SITE_URL}${path}" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    ${alts}
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="${ar ? esc(AR_NAME) : SITE_NAME}" />
+    <meta property="og:locale" content="${ar ? 'ar_EG' : 'en_US'}" />
+    <meta property="og:url" content="${SITE_URL}${path}" />
+    <meta property="og:title" content="${esc(fullTitle)}" />
+    <meta property="og:description" content="${esc(description)}" />
+    <meta property="og:image" content="${OG_IMAGE}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${esc(fullTitle)}" />
+    <meta name="twitter:description" content="${esc(description)}" />
+    <meta name="twitter:image" content="${OG_IMAGE}" />
+    <meta name="geo.region" content="EG-C" />
+    <meta name="theme-color" content="#F5F5F7" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?${ar ? 'family=IBM+Plex+Sans+Arabic:wght@400;600;700' : 'family=Inter:wght@400;500;600&family=Manrope:wght@700;800'}&display=swap" rel="stylesheet" />
+    <style>${ar ? arCss : enCss}</style>
+    ${jsonld.map(ld).join('\n    ')}
+  </head>
+  <body>
+    <header><div class="wrap"><a href="${ar ? '/ar' : '/'}" aria-label="Virtualizeer"><img src="/brand/logo-h-navy.png" alt="Virtualizeer" width="140" height="28" /></a>${ar ? arNav(path) : enNav}</div></header>
+    <main>
+      <div class="hero"><div class="wrap"><h1>${esc(h1)}</h1><p class="lead">${esc(lead)}</p>${cta ? `<a class="cta" href="${ar ? '/ar/contact' : '/contact'}">${ar ? 'اطلب عرض سعر' : 'Get a quote'}</a>` : ''}</div></div>
+      ${body}
+    </main>
+    ${ar ? arFooter(alternates?.en ?? '/') : enFooter(alternates?.ar)}
+  </body>
+</html>
+`
+}
+
+const extraUrls = []
+for (const g of GUIDES) {
+  const isCompanies = Boolean(g.companies)
+  const companiesHtml = isCompanies
+    ? `<section><div class="wrap"><h2>Companies at a glance</h2>
+        <table><thead><tr><th scope="col">Company</th><th scope="col">Based</th><th scope="col">Focus</th></tr></thead><tbody>
+        ${g.companies.map((c) => `<tr><th scope="row">${esc(c.name)}</th><td>${esc(c.based)}</td><td>${esc(c.focus)}</td></tr>`).join('')}
+        </tbody></table><p class="note">${esc(g.disclosure)}</p></div></section>
+      <section><div class="wrap"><h2>What each company offers</h2>${g.companies.map((c) => `<h3>${esc(c.name)}</h3><p class="muted" style="margin-bottom:14px">${esc(c.about)}</p>`).join('')}</div></section>`
+    : ''
+  const links = g.links ? `<section><div class="wrap">${g.links.map(([p, l], i) => `<a class="cta${i ? ' ghost' : ''}" href="${p}">${esc(l)}</a>`).join('')}</div></section>` : ''
+  const body = companiesHtml + g.sections.map(sectionHtml).join('') + links + (g.faqs ? faqSection(g.faqs) : '')
+  const alternates = g.path === AR_GUIDE.en ? { en: g.path, ar: AR_GUIDE.path, 'x-default': g.path } : null
+  const jsonld = [
+    orgLd(), articleLd(g.path, g),
+    ...(isCompanies ? [{ '@context': 'https://schema.org', '@type': 'ItemList', name: 'Virtual tour and digital twin companies in Egypt', numberOfItems: g.companies.length, itemListElement: g.companies.map((c, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Organization', name: c.name, description: c.about } })) }] : []),
+    ...(g.faqs ? [faqLdFrom(g.faqs)] : []),
+    crumbsLd([['Home', '/'], ['Guides', g.path], [g.h1, g.path]].slice(0, 1).concat([[g.h1, g.path]])),
+  ]
+  write(g.path, staticPage({ lang: 'en', path: g.path, title: g.title, description: g.description, h1: g.h1, lead: g.lead, body, jsonld, alternates }))
+  extraUrls.push({ path: g.path, priority: isCompanies ? 0.8 : 0.7, alternates })
+}
+for (const l of LOCATIONS) {
+  const body = `<section><div class="wrap"><h2>${esc(l.area)}</h2><p class="muted">${esc(l.local)}</p></div></section>
+    <section><div class="wrap"><h2>What we capture in ${esc(l.area)}</h2><ul class="pills">${l.fits.map((f) => `<li>${esc(f)}</li>`).join('')}</ul></div></section>
+    <section><div class="wrap"><h2>Our services</h2><div class="grid">${services.map((sv) => `<div class="card"><h3><a href="${sv.path}">${esc(sv.name)}</a></h3><p>${esc(sv.short)}</p></div>`).join('')}</div></div></section>
+    ${(l.links ?? []).length ? `<section><div class="wrap">${l.links.map(([p, t]) => `<a class="cta ghost" style="margin-inline-start:0" href="${p}">${esc(t)}</a>`).join('')}</div></section>` : ''}
+    ${stepsHtml.replace('<section>', '<section><div class="wrap">').replace('</section>', '</div></section>')}`
+  const jsonld = [
+    orgLd(),
+    { '@context': 'https://schema.org', '@type': 'Service', name: `Virtual tours and digital twins in ${l.area}`, description: l.description, provider: { '@id': `${SITE_URL}/#organization` }, areaServed: { '@type': 'Place', name: `${l.area}, Egypt` }, url: `${SITE_URL}${l.path}` },
+    crumbsLd([['Home', '/'], [l.area, l.path]]),
+  ]
+  write(l.path, staticPage({ lang: 'en', path: l.path, title: l.title, description: l.description, h1: l.title, lead: l.description, body, jsonld }))
+  extraUrls.push({ path: l.path, priority: 0.7, alternates: null })
+}
+// Arabic companies guide
+{
+  const g = AR_GUIDE
+  const body = `<section><div class="wrap"><h2>الشركات في لمحة</h2>
+      <table><thead><tr><th scope="col">الشركة</th><th scope="col">المقر</th><th scope="col">ما تقدمه</th></tr></thead><tbody>
+      ${g.companies.map(([n, b, a]) => `<tr><td><bdi>${esc(n)}</bdi></td><td>${esc(b)}</td><td>${esc(a)}</td></tr>`).join('')}
+      </tbody></table><p class="muted" style="margin-top:12px">${esc(g.disclosure)}</p></div></section>
+    <section><div class="wrap"><h2>كيف تختار شركة جولات افتراضية في مصر</h2><ul class="list">${g.checklist.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></div></section>`
+  const alternates = { ar: g.path, en: g.en, 'x-default': g.en }
+  const jsonld = [
+    { ...orgLd(), description: AR_ORG_DESCRIPTION },
+    articleLd(g.path, g, 'ar'),
+    { '@context': 'https://schema.org', '@type': 'ItemList', inLanguage: 'ar', name: 'شركات الجولات الافتراضية والتوأم الرقمي في مصر', numberOfItems: g.companies.length, itemListElement: g.companies.map(([n, , a], i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Organization', name: n, description: a } })) },
+    crumbsLd([['الرئيسية', '/ar'], [g.h1, g.path]]),
+  ]
+  write(g.path, staticPage({ lang: 'ar', path: g.path, title: g.title, description: g.description, h1: g.h1, lead: g.lead, body, jsonld, alternates }))
+  extraUrls.push({ path: g.path, priority: 0.8, alternates })
+}
+
 // ── sitemap.xml (with hreflang alternates) ──
 const alt = (enPath) => {
   const ar = AR_PATH[enPath]
@@ -347,6 +475,7 @@ const alt = (enPath) => {
 const urls = [
   ...Object.entries(ROUTES).map(([path, m]) => `  <url><loc>${canonicalFor(path)}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${m.priority.toFixed(1)}</priority>${alt(path)}\n  </url>`),
   ...Object.entries(AR_ROUTES).map(([path, m]) => `  <url><loc>${arUrl(path)}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${(ROUTES[m.en]?.priority ?? 0.6).toFixed(1)}</priority>${alt(m.en)}\n  </url>`),
+  ...extraUrls.map((u) => `  <url><loc>${SITE_URL}${u.path}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>${u.priority.toFixed(1)}</priority>${u.alternates ? Object.entries(u.alternates).map(([hl, p]) => `\n    <xhtml:link rel="alternate" hreflang="${hl}" href="${SITE_URL}${p}"/>`).join('') : ''}\n  </url>`),
 ].join('\n')
 writeFileSync(join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls}\n</urlset>\n`)
 
@@ -380,6 +509,12 @@ ${services.map((s) => `- [${s.name}](${SITE_URL}${s.path}): ${s.short}`).join('\
 ## Company
 - [About](${SITE_URL}/about)
 - [Contact and quotes](${SITE_URL}/contact)
+
+## Guides
+${GUIDES.map((g) => `- [${g.title}](${SITE_URL}${g.path}): ${g.description}`).join('\n')}
+
+## Areas served
+${LOCATIONS.map((l) => `- [${l.area}](${SITE_URL}${l.path})`).join('\n')}
 
 ## Arabic (العربية)
 ${Object.entries(AR_ROUTES).map(([p, m]) => `- [${m.title}](${SITE_URL}${p})`).join('\n')}
@@ -423,4 +558,4 @@ Atlas: ${SITE_URL}/new-zayed-atlas
 `
 writeFileSync(join(dist, 'llms-full.txt'), llmsFull)
 
-console.log(`prerendered ${Object.keys(ROUTES).length} pages + ${Object.keys(AR_ROUTES).length} Arabic pages + ${projects.length} project pages, sitemap, robots, llms.txt`)
+console.log(`prerendered ${Object.keys(ROUTES).length} pages + ${Object.keys(AR_ROUTES).length} Arabic pages + ${extraUrls.length} guide/location pages + ${projects.length} project pages, sitemap, robots, llms.txt`)
