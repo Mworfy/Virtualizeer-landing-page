@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   ArrowLeft, ArrowRight, Building2, Check, ChevronDown, Compass, Info, Layers, ListFilter, Map as MapIcon,
   Minus, Plus, Scale, Search, Sparkles, X,
 } from 'lucide-react'
-import { CATEGORIES, COMPOUNDS, DISTRICTS, LANDMARK_MODELS, REGION, SOURCES, UPDATED, formatEGP } from '../components/atlas/data.js'
+import { CATEGORIES, COMPOUNDS, DISTRICTS, LANDMARK_MODELS, REGION, formatEGP } from '../components/atlas/data.js'
 import { ROADS } from '../components/zayed/NewZayedMap.jsx'
 import '../components/atlas/atlas.css'
 
@@ -13,7 +13,7 @@ const MAX_COMPARE = 3
 const SORTS = [
   { id: 'size', label: 'Largest first' },
   { id: 'priceAsc', label: 'Lowest starting price' },
-  { id: 'name', label: 'A–Z' },
+  { id: 'name', label: 'A to Z' },
 ]
 
 export default function NewZayedAtlas() {
@@ -35,9 +35,13 @@ export default function NewZayedAtlas() {
   const [panel, setPanel] = useState(!touch)
   const [about, setAbout] = useState(false)
   const [quality, setQuality] = useState(touch ? 'fast' : 'high')
+  const navigate = useNavigate()
+  const location = useLocation()
+  // Exit the Atlas: go back if we came from the site, otherwise to the Digital Twins page
+  const exitAtlas = () => (location.key !== 'default' ? navigate(-1) : navigate('/digital-twins'))
 
   useEffect(() => {
-    document.title = 'New Zayed Atlas — Virtualizeer'
+    document.title = 'New Zayed Atlas | Virtualizeer'
     let a
     let cancelled = false
     import('../components/atlas/atlasEngine.js')
@@ -107,7 +111,7 @@ export default function NewZayedAtlas() {
     <div className={`atlas${intro ? ' atlas--intro' : ''}`} data-layers={Object.entries(layers).filter(([, v]) => v).map(([k]) => k).join(' ')}>
       <div className="atlas__stage" ref={stageRef}>
         <canvas ref={canvasRef} className="atlas__canvas" tabIndex={0}
-          aria-label="3D map of New Zayed. Drag to pan, right-drag or two-finger drag to rotate, scroll to zoom. Use the directory to find compounds." />
+          aria-label="3D map of New Zayed. Drag to pan, right drag or two finger drag to rotate, scroll to zoom. Use the directory to find compounds." />
 
         {/* Labels projected from 3D */}
         <div className="atlas__pins" ref={pinsRef} aria-hidden={intro}>
@@ -145,8 +149,9 @@ export default function NewZayedAtlas() {
             <img src="/brand/mark-white.png" alt="" />
             <span><strong>NEW ZAYED</strong><em>Atlas</em></span>
           </Link>
+          <div className="atlas__barright">
           {!intro && (
-            <div className="atlas__barright">
+            <>
               <button className="aglass abtn" onClick={() => setPanel((p) => !p)} aria-expanded={panel} aria-controls="atlas-directory">
                 <ListFilter aria-hidden="true" /> <span className="abtn__label">Directory</span>
               </button>
@@ -154,9 +159,11 @@ export default function NewZayedAtlas() {
               <button className="aglass abtn" aria-pressed={quality === 'high'} onClick={() => setQuality((q) => (q === 'high' ? 'fast' : 'high'))}>
                 <Sparkles aria-hidden="true" /> <span className="abtn__label">{quality === 'high' ? 'High quality' : 'Fast'}</span>
               </button>
-              <button className="aglass abtn abtn--icon" onClick={() => setAbout(true)} aria-label="About this map and sources"><Info aria-hidden="true" /></button>
-            </div>
+              <button className="aglass abtn abtn--icon" onClick={() => setAbout(true)} aria-label="About this map"><Info aria-hidden="true" /></button>
+            </>
           )}
+            <button className="abtn abtn--icon abtn--exit" onClick={exitAtlas} aria-label="Exit the Atlas" title="Exit"><X aria-hidden="true" /></button>
+          </div>
         </header>
 
         {/* Intro */}
@@ -164,14 +171,14 @@ export default function NewZayedAtlas() {
           <section className="atlas__intro" aria-labelledby="atlas-title">
             <span className="atlas__eyebrow">Project 04 · A reference for Egypt’s new west</span>
             <h1 id="atlas-title">New Zayed <span>Atlas</span></h1>
-            <p>{REGION.summary} Explore {COMPOUNDS.length - 1} compounds, compare them side by side, and see how the district connects to the airport, Sheikh Zayed and the Cairo–Alex Desert Road.</p>
+            <p>{REGION.summary} Explore {COMPOUNDS.length - 1} compounds, compare them side by side, and see how the district connects to the airport, Sheikh Zayed and the Cairo Alex Desert Road.</p>
             <dl className="atlas__facts">
               <div><dt>Area</dt><dd>~35M m²</dd></div>
               <div><dt>Compounds mapped</dt><dd>{COMPOUNDS.length - 1}</dd></div>
               <div><dt>Gateway</dt><dd>Sphinx Airport</dd></div>
             </dl>
             <button className="atlas__cta" onClick={explore}>Explore the map <ArrowRight aria-hidden="true" /></button>
-            <small>Data from public listings, {UPDATED}. Compound positions are indicative.</small>
+            <small>Compound positions are indicative.</small>
           </section>
         )}
 
@@ -240,7 +247,7 @@ export default function NewZayedAtlas() {
             <p className="acard__dev"><Building2 aria-hidden="true" /> {sel.developer}</p>
             <dl className="acard__facts">
               <div><dt>Land area</dt><dd>{sel.acres ? `${sel.acres} acres` : 'Not listed'}</dd></div>
-              <div><dt>Starting price</dt><dd>{sel.concept ? '—' : formatEGP(sel.fromPrice)}</dd></div>
+              <div><dt>Starting price</dt><dd>{sel.concept ? 'Concept' : formatEGP(sel.fromPrice)}</dd></div>
               <div><dt>Delivery</dt><dd>{sel.delivery ?? 'Not listed'}</dd></div>
             </dl>
             <div className="acard__units">
@@ -256,11 +263,6 @@ export default function NewZayedAtlas() {
                 </button>
               )}
             </div>
-            {sel.sources.length > 0 && (
-              <p className="acard__src">Source: {sel.sources.map((s, i) => (
-                <span key={s}>{i ? ', ' : ''}<a href={SOURCES[s].url} target="_blank" rel="noreferrer">{SOURCES[s].label.split(' — ')[0]}</a></span>
-              ))} · {UPDATED}. Location indicative.</p>
-            )}
           </article>
         )}
 
@@ -289,14 +291,13 @@ export default function NewZayedAtlas() {
                   <tr><th scope="row">Starting price</th>{compared.map((c) => <td key={c.id}>{formatEGP(c.fromPrice)}</td>)}</tr>
                   <tr><th scope="row">Delivery</th>{compared.map((c) => <td key={c.id}>{c.delivery ?? 'Not listed'}</td>)}</tr>
                   <tr><th scope="row">Unit types</th>{compared.map((c) => <td key={c.id}>{c.units.join(', ')}</td>)}</tr>
-                  <tr><th scope="row">Sources</th>{compared.map((c) => <td key={c.id}>{c.sources.map((s) => SOURCES[s].label.split(' — ')[0]).join(', ')}</td>)}</tr>
                   <tr><th scope="row"><span className="visually-hidden">Map</span></th>{compared.map((c) => (
                     <td key={c.id}><button className="alink" onClick={() => { setCompareOpen(false); choose(c.id) }}><MapIcon aria-hidden="true" /> Show on map</button></td>
                   ))}</tr>
                 </tbody>
               </table>
             </div>
-            <p className="acompare__note">Prices are listed starting prices from public listings ({UPDATED}) and change often — confirm with each developer.</p>
+            <p className="acompare__note">Prices are starting prices and change often. Confirm with each developer.</p>
           </section>
         )}
 
@@ -322,12 +323,8 @@ export default function NewZayedAtlas() {
             <div className="aabout__box">
               <button className="abtn--close" onClick={() => setAbout(false)} aria-label="Close"><X aria-hidden="true" /></button>
               <h2 id="aabout-title">About the New Zayed Atlas</h2>
-              <p>A visual reference for New Zayed: about 35 million m² south of the Cairo–Alex Desert Road, opposite Sphinx International Airport, according to the Ministry of Housing.</p>
-              <p>The map is schematic and not to scale. Roads and districts are simplified, and compound positions inside New Zayed are indicative, not surveyed. Compound facts come from public listing sites as of {UPDATED}; they sometimes disagree and change often, so confirm details with each developer.</p>
-              <h3>Sources</h3>
-              <ul>
-                {Object.values(SOURCES).map((s) => <li key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{s.label}</a></li>)}
-              </ul>
+              <p>A visual reference for New Zayed: about 35 million m² south of the Cairo Alex Desert Road, opposite Sphinx International Airport.</p>
+              <p>The map is schematic and not to scale. Roads and districts are simplified, and compound positions inside New Zayed are indicative, not surveyed. Compound details change often, so confirm them with each developer.</p>
               <Link to="/" className="alink"><ArrowLeft aria-hidden="true" /> Back to Virtualizeer</Link>
             </div>
           </div>

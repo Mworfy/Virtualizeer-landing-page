@@ -17,7 +17,7 @@ export const company = {
 }
 
 // Optional: paste one of your own tour links (Matterport, Kuula, 3DVista, etc.).
-// Leave empty to show the built-in interactive 3D apartment tour instead.
+// Leave empty to show the built in interactive 3D apartment tour instead.
 export const demoTourUrl = ''
 
 export const services = [
@@ -29,11 +29,11 @@ export const services = [
     short: 'Immersive 360° walkthroughs people can explore from any screen.',
     headline: 'Let people walk through your space from anywhere.',
     intro:
-      'We capture your property, venue or store in high‑resolution 360° and turn it into a tour visitors can explore on their phone, laptop or VR headset — no app required.',
+      'We capture your property, venue or store in high resolution 360° and turn it into a tour visitors can explore on their phone, laptop or VR headset, no app required.',
     features: [
-      { icon: 'Orbit', title: '360° walkthroughs', text: 'Seamless room‑to‑room navigation with crisp HDR imagery.' },
+      { icon: 'Orbit', title: '360° walkthroughs', text: 'Seamless room to room navigation with crisp HDR imagery.' },
       { icon: 'MapPin', title: 'Interactive hotspots', text: 'Tag products, add videos, links and notes right inside the space.' },
-      { icon: 'LayoutGrid', title: 'Floor plans & dollhouse', text: 'A top‑down plan and 3D dollhouse view so visitors never get lost.' },
+      { icon: 'LayoutGrid', title: 'Floor plans & dollhouse', text: 'A top down plan and 3D dollhouse view so visitors never get lost.' },
       { icon: 'Glasses', title: 'VR ready', text: 'Works in VR headsets as well as any modern browser.' },
       { icon: 'Map', title: 'Google Street View', text: 'Publish to Google Maps so customers find you and look inside.' },
       { icon: 'Share2', title: 'Share & embed', text: 'One link for listings, social posts, QR codes and your website.' },
@@ -49,14 +49,14 @@ export const services = [
     short: 'Accurate, measurable 3D replicas of buildings and facilities.',
     headline: 'A precise digital copy of your building, ready to work with.',
     intro:
-      'Our digital twins are dimensionally accurate 3D models of real spaces. Measure, plan, document and manage assets remotely — and share a single source of truth with your whole team.',
+      'Our digital twins are dimensionally accurate 3D models of real spaces. Measure, plan, document and manage assets remotely and share a single source of truth with your whole team.',
     features: [
-      { icon: 'Ruler', title: 'Measure anything', text: 'Point‑to‑point measurements directly in the model.' },
+      { icon: 'Ruler', title: 'Measure anything', text: 'Point to point measurements directly in the model.' },
       { icon: 'HardHat', title: 'Construction progress', text: 'Capture each stage and compare to track progress and catch issues early.' },
       { icon: 'Tags', title: 'Asset tagging', text: 'Pin equipment, serial numbers and documents to their exact location.' },
       { icon: 'FileBox', title: 'BIM & CAD exports', text: 'Point clouds, OBJ, E57 and floor plans for architects and engineers.' },
       { icon: 'Building2', title: 'Facility management', text: 'Plan maintenance and renovations without a site visit.' },
-      { icon: 'ShieldCheck', title: 'As‑built records', text: 'A permanent, timestamped record for insurance and handover.' },
+      { icon: 'ShieldCheck', title: 'As built records', text: 'A permanent, timestamped record for insurance and handover.' },
     ],
     useCases: ['Construction & contractors', 'Facility management', 'Architecture & interiors', 'Industrial sites', 'Insurance & documentation', 'Heritage preservation'],
     deliverables: ['Measurable 3D model', 'Point cloud / mesh exports', 'Schematic floor plans', 'Tagged asset library', 'Progress capture schedule'],
@@ -67,7 +67,7 @@ export const services = [
     icon: 'Code2',
     name: 'Web Development',
     short: 'Fast, modern websites and web apps built around your experience.',
-    headline: 'Websites that show your space — and convert visitors.',
+    headline: 'Websites that show your space and convert visitors.',
     intro:
       'We design and build fast, accessible websites and web apps, with your virtual tours and digital twins built right in. From a polished landing page to a full property portal.',
     features: [
@@ -78,7 +78,7 @@ export const services = [
       { icon: 'LayoutDashboard', title: 'Easy to update', text: 'A CMS or admin panel so your team can edit content.' },
       { icon: 'LifeBuoy', title: 'Ongoing support', text: 'Hosting, maintenance and improvements after launch.' },
     ],
-    useCases: ['Company websites', 'Property listing portals', 'Landing pages', 'Booking & inquiry flows', 'Web apps & dashboards', 'E‑commerce'],
+    useCases: ['Company websites', 'Property listing portals', 'Landing pages', 'Booking & inquiry flows', 'Web apps & dashboards', 'E commerce'],
     deliverables: ['UX & visual design', 'Responsive build', 'CMS / admin setup', 'Analytics & SEO setup', 'Launch & handover'],
   },
 ]
@@ -108,8 +108,8 @@ export const industries = [
 ]
 
 // TODO: replace with real projects. `category` must be one of: tours, twins, web.
-// `tourUrl` is optional — when set, the project page shows the live tour.
-// `image` is optional — put files in /public/projects/ and reference as '/projects/name.jpg'.
+// `tourUrl` is optional, when set, the project page shows the live tour.
+// `image` is optional, put files in /public/projects/ and reference as '/projects/name.jpg'.
 export const projects = [
   {
     slug: 'nile-view-penthouse',
@@ -118,12 +118,12 @@ export const projects = [
     category: 'tours',
     location: 'Zamalek, Cairo',
     year: '2026',
-    summary: 'A 4‑bedroom penthouse tour that let overseas buyers view the property remotely.',
+    summary: 'A 4 bedroom penthouse tour that let overseas buyers view the property remotely.',
     challenge: 'Most interested buyers lived abroad and could not visit in person.',
     solution: 'A full 360° tour with floor plan, dollhouse view and hotspots for finishes and appliances.',
-    results: ['3× more qualified inquiries', 'Sold to an overseas buyer', '40% fewer in‑person viewings'],
+    results: ['3× more qualified inquiries', 'Sold to an overseas buyer', '40% fewer in person viewings'],
     tourUrl: demoTourUrl, // TODO: this project's real tour link
-    demoTour: true, // shows the built-in 3D tour while tourUrl is empty
+    demoTour: true, // shows the built in 3D tour while tourUrl is empty
   },
   {
     slug: 'boutique-hotel',
@@ -135,7 +135,7 @@ export const projects = [
     summary: 'Room and amenity tours embedded on the booking site and Google Maps.',
     challenge: 'Guests booked on photos alone and expectations were hard to set.',
     solution: 'Tours for every room type, pool and restaurant, published to Google Street View.',
-    results: ['Higher direct bookings', 'Longer time on site', 'Fewer pre‑booking questions'],
+    results: ['Higher direct bookings', 'Longer time on site', 'Fewer pre booking questions'],
     tourUrl: '',
   },
   {
@@ -145,10 +145,10 @@ export const projects = [
     category: 'twins',
     location: 'New Capital',
     year: '2026',
-    summary: 'A measurable twin of 12 floors used for fit‑out planning and facility management.',
+    summary: 'A measurable twin of 12 floors used for fit out planning and facility management.',
     challenge: 'Tenants and contractors needed accurate dimensions without repeated site visits.',
-    solution: 'A full‑building scan with tagged MEP assets and exported point clouds for the design team.',
-    results: ['Weeks saved in fit‑out planning', 'Single source of truth for 6 contractors', 'As‑built record for handover'],
+    solution: 'A full building scan with tagged MEP assets and exported point clouds for the design team.',
+    results: ['Weeks saved in fit out planning', 'Single source of truth for 6 contractors', 'As built record for handover'],
     tourUrl: '',
   },
   {
@@ -160,7 +160,7 @@ export const projects = [
     year: '2025',
     summary: 'Monthly scans of a residential compound to track progress against plan.',
     challenge: 'Remote stakeholders lacked a clear view of site progress.',
-    solution: 'Scheduled captures with side‑by‑side comparisons and issue tagging.',
+    solution: 'Scheduled captures with side by side comparisons and issue tagging.',
     results: ['Issues caught before closing walls', 'Fewer site visits for stakeholders', 'Clear documentation trail'],
     tourUrl: '',
   },
@@ -172,7 +172,7 @@ export const projects = [
     location: 'Online',
     year: '2026',
     summary: 'A listings website where every property opens straight into its virtual tour.',
-    challenge: 'Listings lived on third‑party sites with no way to showcase tours.',
+    challenge: 'Listings lived on third party sites with no way to showcase tours.',
     solution: 'A fast, searchable portal with filters, inquiry forms and embedded tours.',
     results: ['Owned lead channel', 'Tours viewed on 70% of visits', 'Under 1s page loads'],
     tourUrl: '',
@@ -215,7 +215,7 @@ export const testimonials = [
 export const clients = ['Sample Realty', 'Sample Hotels', 'Sample Developments', 'Sample Contractors', 'Sample Dining']
 
 export const faqs = [
-  { q: 'How long does a capture take?', a: 'Most spaces up to 300 m² take 1–2 hours on site. Larger buildings are scheduled over one or more days.' },
+  { q: 'How long does a capture take?', a: 'Most spaces up to 300 m² take 1 to 2 hours on site. Larger buildings are scheduled over one or more days.' },
   { q: 'How soon will my tour be ready?', a: 'Typically within 48 hours of the capture. Digital twins with exports and asset tagging take a few days longer.' },
   { q: 'Do visitors need to install anything?', a: 'No. Tours open in any modern browser on phones, tablets, computers and VR headsets.' },
   { q: 'Can you put the tour on my existing website?', a: 'Yes. We provide embed code that works with any website, or we can build a new site around it.' },

@@ -1,4 +1,4 @@
-// Procedural residential compound for the off-plan digital-twin demo.
+// Procedural residential compound for the off plan digital twin demo.
 // World units are metres. The boulevard runs along z; villas face it from both sides.
 import { woodTexture } from '../tour/scene.js'
 
@@ -46,7 +46,7 @@ export const HOUSE_WALLS = [
   { axis: 'x', at: -2, from: -1.5, to: 1.5, openings: [door(-0.45, 0.45, 2.2)] },
 ]
 
-// Floor-plan lines for the minimap (gaps at doorways)
+// Floor plan lines for the minimap (gaps at doorways)
 export function planLines() {
   const lines = []
   HOUSE_WALLS.forEach((w) => {
@@ -203,7 +203,7 @@ function buildWall(THREE, H, parent, M, w) {
     piece(o.a, o.b, o.y1, WALL_H)
     if (o.glass) {
       // Single clean pane (a thin box gave two overlapping transparent faces that shimmered),
-      // frames sit just inside the opening so no faces coincide with the wall (no z-fighting).
+      // frames sit just inside the opening so no faces coincide with the wall (no z fighting).
       const len = o.b - o.a
       const c = (o.a + o.b) / 2
       const h = o.y1 - o.y0

@@ -1,4 +1,4 @@
-// Procedural apartment used by the built-in interactive tour.
+// Procedural apartment used by the built in interactive tour.
 // Plan (metres, x → right, z → down on the minimap):
 //   Living room  x[-5,0] z[-3,3]   Kitchen/dining x[0,5] z[-3,3]   Bedroom x[-5,0] z[3,7]
 
@@ -15,7 +15,7 @@ export const POINTS = [
 // Every move passes through this point so the camera walks through doorways, not walls.
 export const HUB = [-0.6, 1.0]
 
-// Wall segments [x1, z1, x2, z2] — also drawn on the minimap.
+// Wall segments [x1, z1, x2, z2], also drawn on the minimap.
 export const WALLS = [
   [-5, -3, 5, -3],
   [-5, -3, -5, 7],

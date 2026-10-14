@@ -22,7 +22,7 @@ export default function Contact() {
     const e = {}
     if (!v.name.trim()) e.name = 'Please enter your name.'
     if (!v.email.trim()) e.email = 'Please enter your email.'
-    else if (!emailOk(v.email)) e.email = 'That email doesn’t look right — check for typos.'
+    else if (!emailOk(v.email)) e.email = 'That email doesn’t look right. Check for typos.'
     if (v.services.length === 0) e.services = 'Choose at least one service.'
     if (v.message.trim().length < 10) e.message = 'Tell us a little about your space (at least 10 characters).'
     return e
@@ -123,8 +123,8 @@ export default function Contact() {
                     <select id="size" name="size" value={values.size} onChange={(e) => update('size', e.target.value)}>
                       <option value="">Select a size</option>
                       <option>Under 150 m²</option>
-                      <option>150 – 500 m²</option>
-                      <option>500 – 2,000 m²</option>
+                      <option>150 to 500 m²</option>
+                      <option>500 to 2,000 m²</option>
                       <option>Over 2,000 m²</option>
                       <option>Not sure / website only</option>
                     </select>

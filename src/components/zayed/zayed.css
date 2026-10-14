@@ -1,4 +1,4 @@
-/* Zayed Reimagined — scoped to .zx so nothing leaks into the site */
+/* Zayed Reimagined, scoped to .zx so nothing leaks into the site */
 .zx { position: absolute; inset: 0; overflow: hidden; background: #0f2a40; color: #fff; font-family: var(--font-body); }
 .zx:fullscreen { border-radius: 0; }
 .zx button { font: inherit; color: inherit; }

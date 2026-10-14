@@ -28,7 +28,7 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
   const sun = scene.children.find((o) => o.isDirectionalLight && o.castShadow)
   const sunDir = sun.position.clone().normalize()
 
-  // Physical sky, also used as the image-based light so materials pick up its colour
+  // Physical sky, also used as the image based light so materials pick up its colour
   const sky = new Sky()
   sky.scale.setScalar(4000)
   const su = sky.material.uniforms
@@ -61,7 +61,7 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 5000)
   camera.rotation.order = 'YXZ'
 
-  // Post-processing: ambient occlusion for contact shading, then tone mapping/output
+  // Post processing: ambient occlusion for contact shading, then tone mapping/output
   const composer = new EffectComposer(renderer)
   composer.addPass(new RenderPass(scene, camera))
   const gtao = new GTAOPass(scene, camera, 1, 1)
@@ -276,7 +276,7 @@ export function createExperience({ canvas, container, pinRoot, quality = 'high',
     S.orbitTo = { from: { theta: S.theta, phi: S.phi, radius: S.radius, target: S.target.clone() }, theta, phi, radius, target: target.clone(), t0: performance.now(), dur: rm ? 0 : dur }
   }
 
-  // ── Per-frame ──
+  // ── Per frame ──
   const stepFly = (now) => {
     const f = S.fly
     const t = f.dur ? clamp01((now - f.t0) / f.dur) : 1

@@ -2,7 +2,7 @@
 // Zayed Reimagined is the third project inside New Zayed; clicking it opens the 3D experience.
 
 export const ROADS = [
-  { name: 'Cairo–Alex Desert Road', d: 'M250 0 C 290 110, 300 190, 380 215 S 520 240, 600 290 S 730 400, 790 470 S 880 540, 900 560', major: true, label: [470, 236, 14] },
+  { name: 'Cairo Alex Desert Road', d: 'M250 0 C 290 110, 300 190, 380 215 S 520 240, 600 290 S 730 400, 790 470 S 880 540, 900 560', major: true, label: [470, 236, 14] },
   { name: 'Al Dabaa Axis', d: 'M0 262 C 120 262, 260 262, 330 258 S 400 250, 425 238', major: true, label: [90, 252, 0] },
   { name: 'Rod El Farag Axis', d: 'M420 236 C 450 200, 480 160, 560 150 S 760 168, 1000 158', major: true, label: [700, 150, 0] },
   { name: '26th of July Axis', d: 'M330 560 C 470 470, 600 380, 720 330 S 900 300, 1000 300', major: true, label: [820, 300, -6] },
@@ -96,7 +96,7 @@ export default function NewZayedMap({ zooming, onOpen }) {
         <span className="zmap__dot" aria-hidden="true">3</span>
         <span className="zmap__card">
           <strong>Zayed Reimagined</strong>
-          <span>10 L-shaped courtyard villas · New Zayed</span>
+          <span>10 L shaped courtyard villas · New Zayed</span>
           <em>Explore in 3D →</em>
         </span>
       </button>

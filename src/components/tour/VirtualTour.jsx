@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Hand } from 'lucide-react'
 import { EYE, HUB, POINTS, WALLS, buildScene } from './scene.js'
 
-// Interactive first-person tour of a small apartment, rendered with Three.js.
+// Interactive first person tour of a small apartment, rendered with Three.js.
 // Drag (or arrow keys) to look around; click the floor rings or use the arrows to move between rooms.
 
 const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -203,7 +203,7 @@ export default function VirtualTour({ label = 'Interactive 3D virtual tour', com
       canvas.addEventListener('pointerup', onUp)
       canvas.addEventListener('pointercancel', onUp)
 
-      // Render loop — paused while off-screen or tab hidden
+      // Render loop, paused while off screen or tab hidden
       let raf = 0
       const minimapDot = markerRef.current
       const frame = (now) => {

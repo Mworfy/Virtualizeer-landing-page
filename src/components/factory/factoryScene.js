@@ -1,5 +1,5 @@
-// Procedural factory for the industrial digital-twin demo.
-// Cut-away building (walls sectioned at 3.2 m, open roof frame) with two production
+// Procedural factory for the industrial digital twin demo.
+// Cutaway building (walls sectioned at 3.2 m, open roof frame) with two production
 // lines, robot cells, warehouse racking, loading docks and a forklift loop.
 
 export const STATUS = {
@@ -27,7 +27,7 @@ export const MACHINES = [
   },
   {
     id: 'B3', name: 'Labeller', line: 'Line B', kind: 'labeller', pos: [-1, 3], status: 'idle', base: { temp: 33, vib: 0.3, thr: 0, oee: 0 }, maint: 33,
-    alert: 'Starved — waiting for parts from Robot cell B.',
+    alert: 'Starved: waiting for parts from Robot cell B.',
   },
   { id: 'B4', name: 'Palletiser', line: 'Line B', kind: 'palletiser', pos: [10, 3], status: 'running', base: { temp: 44, vib: 1.2, thr: 40, oee: 71 }, maint: 21 },
 ]
@@ -121,7 +121,7 @@ export function buildFactory(THREE, { markTexture } = {}) {
     box(scene, 1.7, 0.55, 2.3, c, x, 0.92, 34.3)
   })
 
-  // ── Building shell: cut-away walls with navy section caps ──
+  // ── Building shell: cutaway walls with navy section caps ──
   flat(scene, 64, 40, M.concrete, 0, 0.02, 0)
   const H = 3.2
   const wallX = (z, x0, x1) => {
@@ -140,7 +140,7 @@ export function buildFactory(THREE, { markTexture } = {}) {
   wallZ(32, 12.8, 13.6)
   wallZ(32, 17.8, 20) // two dock doors
 
-  // Steel frame: columns + roof beams (roof removed for the cut-away)
+  // Steel frame: columns + roof beams (roof removed for the cutaway)
   const cols = [-30, -18, -6, 6, 18, 30]
   cols.forEach((x) => {
     ;[-19.4, -3, 19.4].forEach((z) => box(scene, 0.45, 9, 0.45, M.steel, x, 0, z))

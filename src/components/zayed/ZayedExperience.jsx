@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Hand, Map as MapIcon, Maximize2, Minus, Plus, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Hand, Map as MapIcon, Maximize2, Minus, Plus, Sparkles, X } from 'lucide-react'
 import { NODES, STATUS, STOPS, UNITS, UNIT_SPEC, planLines } from './zayedScene.js'
 import NewZayedMap from './NewZayedMap.jsx'
 import './zayed.css'
 
-// Zayed Reimagined: New Zayed map → 3D masterplan → seamless fly-in → walk through every room.
+// Zayed Reimagined: New Zayed map → 3D masterplan → seamless fly in → walk through every room.
 // The 3D engine is only created when the visitor opens the project from the map.
 
 const touch = typeof window !== 'undefined' && window.matchMedia?.('(hover: none)').matches
@@ -91,6 +91,11 @@ export default function ZayedExperience() {
     setUnit(null)
     setHint(true)
   }
+  const exit = () => {
+    if (document.fullscreenElement) document.exitFullscreen?.()
+    if (mode === 'ground') xp.current?.exitHouse()
+    else if (mode === 'aerial') backToMap()
+  }
   const fullscreen = () => {
     const el = rootRef.current
     if (document.fullscreenElement) document.exitFullscreen?.()
@@ -165,6 +170,8 @@ export default function ZayedExperience() {
                 <Sparkles aria-hidden="true" /> {quality === 'high' ? 'High quality' : 'Fast'}
               </button>
               <button className="zx__glass zx__btn zx__icon" onClick={fullscreen} aria-label="Toggle full screen"><Maximize2 aria-hidden="true" /></button>
+              <button className="zx__btn zx__icon xexit" onClick={exit} disabled={mode === 'flying' || moving}
+                aria-label={mode === 'ground' ? 'Exit the villa' : 'Exit to the New Zayed map'} title="Exit"><X aria-hidden="true" /></button>
             </div>
           </div>
 

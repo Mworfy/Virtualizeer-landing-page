@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Hand, Minus, Plus } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Hand, Minus, Plus, X } from 'lucide-react'
 import * as mod from './compoundScene.js'
 import { EYE, NODES, STATUS, STOPS, UNITS, UNIT_SPEC, findPath, planLines } from './compoundScene.js'
 
-// Off-plan sales demo: bird's-eye masterplan → click a villa → seamless fly-down to
+// Off plan sales demo: bird's eye masterplan → click a villa → seamless fly down to
 // first person → walk inside. Rendered with Three.js, loaded on demand.
 
 const touch = typeof window !== 'undefined' && window.matchMedia?.('(hover: none)').matches
@@ -246,7 +246,7 @@ export default function CompoundTour() {
         setMoving(true)
       }
 
-      // ── Per-frame updates ──
+      // ── Per frame updates ──
       const stepFly = (now) => {
         const f = S.fly
         const t = f.dur ? clamp01((now - f.t0) / f.dur) : 1
@@ -510,7 +510,7 @@ export default function CompoundTour() {
       ref={wrapRef}
       className={`vtour ctour${status === 'ready' ? ' is-ready' : ''} ctour--${mode}`}
       role="region"
-      aria-label="Interactive off-plan compound tour"
+      aria-label="Interactive off plan compound tour"
     >
       <canvas
         ref={canvasRef}
@@ -537,7 +537,12 @@ export default function CompoundTour() {
                 <ArrowLeft /> Compound view
               </button>
             )}
-            <span className="chip">Off-plan · Delivery {UNIT_SPEC.delivery}</span>
+            <span className="ctour__topright">
+              <span className="chip">Off plan · Delivery {UNIT_SPEC.delivery}</span>
+              {mode !== 'aerial' && (
+                <button className="xexit" onClick={() => api.current.exitHouse?.()} disabled={mode === 'flying' || moving} aria-label="Exit the villa" title="Exit"><X aria-hidden="true" /></button>
+              )}
+            </span>
           </div>
 
           {/* Aerial: hint, tooltip, legend, unit picker */}
@@ -573,7 +578,7 @@ export default function CompoundTour() {
                 >
                   <option value="">Visit a villa…</option>
                   {UNITS.map((u, i) => (
-                    <option key={u.id} value={i}>Villa {u.id} — {STATUS[u.status].label}</option>
+                    <option key={u.id} value={i}>Villa {u.id}, {STATUS[u.status].label}</option>
                   ))}
                 </select>
                 <div className="ctour__zoom">

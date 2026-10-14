@@ -1,6 +1,6 @@
-// Zayed Reimagined (New Zayed) — procedural compound with its own masterplan and villa type.
+// Zayed Reimagined (New Zayed), procedural compound with its own masterplan and villa type.
 // Masterplan: an oval ring road around a central park and lagoon; villas sit outside the ring,
-// facing in. Villa: L-shaped courtyard house — day wing + two-storey night tower around a pool.
+// facing in. Villa: L shaped courtyard house, day wing + two storey night tower around a pool.
 import { noiseTexture, paverTexture, woodTexture } from './textures.js'
 
 export const EYE = 1.65
@@ -12,7 +12,7 @@ const T_INT = 0.12
 const RX = 36 // ring road centreline radii
 const RZ = 50
 const ROAD = 7
-const PLOT_OFFSET = ROAD / 2 + 1.5 + 11 // road half-width + sidewalk + plot front depth
+const PLOT_OFFSET = ROAD / 2 + 1.5 + 11 // road half width + sidewalk + plot front depth
 
 // ── Units ───────────────────────────────────────────────
 export const STATUS = {
@@ -42,7 +42,7 @@ export const UNITS = ANGLES.map((deg, i) => {
     car: i % 2 === 0,
   }
 })
-export const UNIT_SPEC = { type: 'L-shaped Courtyard Villa', beds: 2, area: '185 m²', plot: '420 m²', delivery: 'Q2 2028', location: 'New Zayed' }
+export const UNIT_SPEC = { type: 'L shaped Courtyard Villa', beds: 2, area: '185 m²', plot: '420 m²', delivery: 'Q2 2028', location: 'New Zayed' }
 
 // ── Villa plan (local coords: +z towards the street) ─────
 // Day wing x[-7,5] z[1,6]: entrance & dining hall | living + kitchen.
@@ -63,7 +63,7 @@ export const HOUSE_WALLS = [
   { axis: 'z', at: -1, from: 1, to: 6, openings: [door(1.6, 4.6, 2.6)] },
 ]
 
-// Floor-plan lines for the minimap (gaps at doorways)
+// Floor plan lines for the minimap (gaps at doorways)
 export function planLines() {
   const lines = []
   HOUSE_WALLS.forEach((w) => {
@@ -224,7 +224,7 @@ function buildWall(THREE, H, parent, M, w) {
     piece(o.a, o.b, o.y1, WALL_H)
     if (o.glass) {
       // Single clean pane (a thin box gave two overlapping transparent faces that shimmered),
-      // frames sit just inside the opening so no faces coincide with the wall (no z-fighting).
+      // frames sit just inside the opening so no faces coincide with the wall (no z fighting).
       const len = o.b - o.a
       const c = (o.a + o.b) / 2
       const h = o.y1 - o.y0
@@ -257,9 +257,9 @@ function addCar(H, g, M, x, z, dark) {
   ;[[-0.95, 1.4], [0.95, 1.4], [-0.95, -1.4], [0.95, -1.4]].forEach(([dx, dz]) => H.box(g, 0.26, 0.66, 0.66, M.tyre, x + dx, 0, z + dz))
 }
 
-// ── L-shaped courtyard villa ─────────────────────────────
+// ── L shaped courtyard villa ─────────────────────────────
 function gable(THREE, H, parent, mat, x, z0, z1, y0, y1) {
-  // triangular infill under the mono-pitch roof, on a side wall at `x`
+  // triangular infill under the mono pitch roof, on a side wall at `x`
   const s = new THREE.Shape()
   s.moveTo(z0, y0)
   s.lineTo(z1, y0)
@@ -296,7 +296,7 @@ function buildHouse(THREE, H, M, unit, index) {
   })
   HOUSE_WALLS.forEach((w) => buildWall(THREE, H, g, M, w))
 
-  // Day wing: mono-pitch roof rising towards the street, with infill above the walls
+  // Day wing: mono pitch roof rising towards the street, with infill above the walls
   const roofMat = M.roof.clone()
   const run = 6.2
   const rise = 1.4
@@ -308,7 +308,7 @@ function buildHouse(THREE, H, M, unit, index) {
   gable(THREE, H, g, M.wallExt, -7, 1, 6, WALL_H, WALL_H + rise * (5.3 / run))
   gable(THREE, H, g, M.wallExt, 5, 1, 6, WALL_H, WALL_H + rise * (5.3 / run))
 
-  // Night wing: two-storey timber tower with glass bands and a flat roof
+  // Night wing: two storey timber tower with glass bands and a flat roof
   H.box(g, 6.44, 3.0, 8.44, M.clad, -4, WALL_H, -3)
   H.box(g, 0.05, 1.3, 6, M.darkGlass, -0.76, WALL_H + 0.9, -3, noShadow)
   H.box(g, 4.4, 1.3, 0.05, M.darkGlass, -4, WALL_H + 0.9, -7.24, noShadow)

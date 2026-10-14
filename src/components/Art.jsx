@@ -1,6 +1,6 @@
 import { useId } from 'react'
 
-// Brand-styled generative illustrations used wherever there is no photo yet.
+// Brand styled generative illustrations used wherever there is no photo yet.
 // variant: 'tours' | 'twins' | 'web'. `seed` shifts the composition so cards differ.
 
 function hash(str = '') {

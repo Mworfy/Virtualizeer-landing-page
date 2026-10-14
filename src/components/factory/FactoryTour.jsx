@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { AlertTriangle, ArrowLeft, Check, CheckCircle2, Hand, Minus, PauseCircle, Plus, Wrench } from 'lucide-react'
+import { AlertTriangle, ArrowLeft, Check, CheckCircle2, Hand, Minus, PauseCircle, Plus, Wrench, X } from 'lucide-react'
 import { MACHINES, METRICS, STATUS, buildFactory } from './factoryScene.js'
 
-// Industrial digital twin: cut-away plant with simulated live sensor data.
+// Industrial digital twin: cutaway plant with simulated live sensor data.
 // Orbit the plant, click a machine to fly to it and open its live readings.
 
 const touch = typeof window !== 'undefined' && window.matchMedia?.('(hover: none)').matches
@@ -459,7 +459,7 @@ export default function FactoryTour() {
                 >
                   <option value="">Inspect a machine…</option>
                   {MACHINES.map((m, i) => (
-                    <option key={m.id} value={i}>{m.name} — {STATUS[m.status].label}</option>
+                    <option key={m.id} value={i}>{m.name}, {STATUS[m.status].label}</option>
                   ))}
                 </select>
               </>
@@ -478,7 +478,10 @@ export default function FactoryTour() {
                   <span className="fpanel__eyebrow">{sel.line} · {sel.id}</span>
                   <h3>{sel.name}</h3>
                 </div>
-                <StatusPill status={sel.status} />
+                <span className="fpanel__headright">
+                  <StatusPill status={sel.status} />
+                  <button className="fpanel__close" onClick={() => api.current.focus?.(null)} aria-label="Close machine panel" title="Close"><X aria-hidden="true" /></button>
+                </span>
               </div>
               {sel.alert && (
                 <p className={`fpanel__alert fpanel__alert--${sel.status}`}>

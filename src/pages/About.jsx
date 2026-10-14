@@ -5,7 +5,7 @@ import { stats, team } from '../content.js'
 
 const values = [
   { icon: 'Target', title: 'Accuracy first', text: 'Every capture is checked for alignment, exposure and measurement accuracy before it ships.' },
-  { icon: 'Eye', title: 'Designed to be seen', text: 'We care how a space feels on screen — framing, light and flow — not just that it’s scanned.' },
+  { icon: 'Eye', title: 'Designed to be seen', text: 'We care how a space feels on screen: framing, light and flow, not just that it’s scanned.' },
   { icon: 'Zap', title: 'Fast & reliable', text: 'Clear timelines, quick turnaround and one point of contact from capture to launch.' },
   { icon: 'Hand', title: 'Easy to use', text: 'Tours and sites anyone can open, on any device, with no training or app required.' },
 ]
@@ -31,7 +31,7 @@ export default function About() {
               Photos flatten a space. A tour lets people move through it, and a digital twin lets them measure and plan inside it.
             </p>
             <p className="muted">
-              Today we capture, model and publish spaces for real estate, hospitality, retail and construction — and build the websites
+              Today we capture, model and publish spaces for real estate, hospitality, retail and construction, and build the websites
               that bring them to the right audience.
             </p>
           </Reveal>

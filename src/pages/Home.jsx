@@ -22,7 +22,7 @@ export default function Home() {
             <span className="eyebrow intro">Virtual tours · Digital twins · Web</span>
             <h1 className="display intro" style={{ '--delay': '60ms' }}>Step inside before you arrive.</h1>
             <p className="lead intro" style={{ '--delay': '120ms' }}>
-                We turn real spaces into immersive 360° tours and measurable digital twins — and build the
+                We turn real spaces into immersive 360° tours and measurable digital twins and build the
                 websites that put them in front of the right people.
             </p>
             <div className="btn-row intro" style={{ '--delay': '180ms' }}>
@@ -59,7 +59,7 @@ export default function Home() {
           <SectionHeader
             eyebrow="What we do"
             title={<span id="services-title">One team for capturing, modelling and publishing your space.</span>}
-            lead="Pick one service or combine all three — tours and twins are captured in the same visit."
+            lead="Pick one service or combine all three. Tours and twins are captured in the same visit."
           />
           <div className="grid grid-3">
             {services.map((s, i) => (
@@ -88,7 +88,7 @@ export default function Home() {
           <SectionHeader
             eyebrow="See it for yourself"
             title={<span id="demo-title">Walk through a space right now.</span>}
-            lead="Drag to look around and tap the rings on the floor to walk from room to room — the same experience we build for your space."
+            lead="Drag to look around and tap the rings on the floor to walk from room to room. It is the same experience we build for your space."
           />
           <Reveal>
             <TourEmbed url={demoTourUrl} title="Sample virtual tour" />

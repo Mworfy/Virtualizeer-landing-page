@@ -30,11 +30,11 @@ const useCases = [
     id: 'usecase-compound',
     eyebrow: 'Interactive use case 01 · Residential compound',
     title: 'Let buyers walk through homes that don’t exist yet.',
-    lead: 'Off-plan sales live or die on imagination. A digital twin of the compound lets agents show the full masterplan, then take clients straight into the unit they’re interested in. Try it: click any villa.',
+    lead: 'Off plan sales live or die on imagination. A digital twin of the compound lets agents show the full masterplan, then take clients straight into the unit they’re interested in. Try it: click any villa.',
     className: 'tour--compound',
     Demo: CompoundTour,
     benefits: [
-      { icon: Building2, title: 'See the whole masterplan', text: 'Buyers explore the compound from above — roads, amenities, and which units are still available.' },
+      { icon: Building2, title: 'See the whole masterplan', text: 'Buyers explore the compound from above: roads, amenities, and which units are still available.' },
       { icon: MousePointerClick, title: 'Pick a home, step inside', text: 'One click flies down to the front garden in first person. No loading screens, no separate apps.' },
       { icon: Eye, title: 'Sell before it’s built', text: 'Clients walk through their future villa room by room, months before construction finishes.' },
     ],
@@ -43,7 +43,7 @@ const useCases = [
     id: 'usecase-factory',
     eyebrow: 'Interactive use case 02 · Manufacturing plant',
     title: 'Run the factory floor from any screen.',
-    lead: 'An industrial twin connects the 3D plant to live machine data. Managers see every line at a glance, spot problems before they stop production and send the right technician to the right machine. Try it: click a machine — or the red alert.',
+    lead: 'An industrial twin connects the 3D plant to live machine data. Managers see every line at a glance, spot problems before they stop production and send the right technician to the right machine. Try it: click a machine or the red alert.',
     className: 'tour--factory',
     Demo: FactoryTour,
     benefits: [
@@ -56,7 +56,7 @@ const useCases = [
     id: 'usecase-zayed',
     eyebrow: 'Project 03 · Zayed Reimagined · New Zayed',
     title: 'Zayed Reimagined: find it on the map, then walk inside.',
-    lead: 'Our third project sits in New Zayed, next to VYE and Belle Vie. Start on the map, open the project, orbit the 10-villa masterplan, then fly into any villa and walk through every room. Try it: click the gold pin.',
+    lead: 'Our third project sits in New Zayed, next to VYE and Belle Vie. Start on the map, open the project, orbit the 10 villa masterplan, then fly into any villa and walk through every room. Try it: click the gold pin.',
     className: 'tour--zayed',
     Demo: ZayedExperience,
     benefits: [
@@ -99,7 +99,7 @@ export default function TwinUseCases() {
 const atlasPoints = [
   { icon: Layers, title: 'A visual identity for the region', text: 'New Zayed, the airport, Sheikh Zayed and the desert road in one stylised 3D map.' },
   { icon: Scale, title: 'Look up and compare compounds', text: 'Search 23 compounds by name or developer, filter by type and compare them side by side.' },
-  { icon: MapPin, title: 'Sourced, not guessed', text: 'Every figure links to its public source, with the date it was checked.' },
+  { icon: MapPin, title: 'Landmarks in context', text: 'The airport, Sheikh Zayed, the desert road and the Pyramids around every compound.' },
 ]
 
 function AtlasTeaser() {
@@ -116,7 +116,7 @@ function AtlasTeaser() {
             <div className="atlas-teaser" aria-hidden="true"><NewZayedMap zooming={false} onOpen={() => {}} /></div>
             <div className="atlas-teaser__cta">
               <strong>New Zayed <em>Atlas</em></strong>
-              <span>Full-screen 3D map · compound directory · side-by-side comparison</span>
+              <span>Full screen 3D map · compound directory · side by side comparison</span>
               <Link to="/new-zayed-atlas" className="btn btn--light">Open the Atlas <ArrowRight aria-hidden="true" /></Link>
             </div>
           </div>

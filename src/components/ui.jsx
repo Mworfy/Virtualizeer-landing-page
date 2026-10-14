@@ -9,7 +9,7 @@ export const categoryLabels = { tours: 'Virtual Tour', twins: 'Digital Twin', we
 
 export function usePageMeta(title, description) {
   useEffect(() => {
-    document.title = title ? `${title} — Virtualizeer` : 'Virtualizeer — Virtual Tours, Digital Twins & Web Development'
+    document.title = title ? `${title} | Virtualizeer` : 'Virtualizeer | Virtual Tours, Digital Twins & Web Development'
     if (description) document.querySelector('meta[name="description"]')?.setAttribute('content', description)
   }, [title, description])
 }

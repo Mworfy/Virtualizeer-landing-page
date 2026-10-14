@@ -686,3 +686,20 @@ main { min-height: 60vh; }
 .atlas-teaser__cta strong { font-family: var(--font-display); font-weight: 800; font-size: 2rem; letter-spacing: 0.06em; }
 .atlas-teaser__cta strong em { font-style: italic; font-weight: 600; color: #e9c98f; letter-spacing: 0; }
 .atlas-teaser__cta span { color: #c9d5df; font-size: 0.92rem; }
+
+/* ── Exit (✕) buttons for immersive experiences ── */
+.xexit {
+  width: 42px; height: 42px; flex: none; display: grid; place-items: center; padding: 0; cursor: pointer;
+  border-radius: 50%; border: 1px solid rgba(255,255,255,0.35); background: #fff; color: var(--navy) !important;
+  box-shadow: 0 6px 16px -8px rgba(0,0,0,.45); transition: transform .15s, background-color .15s;
+}
+.xexit:hover:not(:disabled) { background: #e9eef3; transform: scale(1.05); }
+.xexit:disabled { opacity: .5; cursor: default; }
+.xexit svg { width: 20px; height: 20px; }
+.ctour__topright { display: inline-flex; align-items: center; gap: 8px; pointer-events: auto; }
+.fpanel__headright { display: inline-flex; align-items: center; gap: 8px; }
+.fpanel__close { width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--bg-2); cursor: pointer; display: grid; place-items: center; color: var(--ink); }
+.fpanel__close:hover { background: var(--bg-3); }
+.fpanel__close svg { width: 18px; height: 18px; }
+@media (pointer: coarse) { .xexit { width: 44px; height: 44px; } .fpanel__close { width: 44px; height: 44px; } }
+@media (max-width: 720px) { .ctour__top .ctour__topright .chip { display: none; } }

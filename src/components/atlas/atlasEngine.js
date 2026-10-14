@@ -10,7 +10,7 @@ import { COMPOUNDS, DISTRICTS, LANDMARK_MODELS } from './data.js'
 import { ROADS } from '../zayed/NewZayedMap.jsx'
 import { noiseTexture } from '../zayed/textures.js'
 
-// New Zayed Atlas — stylised 3D regional map. Map space (1000 × 560) maps 1:1 onto world x/z.
+// New Zayed Atlas, stylised 3D regional map. Map space (1000 × 560) maps 1:1 onto world x/z.
 const W = (mx, my, y = 0) => new THREE.Vector3(mx - 500, y, my - 280)
 const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
 const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
@@ -397,7 +397,7 @@ export function createAtlas({ canvas, container, pinRoot, quality = 'high', on =
   sun.shadow.normalBias = 0.04
   scene.add(sun, sun.target)
 
-  // ── Camera, controls, post-processing ──
+  // ── Camera, controls, post processing ──
   const camera = new THREE.PerspectiveCamera(42, 1, 2, 6000)
   const controls = new MapControls(camera, canvas)
   controls.enableDamping = true
@@ -458,7 +458,7 @@ export function createAtlas({ canvas, container, pinRoot, quality = 'high', on =
   const ro = new ResizeObserver(resize)
   ro.observe(container)
 
-  // ── Fly-to ──
+  // ── Fly to ──
   const flyTo = (target, distance, { polar = 0.95, dur = 1600 } = {}) => {
     const fromT = controls.target.clone()
     const fromP = camera.position.clone()
@@ -530,7 +530,7 @@ export function createAtlas({ canvas, container, pinRoot, quality = 'high', on =
     const w = container.clientWidth
     const h = container.clientHeight
     const dist = camera.position.distanceTo(controls.target)
-    // Collision-based decluttering for compound labels
+    // Collision based decluttering for compound labels
     const placed = []
     const cEls = [...pinRoot.querySelectorAll('[data-pin^="c:"]')]
       .map((el) => {
