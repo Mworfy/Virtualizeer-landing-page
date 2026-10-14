@@ -10,7 +10,7 @@ import NotFound from './NotFound.jsx'
 export default function ProjectDetail() {
   const { slug } = useParams()
   const p = projects.find((x) => x.slug === slug)
-  usePageMeta(p?.title, p?.summary)
+  usePageMeta(p?.title, p?.summary, { noindex: true }) // sample projects stay out of search until real
   if (!p) return <NotFound />
   const more = projects.filter((x) => x.slug !== p.slug).slice(0, 3)
 

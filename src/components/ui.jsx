@@ -4,14 +4,38 @@ import { ArrowRight, Maximize2, Plus, Rotate3d, ExternalLink } from 'lucide-reac
 import Art from './Art.jsx'
 import VirtualTour from './tour/VirtualTour.jsx'
 import { testimonials, faqs } from '../content.js'
+import { canonicalFor, routeMeta } from '../seo.js'
 
 export const categoryLabels = { tours: 'Virtual Tour', twins: 'Digital Twin', web: 'Web Development' }
 
-export function usePageMeta(title, description) {
+// Keeps title, description, canonical, Open Graph and robots in sync on client-side navigation.
+// Pre-rendered pages already ship the same values (see src/seo.js and scripts/prerender.mjs).
+const setMeta = (selector, attr, key, value) => {
+  let el = document.head.querySelector(selector)
+  if (!el) {
+    el = document.createElement(selector.startsWith('link') ? 'link' : 'meta')
+    el.setAttribute(attr, key)
+    document.head.appendChild(el)
+  }
+  el.setAttribute(selector.startsWith('link') ? 'href' : 'content', value)
+}
+export function usePageMeta(title, description, { noindex = false } = {}) {
   useEffect(() => {
-    document.title = title ? `${title} | Virtualizeer` : 'Virtualizeer | Virtual Tours, Digital Twins & Web Development'
-    if (description) document.querySelector('meta[name="description"]')?.setAttribute('content', description)
-  }, [title, description])
+    const path = window.location.pathname.replace(/\/$/, '') || '/'
+    const meta = routeMeta(path)
+    const t = meta?.title ?? title
+    const d = meta?.description ?? description
+    const full = t ? `${t} | Virtualizeer` : 'Virtualizeer | Virtual Tours, Digital Twins & Web Development'
+    document.title = full
+    if (d) {
+      setMeta('meta[name="description"]', 'name', 'description', d)
+      setMeta('meta[property="og:description"]', 'property', 'og:description', d)
+    }
+    setMeta('meta[property="og:title"]', 'property', 'og:title', full)
+    setMeta('meta[property="og:url"]', 'property', 'og:url', canonicalFor(path))
+    setMeta('link[rel="canonical"]', 'rel', 'canonical', canonicalFor(path))
+    setMeta('meta[name="robots"]', 'name', 'robots', noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1')
+  }, [title, description, noindex])
 }
 
 export function Reveal({ as: Tag = 'div', delay = 0, className = '', children, ...rest }) {

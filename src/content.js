@@ -215,6 +215,9 @@ export const testimonials = [
 export const clients = ['Sample Realty', 'Sample Hotels', 'Sample Developments', 'Sample Contractors', 'Sample Dining']
 
 export const faqs = [
+  { q: 'What is a virtual tour?', a: 'A virtual tour is an interactive 360° walkthrough of a real space. Visitors move from room to room on a phone, computer or VR headset, with floor plans and hotspots, without visiting in person.' },
+  { q: 'What is a digital twin, and how is it different from a virtual tour?', a: 'A digital twin is a measurable 3D model of a building or site. A virtual tour shows what a space looks like; a digital twin also lets you measure, tag assets, track construction progress and manage facilities.' },
+  { q: 'Can you show an off plan project before it is built?', a: 'Yes. We build interactive 3D models of compounds and homes from plans and renders, so buyers can explore the masterplan and walk through their unit before construction finishes.' },
   { q: 'How long does a capture take?', a: 'Most spaces up to 300 m² take 1 to 2 hours on site. Larger buildings are scheduled over one or more days.' },
   { q: 'How soon will my tour be ready?', a: 'Typically within 48 hours of the capture. Digital twins with exports and asset tagging take a few days longer.' },
   { q: 'Do visitors need to install anything?', a: 'No. Tours open in any modern browser on phones, tablets, computers and VR headsets.' },

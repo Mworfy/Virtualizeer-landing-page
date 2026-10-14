@@ -7,6 +7,7 @@ import {
 import { CATEGORIES, COMPOUNDS, DISTRICTS, LANDMARK_MODELS, REGION, formatEGP } from '../components/atlas/data.js'
 import { ROADS } from '../components/zayed/NewZayedMap.jsx'
 import '../components/atlas/atlas.css'
+import { usePageMeta } from '../components/ui.jsx'
 
 const touch = typeof window !== 'undefined' && window.matchMedia?.('(hover: none)').matches
 const MAX_COMPARE = 3
@@ -38,10 +39,10 @@ export default function NewZayedAtlas() {
   const navigate = useNavigate()
   const location = useLocation()
   // Exit the Atlas: go back if we came from the site, otherwise to the Digital Twins page
+  usePageMeta('New Zayed Atlas')
   const exitAtlas = () => (location.key !== 'default' ? navigate(-1) : navigate('/digital-twins'))
 
   useEffect(() => {
-    document.title = 'New Zayed Atlas | Virtualizeer'
     let a
     let cancelled = false
     import('../components/atlas/atlasEngine.js')
