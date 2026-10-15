@@ -244,6 +244,11 @@ export const testimonials = [
 ]
 
 
+export const partners = [
+  { name: 'Career 180', logo: '/partners/career180.webp', url: 'https://career-180.com/' },
+  { name: 'AIESEC', logo: '/partners/aiesec.png', url: 'https://aiesec.org/' },
+]
+
 export const faqs = [
   { q: 'What is a virtual tour?', a: 'An interactive 360° walkthrough of a real space, on any phone, computer or VR headset.' },
   { q: 'How is a digital twin different?', a: 'A tour shows a space. A twin is a 3D model you can also measure, tag and manage.' },

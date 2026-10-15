@@ -10,7 +10,8 @@ export default function Contact() {
   usePageMeta('Contact', 'Tell us about your space and get a quote from Virtualizeer.')
   const { state } = useLocation()
   const [values, setValues] = useState({
-    name: '', email: '', company: '', size: '', message: '',
+    name: '', email: '', company: '', size: '',
+    message: state?.partner ? 'We’d like to partner with Virtualizeer.' : '',
     services: state?.service ? [state.service] : [],
   })
   const [errors, setErrors] = useState({})
@@ -23,7 +24,7 @@ export default function Contact() {
     if (!v.name.trim()) e.name = 'Please enter your name.'
     if (!v.email.trim()) e.email = 'Please enter your email.'
     else if (!emailOk(v.email)) e.email = 'That email doesn’t look right. Check for typos.'
-    if (v.services.length === 0) e.services = 'Choose at least one service.'
+    if (v.services.length === 0 && !state?.partner) e.services = 'Choose at least one service.'
     if (v.message.trim().length < 10) e.message = 'Tell us a little about your space (at least 10 characters).'
     return e
   }
@@ -70,7 +71,7 @@ export default function Contact() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Let’s talk about your space."
+        title={state?.partner ? "Let’s partner up." : "Let’s talk about your space."}
         lead="We reply within one business day."
       />
       <section className="section" style={{ paddingTop: 48 }}>

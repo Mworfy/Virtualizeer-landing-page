@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight, Check, Plus } from 'lucide-react'
 import HeroViewer from '../components/HeroViewer.jsx'
 import Art from '../components/Art.jsx'
 import Icon from '../components/Icon.jsx'
 import {
   CTABand, FAQ, ProjectCard, Reveal, SectionHeader, Steps, TourEmbed, usePageMeta,
 } from '../components/ui.jsx'
-import { demoTourUrl, faqs, process, projects, services, stats } from '../content.js'
+import { demoTourUrl, partners, faqs, process, projects, services, stats } from '../content.js'
 
 const artFor = { 'virtual-tours': 'tours', 'digital-twins': 'twins', 'web-development': 'web' }
 
@@ -39,6 +39,27 @@ export default function Home() {
           <div className="intro" style={{ '--delay': '150ms' }}>
             <HeroViewer />
           </div>
+        </div>
+      </section>
+
+      <section className="section--tight partners" aria-labelledby="partners-title">
+        <div className="container partners__row">
+          <h2 id="partners-title" className="partners__label">Our partners</h2>
+          <ul className="partners__list">
+            {partners.map((p) => (
+              <li key={p.name}>
+                <a href={p.url} target="_blank" rel="noopener" className="partners__logo" title={p.name}>
+                  <img src={p.logo} alt={p.name} loading="lazy" />
+                </a>
+              </li>
+            ))}
+            <li>
+              <Link to="/contact" state={{ partner: true }} className="partners__join">
+                <span className="partners__plus"><Plus aria-hidden="true" /></span>
+                <span>Be our partner</span>
+              </Link>
+            </li>
+          </ul>
         </div>
       </section>
 
