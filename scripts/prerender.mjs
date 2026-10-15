@@ -312,6 +312,14 @@ for (const [path, meta] of Object.entries(AR_ROUTES)) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RPRHXDE31S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RPRHXDE31S');
+    </script>
     <title>${esc(fullTitle)}</title>
     <meta name="description" content="${esc(meta.description)}" />
     <link rel="canonical" href="${arUrl(path)}" />
@@ -394,6 +402,14 @@ function staticPage({ lang, path, title, description, h1, lead, body, jsonld, al
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RPRHXDE31S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RPRHXDE31S');
+    </script>
     <title>${esc(fullTitle)}</title>
     <meta name="description" content="${esc(description)}" />
     <link rel="canonical" href="${SITE_URL}${path}" />
