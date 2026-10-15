@@ -2,7 +2,7 @@
 // pre-renderer (scripts/prerender.mjs). Change SITE_URL when a custom domain is added.
 import { company, services, faqs } from './content.js'
 
-export const SITE_URL = 'https://virtualizeer-landing-page.vercel.app'
+export const SITE_URL = 'https://www.virtualizeer.com'
 export const SITE_NAME = 'Virtualizeer'
 export const OG_IMAGE = `${SITE_URL}/brand/og.png`
 
