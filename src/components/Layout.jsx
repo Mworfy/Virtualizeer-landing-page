@@ -6,7 +6,7 @@ import { company, services } from '../content.js'
 const navItems = [
   ...services.map((s) => ({ to: s.path, label: s.name })),
   { to: '/projects', label: 'Projects' },
-  { to: '/about', label: 'About' },
+  // { to: '/about', label: 'About' },
 ]
 
 function Navbar() {
@@ -53,6 +53,11 @@ function Navbar() {
                 {item.label}
               </NavLink>
             ))}
+            {pathname !== '/' && (
+              <NavLink to="/" end className="nav__link">
+                Home
+              </NavLink>
+            )}
             <Link to="/contact" className="btn btn--primary btn--sm nav__cta">
               Get a quote
             </Link>
@@ -72,7 +77,7 @@ function Navbar() {
       {open && (
         <nav id="mobile-menu" className="mobile-menu" aria-label="Main">
           <ul>
-            {[{ to: '/', label: 'Home' }, ...navItems, { to: '/contact', label: 'Contact' }].map((item) => (
+            {[...(pathname !== '/' ? [{ to: '/', label: 'Home' }] : []), ...navItems, { to: '/contact', label: 'Contact' }].map((item) => (
               <li key={item.to}>
                 <NavLink to={item.to} end={item.to === '/'} className="m-link">
                   {item.label}
