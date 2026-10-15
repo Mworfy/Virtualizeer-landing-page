@@ -14,6 +14,7 @@ export default function ServicePage({ slug }) {
   const s = services.find((x) => x.slug === slug)
   const category = categoryFor[slug]
   usePageMeta(s.name, s.intro)
+  const tour = projects.find((p) => p.category === 'tours' && p.tourUrl)
   const related = projects.filter((p) => p.category === category).slice(0, 3)
 
   return (
@@ -23,7 +24,7 @@ export default function ServicePage({ slug }) {
           <Link to="/contact" state={{ service: s.name }} className="btn btn--primary">
             Get a quote <ArrowRight aria-hidden="true" />
           </Link>
-          <Link to="/projects" state={{ filter: category }} className="btn btn--secondary">See examples</Link>
+          {related.length > 0 && <Link to="/projects" state={{ filter: category }} className="btn btn--secondary">See examples</Link>}
         </div>
       </PageHero>
 
@@ -34,7 +35,15 @@ export default function ServicePage({ slug }) {
         <div className="container">
           <Reveal>
             {category === 'tours' ? (
-              <TourEmbed url={demoTourUrl} title={`${s.name} demo`} />
+              <>
+                <TourEmbed url={tour?.tourUrl || demoTourUrl} title={tour?.title || `${s.name} demo`} poster={tour?.image} />
+                {tour && (
+                  <p className="tour-caption">
+                    <strong>{tour.title}</strong>
+                    <Link to={`/projects/${tour.slug}`} className="link-arrow">About this project <ArrowRight aria-hidden="true" /></Link>
+                  </p>
+                )}
+              </>
             ) : (
               <div className="media-frame" style={{ aspectRatio: '21 / 9' }}>
                 <Art variant={category} seed={`${slug}-hero`} />

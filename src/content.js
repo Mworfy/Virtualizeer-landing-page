@@ -15,7 +15,7 @@ export const company = {
 }
 
 // Google Apps Script web app URL (ends in /exec). See apps-script/Code.gs.
-export const formEndpoint = ''
+export const formEndpoint = 'https://script.google.com/macros/s/AKfycbwkzJ00-si88HH6rnbbeQCBXbH01pzGCgPA-qC4RDYQ_hgiyK1CzoHnx2GuAKfc2mKyPA/exec'
 
 // Optional: paste one of your own tour links (Matterport, Kuula, 3DVista, etc.).
 // Leave empty to show the built in interactive 3D apartment tour instead.
@@ -131,59 +131,35 @@ export const industries = [
 // `image` is optional, put files in /public/projects/ and reference as '/projects/name.jpg'.
 export const projects = [
   {
-    slug: 'nile-view-penthouse',
-    title: 'Nile View Penthouse',
-    client: 'Sample Realty', // TODO
+    slug: 'egypt-career-summit',
+    title: 'Egypt Career Summit 8th edition',
+    client: 'Career 180',
     category: 'tours',
-    location: 'Zamalek, Cairo',
-    year: '2026',
-    summary: 'A 4 bedroom penthouse tour that let overseas buyers view the property remotely.',
-    challenge: 'Most interested buyers lived abroad and could not visit in person.',
-    solution: 'A full 360° tour with floor plan, dollhouse view and hotspots for finishes and appliances.',
-    results: ['3× more qualified inquiries', 'Sold to an overseas buyer', '40% fewer in person viewings'],
-    tourUrl: demoTourUrl, // TODO: this project's real tour link
-    demoTour: true, // shows the built in 3D tour while tourUrl is empty
+    location: 'Egypt',
+    year: '',
+    summary: 'A 360° tour of the summit that anyone can explore online.',
+    challenge: 'Let people who couldn’t attend see the summit for themselves.',
+    solution: 'A 360° tour of the venue that opens in any browser, with thumbnails to jump between scenes.',
+    delivered: ['Hosted 360° tour with a share link', 'Thumbnails to move between scenes', 'Full screen on any device'],
+    image: '/projects/egypt-career-summit.jpg',
+    tourUrl: 'https://kuula.co/share/collection/7b1sP?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1',
+    live: 'https://kuula.co/share/collection/7b1sP',
   },
   {
-    slug: 'boutique-hotel',
-    title: 'Boutique Hotel Showcase',
-    client: 'Sample Hotels', // TODO
+    slug: 'airbnb-apartment',
+    title: 'Airbnb Apartment',
+    client: '',
     category: 'tours',
-    location: 'Red Sea',
-    year: '2026',
-    summary: 'Room and amenity tours embedded on the booking site and Google Maps.',
-    challenge: 'Guests booked on photos alone and expectations were hard to set.',
-    solution: 'Tours for every room type, pool and restaurant, published to Google Street View.',
-    results: ['Higher direct bookings', 'Longer time on site', 'Fewer pre booking questions'],
-    tourUrl: '',
+    location: '',
+    year: '',
+    summary: 'A 360° tour that lets guests walk through the apartment before they book.',
+    challenge: 'Help guests picture the space and book with confidence.',
+    solution: 'A 360° tour of every room, ready to share on the listing and social media.',
+    delivered: ['Hosted 360° tour with a share link', 'Every room, start to finish', 'Full screen on any device'],
+    image: '/projects/airbnb-apartment.jpg',
+    tourUrl: 'https://kuula.co/share/collection/7K1H7?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1',
+    live: 'https://kuula.co/share/collection/7K1H7',
   },
-  {
-    slug: 'office-tower-twin',
-    title: 'Office Tower Digital Twin',
-    client: 'Sample Developments', // TODO
-    category: 'twins',
-    location: 'New Capital',
-    year: '2026',
-    summary: 'A measurable twin of 12 floors used for fit out planning and facility management.',
-    challenge: 'Tenants and contractors needed accurate dimensions without repeated site visits.',
-    solution: 'A full building scan with tagged MEP assets and exported point clouds for the design team.',
-    results: ['Weeks saved in fit out planning', 'Single source of truth for 6 contractors', 'As built record for handover'],
-    tourUrl: '',
-  },
-  {
-    slug: 'construction-progress',
-    title: 'Construction Progress Capture',
-    client: 'Sample Contractors', // TODO
-    category: 'twins',
-    location: 'Sheikh Zayed',
-    year: '2025',
-    summary: 'Monthly scans of a residential compound to track progress against plan.',
-    challenge: 'Remote stakeholders lacked a clear view of site progress.',
-    solution: 'Scheduled captures with side by side comparisons and issue tagging.',
-    results: ['Issues caught before closing walls', 'Fewer site visits for stakeholders', 'Clear documentation trail'],
-    tourUrl: '',
-  },
-  // Real web projects. `live` adds a link to the site; `delivered` replaces the results list.
   {
     slug: 'youth-speak-forum',
     title: 'Youth Speak Forum',
@@ -227,26 +203,6 @@ export const projects = [
     live: 'https://youth2business.aiesec.org.eg/',
   },
 ]
-
-// TODO: replace with real client quotes
-export const testimonials = [
-  {
-    quote: 'The tour did the first viewing for us. Buyers arrived already convinced.',
-    name: 'Client Name',
-    role: 'Sales Director, Sample Realty',
-  },
-  {
-    quote: 'Having accurate measurements of the whole building online saved our design team weeks.',
-    name: 'Client Name',
-    role: 'Project Manager, Sample Developments',
-  },
-  {
-    quote: 'Fast, professional and the website finally shows our space the way it feels in person.',
-    name: 'Client Name',
-    role: 'Owner, Sample Dining',
-  },
-]
-
 
 export const partners = [
   { name: 'Career 180', logo: '/partners/career180.webp', url: 'https://career-180.com/' },

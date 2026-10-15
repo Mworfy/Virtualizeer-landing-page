@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Maximize2, Plus, Rotate3d, ExternalLink, MessagesSquare, ScanLine, Sparkles, Rocket } from 'lucide-react'
 import Art from './Art.jsx'
 import VirtualTour from './tour/VirtualTour.jsx'
-import { testimonials, faqs } from '../content.js'
+import { faqs } from '../content.js'
 import { canonicalFor, routeMeta } from '../seo.js'
 
 export const categoryLabels = { tours: 'Virtual Tour', twins: 'Digital Twin', web: 'Web Development' }
@@ -111,9 +111,10 @@ export function ProjectCard({ project, headingLevel = 3 }) {
           <Art variant={project.category} seed={project.slug} />
         )}
         <span className="chip project-card__tag">{categoryLabels[project.category]}</span>
+        {project.tourUrl && <span className="project-card__360" aria-hidden="true">360°</span>}
       </div>
       <div className="project-card__body">
-        <div className="project-card__meta">{project.location} · {project.year}</div>
+        <div className="project-card__meta">{[project.location, project.year].filter(Boolean).join(' · ')}</div>
         <H className="h3">{project.title}</H>
         <p>{project.summary}</p>
       </div>
@@ -121,7 +122,7 @@ export function ProjectCard({ project, headingLevel = 3 }) {
   )
 }
 
-export function TourEmbed({ url, title = 'Virtual tour', variant = 'tours' }) {
+export function TourEmbed({ url, title = 'Virtual tour', variant = 'tours', poster }) {
   const [loaded, setLoaded] = useState(false)
   const frameWrap = useRef(null)
 
@@ -157,7 +158,7 @@ export function TourEmbed({ url, title = 'Virtual tour', variant = 'tours' }) {
         </>
       ) : (
         <div className="tour__poster">
-          <Art variant={variant} seed={title} />
+          {poster ? <img className="tour__poster-img" src={poster} alt="" loading="lazy" /> : <Art variant={variant} seed={title} />}
           <button className="tour__launch" onClick={() => setLoaded(true)}>
             <span className="tour__play"><Rotate3d aria-hidden="true" /></span>
             <span className="tour__label">Launch the tour</span>
@@ -174,28 +175,6 @@ export function TourLink({ url }) {
     <a href={url} target="_blank" rel="noreferrer" className="link-arrow">
       Open in a new tab <ExternalLink aria-hidden="true" />
     </a>
-  )
-}
-
-export function Testimonials() {
-  return (
-    <div className="grid grid-3">
-      {testimonials.map((t, i) => (
-        <Reveal as="figure" key={i} delay={i * 80} className="card quote-card">
-          <blockquote>“{t.quote}”</blockquote>
-          <figcaption>
-            <span className="avatar" aria-hidden="true">
-              {t.name.split(' ').map((w) => w[0]).join('').slice(0, 2)}
-            </span>
-            <span>
-              <span className="name">{t.name}</span>
-              <br />
-              <span className="role">{t.role}</span>
-            </span>
-          </figcaption>
-        </Reveal>
-      ))}
-    </div>
   )
 }
 

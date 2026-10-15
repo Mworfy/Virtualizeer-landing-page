@@ -34,7 +34,7 @@ export default function ProjectDetail() {
           <Reveal>
             {p.tourUrl || p.demoTour ? (
               <>
-                <TourEmbed url={p.tourUrl} title={`${p.title} virtual tour`} variant={p.category} />
+                <TourEmbed url={p.tourUrl} title={`${p.title} virtual tour`} variant={p.category} poster={p.image} />
                 {p.tourUrl && <div style={{ marginTop: 8 }}><TourLink url={p.tourUrl} /></div>}
               </>
             ) : p.image ? (
@@ -66,10 +66,10 @@ export default function ProjectDetail() {
             <dl>
               {p.client && <div><dt>Client</dt><dd>{p.client}</dd></div>}
               <div><dt>Service</dt><dd>{categoryLabels[p.category]}</dd></div>
-              <div><dt>Location</dt><dd>{p.location}</dd></div>
-              <div><dt>Year</dt><dd>{p.year}</dd></div>
+              {p.location && <div><dt>Location</dt><dd>{p.location}</dd></div>}
+              {p.year && <div><dt>Year</dt><dd>{p.year}</dd></div>}
             </dl>
-            {p.live && <a href={p.live} target="_blank" rel="noopener" className="link-arrow" style={{ marginTop: 20, display: 'inline-flex' }}>Visit the live site</a>}
+            {p.live && <a href={p.live} target="_blank" rel="noopener" className="link-arrow" style={{ marginTop: 20, display: 'inline-flex' }}>{p.category === 'tours' ? 'Open the tour' : 'Visit the live site'}</a>}
             <Link to="/contact" className="btn btn--primary" style={{ width: '100%', marginTop: 28 }}>
               Start a similar project
             </Link>

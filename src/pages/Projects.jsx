@@ -13,9 +13,10 @@ const filters = [
 export default function Projects() {
   usePageMeta('Projects', 'Virtual tours, digital twins and websites delivered by Virtualizeer.')
   const { state } = useLocation()
-  const [filter, setFilter] = useState(state?.filter ?? 'all')
-  const shown = filter === 'all' ? projects : projects.filter((p) => p.category === filter)
   const count = (k) => (k === 'all' ? projects.length : projects.filter((p) => p.category === k).length)
+  const tabs = filters.filter((f) => count(f.key) > 0)
+  const [filter, setFilter] = useState(state?.filter && count(state.filter) ? state.filter : 'all')
+  const shown = filter === 'all' ? projects : projects.filter((p) => p.category === filter)
 
   return (
     <>
@@ -27,7 +28,7 @@ export default function Projects() {
       <section className="section" style={{ paddingTop: 48 }}>
         <div className="container">
           <div className="segmented" role="group" aria-label="Filter projects by service">
-            {filters.map((f) => (
+            {tabs.map((f) => (
               <button key={f.key} aria-pressed={filter === f.key} onClick={() => setFilter(f.key)}>
                 {f.label}<span className="count">{count(f.key)}</span>
               </button>
