@@ -48,7 +48,7 @@ export default function Home() {
           <ul className="partners__list">
             {partners.map((p) => (
               <li key={p.name}>
-                <a href={p.url} target="_blank" rel="noopener" className="partners__logo" title={p.name}>
+                <a href={p.url} target="_blank" rel="noopener" className={`partners__logo${p.dark ? ' partners__logo--dark' : ''}`} title={p.name}>
                   <img src={p.logo} alt={p.name} loading="lazy" />
                 </a>
               </li>
