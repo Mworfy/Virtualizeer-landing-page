@@ -5,7 +5,7 @@ import Art from '../components/Art.jsx'
 import {
   CTABand, FAQ, ProjectCard, Reveal, SectionHeader, Steps, TourEmbed, usePageMeta,
 } from '../components/ui.jsx'
-import { clients, demoTourUrl, faqs, process, projects, services, stats } from '../content.js'
+import { demoTourUrl, faqs, process, projects, services, stats } from '../content.js'
 
 const artFor = { 'virtual-tours': 'tours', 'digital-twins': 'twins', 'web-development': 'web' }
 
@@ -37,17 +37,6 @@ export default function Home() {
           </div>
           <div className="intro" style={{ '--delay': '150ms' }}>
             <HeroViewer />
-          </div>
-        </div>
-      </section>
-
-      <section className="section--tight" aria-label="Clients">
-        <div className="container">
-          <p className="muted" style={{ textAlign: 'center', marginBottom: 24, fontSize: '0.95rem' }}>
-            Trusted by teams in real estate, hospitality and construction
-          </p>
-          <div className="logo-row">
-            {clients.map((c) => <span key={c}>{c}</span>)}
           </div>
         </div>
       </section>

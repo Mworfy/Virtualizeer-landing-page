@@ -56,7 +56,7 @@ export const GUIDES = [
     h1: 'Matterport vs 360° tour vs digital twin: which do you need?',
     lead: 'Four technologies get called “virtual tours”. They solve different problems and cost different amounts. Here is how to pick the right one for your property or project.',
     sections: [
-      { h2: '360° virtual tour', p: ['Panoramic photos taken from several points and linked together. Visitors look around and jump between points. Fast to shoot, light to load and ideal for listings, hotels, restaurants and showrooms, published to your website and Google Maps.'] },
+      { h2: '360° virtual tour', p: ['Panoramic photos taken from several points and linked together. Visitors look around and jump between points. Fast to shoot, light to load and ideal for listings, hotels, schools and showrooms, published to your website and Google Maps.'] },
       { h2: 'Matterport style 3D tour', p: ['A depth sensing camera captures the space so visitors can walk through it smoothly, open a dollhouse view, read a floor plan and take rough measurements. The standard for premium residential listings, hotels and retail. Matterport is a trademark of Matterport, Inc.; similar results are possible with other 3D capture systems.'] },
       { h2: 'Digital twin', p: ['A measurable 3D model of a building, site or factory used for work, not only marketing: precise measurements, asset tagging, construction progress tracking, facility management and exports for architects and engineers (point cloud, OBJ, E57). Factories can link live machine data to the model.'] },
       { h2: 'Interactive 3D masterplan', p: ['Built from plans and renders before anything exists. Buyers explore the whole compound from above, see which units are available, then fly into a unit and walk through every room. Built for off plan sales.'] },
@@ -117,7 +117,7 @@ export const LOCATIONS = [
     title: 'Virtual Tours & Digital Twins in New Cairo (Fifth Settlement)',
     description: '360° virtual tours, 3D digital twins and real estate websites for villas, apartments, compounds, offices and showrooms in New Cairo and the Fifth Settlement.',
     local: 'New Cairo and the Fifth Settlement mix gated villa and apartment compounds with offices, clinics, schools and retail along the 90th Street corridor. Buyers often shortlist several compounds at once, so a tour that opens on any phone saves everyone a drive.',
-    fits: ['Villa and apartment resale listings', 'Compound sales centers and model units', 'Offices and coworking spaces', 'Showrooms and restaurants', 'Schools and clinics'],
+    fits: ['Villa and apartment resale listings', 'Compound sales centers and model units', 'Hotels and serviced apartments', 'Furniture and car showrooms', 'Schools and nurseries'],
   },
   {
     path: '/locations/sheikh-zayed',
@@ -125,7 +125,7 @@ export const LOCATIONS = [
     title: 'Virtual Tours & Digital Twins in Sheikh Zayed',
     description: '360° virtual tours, 3D digital twins and real estate websites for villas, compounds, malls and hotels in Sheikh Zayed City along the Cairo Alex Desert Road.',
     local: 'Sheikh Zayed City is one of west Cairo’s most established villa districts, with mature compounds, malls and hospitality close to the Cairo Alex Desert Road. Many buyers and tenants live abroad, which makes remote viewing especially valuable.',
-    fits: ['Standalone villas and townhouses', 'Compound resale and rentals', 'Malls, retail and restaurants', 'Hotels and serviced apartments', 'Clinics and schools'],
+    fits: ['Standalone villas and townhouses', 'Compound resale and rentals', 'Furniture and car showrooms', 'Hotels and serviced apartments', 'Schools and nurseries'],
   },
   {
     path: '/locations/new-zayed',
@@ -142,7 +142,7 @@ export const LOCATIONS = [
     title: 'Virtual Tours & Digital Twins in 6th of October City',
     description: '360° virtual tours and 3D digital twins for homes, compounds, factories, universities and malls in 6th of October City.',
     local: '6th of October City combines residential compounds, large universities, malls such as Mall of Arabia and one of Egypt’s biggest industrial zones, so it needs both marketing tours and operational digital twins.',
-    fits: ['Residential compounds and apartments', 'Factories and warehouses', 'Universities and schools', 'Malls and retail', 'Hotels and event venues'],
+    fits: ['Residential compounds and apartments', 'Factories and warehouses', 'Universities and schools', 'Furniture and car showrooms', 'Hotels and event venues'],
   },
   {
     path: '/locations/new-capital',

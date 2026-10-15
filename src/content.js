@@ -37,16 +37,14 @@ export const services = [
       { icon: 'Map', title: 'Google Street View', text: 'Be found and seen inside on Google Maps.' },
       { icon: 'Share2', title: 'Share & embed', text: 'One link for listings, socials and QR codes.' },
     ],
-    useCases: ['Hotels & resorts', 'Furniture showrooms', 'Real estate', 'Car showrooms', 'Restaurants & cafés', 'Schools & universities', 'Nurseries', 'Gyms'],
+    useCases: ['Hotels & resorts', 'Furniture showrooms', 'Real estate', 'Car showrooms', 'Schools & universities', 'Nurseries'],
     sectors: [
       { icon: 'BedDouble', name: 'Hotels & resorts' },
       { icon: 'Sofa', name: 'Furniture showrooms' },
       { icon: 'Building2', name: 'Real estate' },
       { icon: 'Car', name: 'Car showrooms' },
-      { icon: 'UtensilsCrossed', name: 'Restaurants & cafés' },
       { icon: 'GraduationCap', name: 'Schools & universities' },
       { icon: 'Baby', name: 'Nurseries' },
-      { icon: 'Dumbbell', name: 'Gyms' },
     ],
     deliverables: ['Hosted tour with a share link', 'Embed code for your website', 'Floor plan and dollhouse view', 'Branded intro and hotspots', 'HD stills for marketing'],
   },
@@ -107,11 +105,11 @@ export const stats = [
 
 export const industries = [
   { icon: 'Home', name: 'Real estate' },
-  { icon: 'BedDouble', name: 'Hospitality' },
-  { icon: 'ShoppingBag', name: 'Retail' },
-  { icon: 'GraduationCap', name: 'Education' },
-  { icon: 'HardHat', name: 'Construction' },
-  { icon: 'Landmark', name: 'Culture & venues' },
+  { icon: 'BedDouble', name: 'Hotels' },
+  { icon: 'GraduationCap', name: 'Schools & nurseries' },
+  { icon: 'Sofa', name: 'Furniture showrooms' },
+  { icon: 'Car', name: 'Car showrooms' },
+  { icon: 'HardHat', name: 'Construction & facilities' },
 ]
 
 // TODO: replace with real projects. `category` must be one of: tours, twins, web.
@@ -235,8 +233,6 @@ export const testimonials = [
   },
 ]
 
-// TODO: client names/logos shown on the home page
-export const clients = ['Sample Realty', 'Sample Hotels', 'Sample Developments', 'Sample Contractors', 'Sample Dining']
 
 export const faqs = [
   { q: 'What is a virtual tour?', a: 'An interactive 360° walkthrough of a real space, on any phone, computer or VR headset.' },
