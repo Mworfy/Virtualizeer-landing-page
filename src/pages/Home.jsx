@@ -2,11 +2,10 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Check } from 'lucide-react'
 import HeroViewer from '../components/HeroViewer.jsx'
 import Art from '../components/Art.jsx'
-import Icon from '../components/Icon.jsx'
 import {
-  CTABand, FAQ, ProjectCard, Reveal, SectionHeader, Testimonials, TourEmbed, usePageMeta,
+  CTABand, FAQ, ProjectCard, Reveal, SectionHeader, Steps, TourEmbed, usePageMeta,
 } from '../components/ui.jsx'
-import { clients, demoTourUrl, faqs, industries, process, projects, services, stats } from '../content.js'
+import { clients, demoTourUrl, faqs, process, projects, services, stats } from '../content.js'
 
 const artFor = { 'virtual-tours': 'tours', 'digital-twins': 'twins', 'web-development': 'web' }
 
@@ -100,14 +99,7 @@ export default function Home() {
             eyebrow="How it works"
             title={<span id="process-title">Live in days, not weeks.</span>}
           />
-          <ol className="steps">
-            {process.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 80} className="step">
-                <h3 className="h3">{p.title}</h3>
-                <p>{p.text}</p>
-              </Reveal>
-            ))}
-          </ol>
+          <Steps items={process} />
         </div>
       </section>
 
@@ -124,37 +116,6 @@ export default function Home() {
               <Reveal key={p.slug} delay={i * 80}><ProjectCard project={p} /></Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="section section--alt" aria-labelledby="industries-title">
-        <div className="container split">
-          <div>
-            <SectionHeader
-              eyebrow="Who it’s for"
-              title={<span id="industries-title">Built for spaces people need to see.</span>}
-            />
-            <Reveal className="pill-grid">
-              {industries.map((ind) => (
-                <span key={ind.name} className="pill"><Icon name={ind.icon} />{ind.name}</span>
-              ))}
-            </Reveal>
-          </div>
-          <Reveal className="stats" style={{ gridTemplateColumns: 'repeat(2, 1fr)', rowGap: 48 }}>
-            {stats.map((s) => (
-              <div key={s.label}>
-                <div className="stat__value">{s.value}</div>
-                <div className="stat__label">{s.label}</div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section" aria-labelledby="testimonials-title">
-        <div className="container">
-          <SectionHeader center eyebrow="Clients" title={<span id="testimonials-title">What our clients say.</span>} />
-          <Testimonials />
         </div>
       </section>
 

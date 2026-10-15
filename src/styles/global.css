@@ -264,20 +264,45 @@ main { min-height: 60vh; }
 .art svg { width: 100%; height: 100%; }
 
 /* ── Steps ─────────────────────────────────────────────── */
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: step; }
-.step { position: relative; padding-top: 28px; border-top: 2px solid var(--line); }
-.section--navy .step { border-top-color: rgba(255,255,255,0.2); }
-.step::before {
-  counter-increment: step; content: '0' counter(step);
-  display: block; font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em;
-  color: var(--accent); margin-bottom: 14px;
+.steps { --step-c: var(--accent); --step-line: var(--line); --step-card: #fff; --step-card-b: var(--line); --step-text: var(--ink-2);
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; list-style: none; padding: 0; }
+.section--navy .steps { --step-c: #8fb8dd; --step-line: rgba(255,255,255,0.16); --step-card: rgba(255,255,255,0.05); --step-card-b: rgba(255,255,255,0.12); --step-text: var(--on-navy-2); --step-pill: #1a3a55; }
+/* Connector running behind the markers */
+.steps::before {
+  content: ''; position: absolute; top: 28px; left: 28px; right: 28px; height: 2px;
+  background: linear-gradient(90deg, var(--step-c), var(--step-line) 85%);
+  opacity: .7;
 }
-.section--navy .step::before { color: #8fb8dd; }
-.step h3 { margin-bottom: 8px; }
-.step p { color: var(--ink-2); }
-.section--navy .step p { color: var(--on-navy-2); }
-@media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); row-gap: 36px; } }
-@media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+.step { position: relative; display: flex; flex-direction: column; gap: 18px; }
+.step__marker { display: flex; align-items: center; gap: 12px; position: relative; z-index: 1; }
+.step__icon {
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; flex: none;
+  background: var(--navy); color: #fff; box-shadow: 0 0 0 6px var(--step-ring, #fff), 0 10px 24px -10px rgba(15,42,64,.55);
+  transition: transform .35s var(--ease);
+}
+.section--alt .steps { --step-ring: var(--bg-2); }
+.section--navy .step__icon { background: linear-gradient(145deg, #2f6aa0, #173b5a); --step-ring: var(--navy); box-shadow: 0 0 0 6px var(--navy), 0 10px 24px -10px rgba(0,0,0,.6); }
+.step__icon svg { width: 24px; height: 24px; }
+.step__num {
+  font-family: var(--font-display); font-weight: 800; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--step-c);
+  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--step-card-b); background: var(--step-pill, #fff);
+}
+.step__card {
+  flex: 1; padding: 22px 22px 24px; border-radius: 18px; background: var(--step-card); border: 1px solid var(--step-card-b);
+  transition: transform .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease);
+}
+.step:hover .step__card { transform: translateY(-4px); border-color: var(--step-c); }
+.step:hover .step__icon { transform: scale(1.06); }
+.step h3 { margin-bottom: 6px; }
+.step p { color: var(--step-text); margin: 0; }
+@media (max-width: 900px) {
+  .steps { grid-template-columns: 1fr; gap: 14px; }
+  .steps::before { top: 28px; bottom: 28px; left: 27px; right: auto; width: 2px; height: auto; background: linear-gradient(180deg, var(--step-c), var(--step-line) 85%); }
+  .step { flex-direction: row; align-items: flex-start; gap: 16px; }
+  .step__marker { flex-direction: column; gap: 8px; }
+  .step__num { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .step__card, .step__icon { transition: none; } .step:hover .step__card, .step:hover .step__icon { transform: none; } }
 
 /* ── Stats ─────────────────────────────────────────────── */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -442,8 +467,7 @@ main { min-height: 60vh; }
 
 /* ── Footer ─────────────────────────────────────────────── */
 .footer { background: var(--navy-deep); color: var(--on-navy-2); padding: 72px 0 32px; }
-.footer__grid { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 36px; }
-.footer h2.footer__sub { margin-top: 22px; }
+.footer__grid { display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 36px; }
 .footer__brand img { height: 34px; width: auto; margin-bottom: 18px; }
 .footer__brand p { max-width: 22rem; }
 .footer h2 { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #fff; margin-bottom: 14px; }

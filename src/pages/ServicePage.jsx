@@ -4,7 +4,7 @@ import Art from '../components/Art.jsx'
 import TwinUseCases from '../components/compound/TwinUseCases.jsx'
 import Icon from '../components/Icon.jsx'
 import {
-  CTABand, PageHero, ProjectCard, Reveal, SectionHeader, TourEmbed, usePageMeta,
+  CTABand, PageHero, ProjectCard, Reveal, SectionHeader, Steps, TourEmbed, usePageMeta,
 } from '../components/ui.jsx'
 import { demoTourUrl, process, projects, services } from '../content.js'
 
@@ -84,14 +84,7 @@ export default function ServicePage({ slug }) {
       <section className="section section--navy" aria-labelledby="process-title">
         <div className="container">
           <SectionHeader eyebrow="Process" title={<span id="process-title">Simple from start to finish.</span>} />
-          <ol className="steps">
-            {process.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 80} className="step">
-                <h3 className="h3">{p.title}</h3>
-                <p>{p.text}</p>
-              </Reveal>
-            ))}
-          </ol>
+          <Steps items={process} />
         </div>
       </section>
 

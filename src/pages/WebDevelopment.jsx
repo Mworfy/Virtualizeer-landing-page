@@ -4,7 +4,7 @@ import {
   Accessibility, ArrowRight, Box, Building2, CalendarDays, Check, ChevronDown, Code, ExternalLink, FileSpreadsheet, Gauge,
   Languages, LayoutTemplate, Maximize2, Monitor, Play, Search, ShoppingBag, Smartphone, Tablet, Workflow, X,
 } from 'lucide-react'
-import { CTABand, FAQ, Reveal, SectionHeader, usePageMeta } from '../components/ui.jsx'
+import { CTABand, FAQ, Reveal, SectionHeader, Steps, usePageMeta } from '../components/ui.jsx'
 
 // Portfolio. `src` is what loads in the device preview: a demo copy in public/work (forms off) or the live site.
 const SCRATCH = 'Built from scratch'
@@ -353,14 +353,7 @@ export default function WebDevelopment() {
       <section className="section" aria-labelledby="process-title">
         <div className="container">
           <SectionHeader eyebrow="Process" title={<span id="process-title">Clear steps, no surprises.</span>} />
-          <ol className="steps">
-            {steps.map((p, i) => (
-              <Reveal as="li" key={p.title} delay={i * 80} className="step">
-                <h3 className="h3">{p.title}</h3>
-                <p>{p.text}</p>
-              </Reveal>
-            ))}
-          </ol>
+          <Steps items={steps} />
         </div>
       </section>
 

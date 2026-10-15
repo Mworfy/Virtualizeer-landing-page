@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Maximize2, Plus, Rotate3d, ExternalLink } from 'lucide-react'
+import { ArrowRight, Maximize2, Plus, Rotate3d, ExternalLink, MessagesSquare, ScanLine, Sparkles, Rocket } from 'lucide-react'
 import Art from './Art.jsx'
 import VirtualTour from './tour/VirtualTour.jsx'
 import { testimonials, faqs } from '../content.js'
@@ -237,5 +237,29 @@ export function CTABand({
         </Reveal>
       </div>
     </section>
+  )
+}
+
+const STEP_ICONS = [MessagesSquare, ScanLine, Sparkles, Rocket]
+
+export function Steps({ items }) {
+  return (
+    <ol className="steps">
+      {items.map((p, i) => {
+        const I = STEP_ICONS[i % STEP_ICONS.length]
+        return (
+          <Reveal as="li" key={p.title} delay={i * 90} className="step">
+            <div className="step__marker">
+              <span className="step__icon"><I aria-hidden="true" /></span>
+              <span className="step__num">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+            <div className="step__card">
+              <h3 className="h3">{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+          </Reveal>
+        )
+      })}
+    </ol>
   )
 }
