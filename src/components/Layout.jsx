@@ -91,7 +91,6 @@ function Navbar() {
 }
 
 function Footer() {
-  const year = new Date().getFullYear()
   return (
     <footer className="footer">
       <div className="container">
@@ -129,7 +128,7 @@ function Footer() {
           </div>
         </div>
         <div className="footer__bottom">
-          <span>© {year} {company.name}. All rights reserved.</span>
+          <span>© 2024 {company.name}. All rights reserved.</span>
           <span>{company.location}</span>
         </div>
       </div>
