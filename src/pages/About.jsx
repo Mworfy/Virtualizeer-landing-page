@@ -4,10 +4,10 @@ import { CTABand, PageHero, Reveal, SectionHeader, usePageMeta } from '../compon
 import { stats, team } from '../content.js'
 
 const values = [
-  { icon: 'Target', title: 'Accuracy first', text: 'Every capture is checked for alignment, exposure and measurement accuracy before it ships.' },
-  { icon: 'Eye', title: 'Designed to be seen', text: 'We care how a space feels on screen: framing, light and flow, not just that it’s scanned.' },
-  { icon: 'Zap', title: 'Fast & reliable', text: 'Clear timelines, quick turnaround and one point of contact from capture to launch.' },
-  { icon: 'Hand', title: 'Easy to use', text: 'Tours and sites anyone can open, on any device, with no training or app required.' },
+  { icon: 'Target', title: 'Accuracy first', text: 'Every capture is checked before it ships.' },
+  { icon: 'Eye', title: 'Designed to be seen', text: 'Framing, light and flow, not just a scan.' },
+  { icon: 'Zap', title: 'Fast & reliable', text: 'Quick turnaround, one point of contact.' },
+  { icon: 'Hand', title: 'Easy to use', text: 'Opens on any device, no app needed.' },
 ]
 
 export default function About() {
@@ -17,7 +17,7 @@ export default function About() {
       <PageHero
         eyebrow="About"
         title="We bring real places online."
-        lead="Virtualizeer is a team of 3D capture specialists and web developers. We help businesses show their spaces with the clarity of a visit and the reach of the web."
+        lead="3D capture specialists and web developers, based in Cairo."
       />
 
       <section className="section">
@@ -26,13 +26,8 @@ export default function About() {
             <span className="eyebrow" style={{ marginBottom: 16 }}>Our story</span>
             <h2 className="h2" style={{ marginBottom: 20 }}>Seeing a space shouldn’t require being there.</h2>
             {/* TODO: replace with your real story */}
-            <p className="muted" style={{ marginBottom: 16 }}>
-              We started Virtualizeer after watching buyers, guests and project teams make big decisions from a handful of photos.
-              Photos flatten a space. A tour lets people move through it, and a digital twin lets them measure and plan inside it.
-            </p>
             <p className="muted">
-              Today we capture, model and publish spaces for real estate, hospitality, retail and construction, and build the websites
-              that bring them to the right audience.
+              Photos flatten a space. A tour lets people move through it, and a twin lets them measure it.
             </p>
           </Reveal>
           <Reveal className="media-frame" style={{ display: 'grid', placeItems: 'center' }}>

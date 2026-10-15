@@ -217,7 +217,7 @@ export function FAQ({ items = faqs }) {
 
 export function CTABand({
   title = 'Ready to let people step inside?',
-  lead = 'Tell us about your space and we’ll send a tailored quote within one business day.',
+  lead = 'Get a quote within one business day.',
 }) {
   return (
     <section className="section--tight" aria-labelledby="cta-title">

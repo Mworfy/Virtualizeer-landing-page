@@ -71,7 +71,7 @@ export default function Contact() {
       <PageHero
         eyebrow="Contact"
         title="Let’s talk about your space."
-        lead="Share a few details and we’ll reply within one business day with a tailored quote."
+        lead="We reply within one business day."
       />
       <section className="section" style={{ paddingTop: 48 }}>
         <div className="container split split--top">

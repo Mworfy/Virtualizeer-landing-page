@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Accessibility, ArrowRight, Box, Building2, CalendarDays, Check, ChevronDown, Code, ExternalLink, FileSpreadsheet, Gauge,
-  Languages, LayoutTemplate, Map, Maximize2, Monitor, Play, Search, ShoppingBag, Smartphone, Tablet, Workflow, X,
+  Languages, LayoutTemplate, Maximize2, Monitor, Play, Search, ShoppingBag, Smartphone, Tablet, Workflow, X,
 } from 'lucide-react'
 import { CTABand, FAQ, Reveal, SectionHeader, usePageMeta } from '../components/ui.jsx'
 
@@ -14,40 +14,33 @@ const PROJECTS = [
     id: 'wiab', name: 'Where it all begins', client: 'AIESEC in Egypt', type: 'Exchange programmes website', origin: CODEV,
     src: '/work/where-it-all-begins/index.html', live: 'https://whereitallbegins.aiesec.org.eg/', host: 'whereitallbegins.aiesec.org.eg',
     posters: { desktop: '/work/where-it-all-begins-desktop.jpg', mobile: '/work/where-it-all-begins-mobile.jpg' }, demo: true,
-    summary: 'A cinematic website that invites international students to spend their exchange in Egypt and helps them choose the right programme.',
+    summary: 'A cinematic site inviting students to spend their exchange in Egypt.',
     built: [
-      'Opens on a desert sunset scene of the pyramids that moves gently as you explore.',
-      'A Why Egypt page that tours the country, from Cairo and Luxor to Aswan, Dahab and the White Desert.',
-      'Clear pages for the three programmes: volunteering, internships and teaching abroad, each leading to real opportunities.',
-      'Students can sign in with their AIESEC account and follow their own journey to Egypt.',
-      'Warm colours, Egyptian patterns and the word Egypt in many languages, so the site feels like the trip itself.',
+      'Opens on a moving desert sunset over the pyramids.',
+      'Tours Egypt from Cairo to the White Desert.',
+      'Three clear programmes, each leading to real opportunities.',
     ],
   },
   {
     id: 'ysf', name: 'Youth Speak Forum', client: '', type: 'Event website and registration', origin: SCRATCH,
     src: '/work/ysf/site.html', live: 'https://ysf.aiesecus.org/', host: 'ysf.aiesecus.org',
     posters: { desktop: '/work/ysf-desktop.jpg', mobile: '/work/ysf-mobile.jpg' }, demo: true,
-    summary: 'The website for Youth Speak Forum, an event where young people discuss the issues that matter to them, with registration for everyone involved.',
+    summary: 'An event site with registration for everyone involved.',
     built: [
-      'Opens with a living voice animation that responds as visitors move around the page.',
-      'The Youth Speak logo builds itself piece by piece as visitors scroll.',
-      'Delegates, partners, speakers and sponsors can each register in a few steps, right from the page.',
-      'Every person who registers receives a branded confirmation email.',
-      'A separate registration page for QR codes on posters and flyers.',
-      'Optional ambient sound that visitors can turn on for a more immersive visit.',
+      'A voice animation that reacts as you move.',
+      'A logo that builds itself as you scroll.',
+      'Quick sign up for delegates, partners, speakers and sponsors.',
     ],
   },
   {
     id: 'konnect', name: 'Konnect', client: 'Konnect HR services', type: 'HR outsourcing platform', origin: SCRATCH,
     src: 'https://konnect-services.com/', live: 'https://konnect-services.com/', host: 'konnect-services.com',
     posters: { desktop: '/work/konnect-desktop.jpg', mobile: '/work/konnect-mobile.jpg' },
-    summary: 'A hiring platform that connects job seekers with companies, and helps recruiters find the right people faster.',
+    summary: 'A hiring platform connecting job seekers and companies.',
     built: [
-      'Job seekers create a profile and upload their CV in minutes.',
-      'Talent is organised by field of experience, so companies find suitable candidates quickly.',
-      'Companies browse and shortlist candidates in one place.',
-      'Recruiters share personal apply links and see which link brought in each applicant.',
-      'A bold, modern look with a connecting rings animation that reflects the brand.',
+      'Job seekers upload a CV in minutes.',
+      'Companies browse talent by field.',
+      'Recruiters track which link brought each applicant.',
     ],
   },
 ]
@@ -56,32 +49,29 @@ const MORE = [
     id: 'y2b', name: 'Youth to Business (Y2B)', client: 'AIESEC in Egypt', type: 'Conference website and ticketing', origin: SCRATCH,
     src: '/work/y2b/index.html', live: 'https://youth2business.aiesec.org.eg/', host: 'youth2business.aiesec.org.eg',
     posters: { desktop: '/work/y2b-desktop.jpg', mobile: '/work/y2b-mobile.jpg' }, demo: true,
-    summary: 'A conference website with ticket sales, promo codes and content the organising team updates themselves.',
+    summary: 'A conference site with ticket sales and promo codes.',
     built: [
-      'Ticket pricing with early bird rates and percentage promo codes, through to checkout.',
-      'A Django admin where the team edits the hero, dates, venue, counters and buttons without code.',
-      'Pages for the agenda, speakers, partners, companies, media and FAQs.',
-      'Partner applications sent to the AIESEC partners API, with feedback and member forms saved to Google Sheets.',
-      'Media stored on DigitalOcean Spaces and deployed with Docker.',
+      'Early bird prices and promo codes at checkout.',
+      'The team updates dates and speakers without code.',
     ],
   },
   {
     id: 'mea-xlds', name: 'MEA XLDS 2026', client: 'AIESEC in the Middle East and Africa', type: 'Leadership conference website', origin: SCRATCH,
     src: '/work/mea-xlds/index.html', live: 'https://mea-xlds.aiesec.org.eg/', host: 'mea-xlds.aiesec.org.eg',
     posters: { desktop: '/work/mea-xlds-desktop.jpg', mobile: '/work/mea-xlds-mobile.jpg' }, demo: true,
-    summary: 'The website for the regional leadership conference, with event details and registration for delegates.',
+    summary: 'A regional leadership conference site with registration.',
   },
   {
     id: 'aiesec-us', name: 'AIESEC in the United States', client: '', type: 'National website', origin: CODEV,
     src: 'https://aiesecus.org/', live: 'https://aiesecus.org/', host: 'aiesecus.org',
     posters: { desktop: '/work/aiesec-us-desktop.jpg', mobile: '/work/aiesec-us-mobile.jpg' },
-    summary: 'The national website for volunteering, internships and youth leadership, with programme sign ups, stories, news and donations.',
+    summary: 'The national site for volunteering, internships and leadership.',
   },
   {
     id: 'aiesec-egypt', name: 'AIESEC in Egypt', client: 'AIESEC in Egypt', type: 'National landing page', origin: CODEV,
     src: 'https://aiesec.org.eg/', live: 'https://aiesec.org.eg/', host: 'aiesec.org.eg',
     posters: { desktop: '/work/aiesec-egypt-desktop.jpg', mobile: '/work/aiesec-egypt-mobile.jpg' },
-    summary: 'The new national landing page, built together with the AIESEC in Egypt team.',
+    summary: 'The new national landing page.',
   },
 ]
 const ALL = [...PROJECTS, ...MORE]
@@ -258,42 +248,35 @@ function MoreWork() {
 }
 
 const kinds = [
-  { icon: Building2, title: 'Real estate websites and portals', text: 'Project sites and listing portals with virtual tours, 3D masterplans and live availability.' },
-  { icon: CalendarDays, title: 'Event and campaign sites', text: 'Launch pages with registration, QR codes and confirmation emails, ready for a deadline.' },
-  { icon: Box, title: 'Interactive 3D experiences', text: 'Three.js scenes, digital twins and maps that run smoothly in any browser.', to: '/digital-twins' },
-  { icon: LayoutTemplate, title: 'Company websites', text: 'Clear, fast sites that explain what you do and turn visitors into inquiries.' },
-  { icon: Code, title: 'Web apps and dashboards', text: 'Internal tools, booking flows and data dashboards connected to your systems.' },
-  { icon: ShoppingBag, title: 'Ecommerce', text: 'Online stores with fast product pages, payments and inventory.' },
+  { icon: Building2, title: 'Real estate websites and portals', text: 'Listings with tours and 3D masterplans.' },
+  { icon: CalendarDays, title: 'Event and campaign sites', text: 'Registration, QR codes and emails.' },
+  { icon: Box, title: 'Interactive 3D experiences', text: 'Twins and maps that run in any browser.', to: '/digital-twins' },
+  { icon: LayoutTemplate, title: 'Company websites', text: 'Clear sites that turn visitors into leads.' },
+  { icon: Code, title: 'Web apps and dashboards', text: 'Tools and dashboards for your team.' },
+  { icon: ShoppingBag, title: 'Ecommerce', text: 'Fast stores with payments built in.' },
 ]
 
 const builtIn = [
-  { icon: Gauge, title: 'Fast on any connection', text: 'Lean code, optimised images and lazy loading, so pages open quickly on mobile data.' },
-  { icon: Search, title: 'Found by search and AI', text: 'Prerendered pages, structured data, sitemaps and llms.txt, so search engines and AI assistants can read every page.' },
-  { icon: Languages, title: 'Arabic and English', text: 'Right to left layouts and bilingual SEO for audiences in Egypt and the Gulf.' },
-  { icon: FileSpreadsheet, title: 'Forms that work', text: 'Registrations and inquiries go straight to Google Sheets, email or your CRM.' },
-  { icon: Accessibility, title: 'Accessible', text: 'Keyboard navigation, screen reader labels, clear contrast and reduced motion support.' },
-  { icon: Workflow, title: 'Yours to own', text: 'Your domain, your accounts and a clean handover, with a CMS when your team needs one.' },
+  { icon: Gauge, title: 'Fast on any connection', text: 'Quick to load, even on mobile data.' },
+  { icon: Search, title: 'Found by search and AI', text: 'Readable by Google and AI assistants.' },
+  { icon: Languages, title: 'Arabic and English', text: 'Proper right to left layouts.' },
+  { icon: FileSpreadsheet, title: 'Forms that work', text: 'Straight to Sheets, email or your CRM.' },
+  { icon: Accessibility, title: 'Accessible', text: 'Usable by everyone.' },
+  { icon: Workflow, title: 'Yours to own', text: 'Your domain, your code, your accounts.' },
 ]
 
 const steps = [
-  { title: 'Discover', text: 'A short call to agree goals, audience, pages and the one action each visitor should take.' },
-  { title: 'Design', text: 'Structure, copy and a visual direction you approve before any code is written.' },
-  { title: 'Build and connect', text: 'Development, forms, analytics and SEO, tested on real phones and browsers.' },
-  { title: 'Launch and grow', text: 'Go live on your domain, then improve with data, content and new features.' },
-]
-
-const more = [
-  { icon: Building2, title: 'Off plan compound walkthrough', text: 'Fly from a masterplan into a villa and walk every room.', to: '/digital-twins' },
-  { icon: Map, title: 'New Zayed Atlas', text: 'A full screen 3D map web app with a compound directory and comparison.', to: '/new-zayed-atlas' },
-  { icon: Monitor, title: 'Interactive 3D tour', text: 'The walkable apartment on our home page, built with Three.js.', to: '/' },
+  { title: 'Discover', text: 'Agree goals and pages.' },
+  { title: 'Design', text: 'You approve the look first.' },
+  { title: 'Build and connect', text: 'Built and tested on real phones.' },
+  { title: 'Launch and grow', text: 'Go live, then keep improving.' },
 ]
 
 const faqs = [
-  { q: 'How long does a website take?', a: 'A focused landing page or event site usually takes a few weeks. Larger portals and web apps are planned in phases, and we agree the timeline after a short discovery call.' },
-  { q: 'Will I own the website?', a: 'Yes. The code, content, domain and accounts are yours, and we hand everything over at launch.' },
-  { q: 'Can you build in Arabic?', a: 'Yes. We build bilingual Arabic and English sites with proper right to left layouts and Arabic SEO.' },
-  { q: 'Can you connect forms to our tools?', a: 'Yes. Forms can send to Google Sheets, email or your CRM, with a confirmation email for the visitor.' },
-  { q: 'Do you look after the site after launch?', a: 'Yes. We offer hosting, updates and improvements after launch.' },
+  { q: 'How long does a website take?', a: 'A landing page or event site takes a few weeks. Bigger projects are planned in phases.' },
+  { q: 'Will I own the website?', a: 'Yes. The code, domain and accounts are all yours.' },
+  { q: 'Can you build in Arabic?', a: 'Yes, in Arabic and English with proper right to left layouts.' },
+  { q: 'Do you support the site after launch?', a: 'Yes. We offer hosting, updates and improvements.' },
 ]
 
 export default function WebDevelopment() {
@@ -306,8 +289,7 @@ export default function WebDevelopment() {
             <span className="eyebrow">Web Development</span>
             <h1 className="h1">Websites people remember, built to rank and convert.</h1>
             <p className="lead">
-              We design and build fast, interactive websites for real estate, events and brands: 3D experiences, Arabic and
-              English, forms wired to your tools, and SEO that works for both search engines and AI assistants.
+              Fast, interactive websites for real estate, events and brands.
             </p>
             <div className="btn-row" style={{ marginTop: 28 }}>
               <Link to="/contact" state={{ service: 'Web Development' }} className="btn btn--primary">Get a quote <ArrowRight aria-hidden="true" /></Link>
@@ -329,7 +311,7 @@ export default function WebDevelopment() {
           <SectionHeader
             eyebrow="Selected work"
             title={<span id="work-title">Websites we have built</span>}
-            lead="Three of our favourite projects, running for real below. Pick one, then switch between desktop, tablet and mobile."
+            lead="Pick a project and try it on any device."
           />
           <FeaturedWork />
           <MoreWork />
@@ -354,8 +336,8 @@ export default function WebDevelopment() {
 
       <section className="section section--navy" aria-labelledby="builtin-title">
         <div className="container">
-          <SectionHeader eyebrow="Built in, not bolted on" title={<span id="builtin-title">Every site ships with the things that matter.</span>}
-            lead="This website is built the same way: prerendered for search and AI, bilingual, accessible and fast." />
+          <SectionHeader eyebrow="Built in, not bolted on" title={<span id="builtin-title">Every site comes with these.</span>}
+          />
           <div className="wd-builtin">
             {builtIn.map(({ icon: I, title, text }, i) => (
               <Reveal key={title} delay={(i % 3) * 70} className="wd-builtin__item">
@@ -382,24 +364,6 @@ export default function WebDevelopment() {
         </div>
       </section>
 
-      <section className="section section--alt" aria-labelledby="more-title">
-        <div className="container">
-          <SectionHeader eyebrow="More interactive work" title={<span id="more-title">Built for the browser, no apps to install.</span>} />
-          <div className="grid grid-3">
-            {more.map(({ icon: I, title, text, to }, i) => (
-              <Reveal key={title} delay={i * 70}>
-                <Link to={to} className="card card--link" style={{ display: 'block', height: '100%' }}>
-                  <div className="icon-tile icon-tile--navy"><I aria-hidden="true" /></div>
-                  <h3 className="h3">{title}</h3>
-                  <p style={{ marginBottom: 12 }}>{text}</p>
-                  <span className="link-arrow">Open <ArrowRight aria-hidden="true" /></span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="section" aria-labelledby="wd-faq-title">
         <div className="container">
           <SectionHeader center eyebrow="FAQ" title={<span id="wd-faq-title">Questions about your website.</span>} />
@@ -407,7 +371,7 @@ export default function WebDevelopment() {
         </div>
       </section>
 
-      <CTABand title="Ready for a website people remember?" lead="Tell us what you need and we’ll reply within one business day with a plan and a quote." />
+      <CTABand title="Ready for a website people remember?" lead="Get a plan and a quote within one business day." />
     </>
   )
 }

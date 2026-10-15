@@ -170,9 +170,9 @@ export default function NewZayedAtlas() {
         {/* Intro */}
         {intro && ready && (
           <section className="atlas__intro" aria-labelledby="atlas-title">
-            <span className="atlas__eyebrow">Project 04 · A reference for Egypt’s new west</span>
+            <span className="atlas__eyebrow">A 3D map of Egypt’s new west</span>
             <h1 id="atlas-title">New Zayed <span>Atlas</span></h1>
-            <p>{REGION.summary} Explore {COMPOUNDS.length - 1} compounds, compare them side by side, and see how the district connects to the airport, Sheikh Zayed and the Cairo Alex Desert Road.</p>
+            <p>Explore {COMPOUNDS.length - 1} compounds in 3D and compare them side by side.</p>
             <dl className="atlas__facts">
               <div><dt>Area</dt><dd>~35M m²</dd></div>
               <div><dt>Compounds mapped</dt><dd>{COMPOUNDS.length - 1}</dd></div>

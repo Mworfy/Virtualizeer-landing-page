@@ -28,41 +28,41 @@ function LazyMount({ children }) {
 const useCases = [
   {
     id: 'usecase-compound',
-    eyebrow: 'Interactive use case 01 · Residential compound',
+    eyebrow: 'Demo 01 · Residential compound',
     title: 'Let buyers walk through homes that don’t exist yet.',
-    lead: 'Off plan sales live or die on imagination. A digital twin of the compound lets agents show the full masterplan, then take clients straight into the unit they’re interested in. Try it: click any villa.',
+    lead: 'Show the masterplan, then step into any unit. Click a villa to try it.',
     className: 'tour--compound',
     Demo: CompoundTour,
     benefits: [
-      { icon: Building2, title: 'See the whole masterplan', text: 'Buyers explore the compound from above: roads, amenities, and which units are still available.' },
-      { icon: MousePointerClick, title: 'Pick a home, step inside', text: 'One click flies down to the front garden in first person. No loading screens, no separate apps.' },
-      { icon: Eye, title: 'Sell before it’s built', text: 'Clients walk through their future villa room by room, months before construction finishes.' },
+      { icon: Building2, title: 'See the whole masterplan', text: 'Roads, amenities and available units from above.' },
+      { icon: MousePointerClick, title: 'Pick a home, step inside', text: 'One click flies you to the front door.' },
+      { icon: Eye, title: 'Sell before it’s built', text: 'Buyers tour their villa months before handover.' },
     ],
   },
   {
     id: 'usecase-factory',
-    eyebrow: 'Interactive use case 02 · Manufacturing plant',
+    eyebrow: 'Demo 02 · Manufacturing plant',
     title: 'Run the factory floor from any screen.',
-    lead: 'An industrial twin connects the 3D plant to live machine data. Managers see every line at a glance, spot problems before they stop production and send the right technician to the right machine. Try it: click a machine or the red alert.',
+    lead: 'Live machine data on a 3D plant. Click a machine or the red alert.',
     className: 'tour--factory',
     Demo: FactoryTour,
     benefits: [
-      { icon: Activity, title: 'Live status on the 3D floor', text: 'Sensor and MES data mapped onto each machine, so the whole plant reads at a glance.' },
-      { icon: Factory, title: 'Catch issues before downtime', text: 'Alerts and trends flag overheating and vibration early, with predicted failure windows.' },
-      { icon: Wrench, title: 'Maintenance, in context', text: 'Open work orders from the machine itself; technicians see exactly where and what to fix.' },
+      { icon: Activity, title: 'Live status on the 3D floor', text: 'Every machine’s data, at a glance.' },
+      { icon: Factory, title: 'Catch issues before downtime', text: 'Alerts flag heat and vibration early.' },
+      { icon: Wrench, title: 'Maintenance, in context', text: 'Technicians see exactly what to fix.' },
     ],
   },
   {
     id: 'usecase-zayed',
-    eyebrow: 'Project 03 · Zayed Reimagined · New Zayed',
-    title: 'Zayed Reimagined: find it on the map, then walk inside.',
-    lead: 'Our third project sits in New Zayed, next to VYE and Belle Vie. Start on the map, open the project, orbit the 10 villa masterplan, then fly into any villa and walk through every room. Try it: click the gold pin.',
+    eyebrow: 'Demo 03 · Zayed Reimagined',
+    title: 'Find it on the map, then walk inside.',
+    lead: 'A 10 villa compound in New Zayed. Click the gold pin to fly in.',
     className: 'tour--zayed',
     Demo: ZayedExperience,
     benefits: [
-      { icon: MapPin, title: 'From the map to the front door', text: 'Location first: buyers see where the project sits in New Zayed, then open it in 3D.' },
-      { icon: Trees, title: 'New villa design, real setting', text: 'Courtyard villas in stucco, travertine and timber, set in trees, palms and private pools.' },
-      { icon: MousePointerClick, title: 'Hotspots in every room', text: 'Labelled hotspots and floor rings move you through each villa in one continuous camera move.' },
+      { icon: MapPin, title: 'From the map to the front door', text: 'See the location, then open it in 3D.' },
+      { icon: Trees, title: 'New villa design, real setting', text: 'Courtyard villas with gardens and pools.' },
+      { icon: MousePointerClick, title: 'Hotspots in every room', text: 'Walk room to room with one tap.' },
     ],
   },
 ]
@@ -97,9 +97,9 @@ export default function TwinUseCases() {
 }
 
 const atlasPoints = [
-  { icon: Layers, title: 'A visual identity for the region', text: 'New Zayed, the airport, Sheikh Zayed and the desert road in one stylised 3D map.' },
-  { icon: Scale, title: 'Look up and compare compounds', text: 'Search 23 compounds by name or developer, filter by type and compare them side by side.' },
-  { icon: MapPin, title: 'Landmarks in context', text: 'The airport, Sheikh Zayed, the desert road and the Pyramids around every compound.' },
+  { icon: Layers, title: 'A visual identity for the region', text: 'The whole district in one 3D map.' },
+  { icon: Scale, title: 'Look up and compare compounds', text: '23 compounds, side by side.' },
+  { icon: MapPin, title: 'Landmarks in context', text: 'Airport, roads and Pyramids nearby.' },
 ]
 
 function AtlasTeaser() {
@@ -107,9 +107,9 @@ function AtlasTeaser() {
     <section className="section section--alt" aria-labelledby="usecase-atlas">
       <div className="container">
         <SectionHeader
-          eyebrow="Project 04 · New Zayed Atlas"
+          eyebrow="Demo 04 · New Zayed Atlas"
           title={<span id="usecase-atlas">A 3D reference map for New Zayed.</span>}
-          lead="An interactive web app for Egypt's newest western district: explore the area in 3D, see the landmarks and roads around it, and look up and compare every compound we could source."
+          lead="Explore New Zayed in 3D and compare its compounds."
         />
         <Reveal>
           <div className="tour tour--atlas">

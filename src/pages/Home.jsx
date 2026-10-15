@@ -6,7 +6,7 @@ import Icon from '../components/Icon.jsx'
 import {
   CTABand, FAQ, ProjectCard, Reveal, SectionHeader, Testimonials, TourEmbed, usePageMeta,
 } from '../components/ui.jsx'
-import { clients, demoTourUrl, industries, process, projects, services, stats } from '../content.js'
+import { clients, demoTourUrl, faqs, industries, process, projects, services, stats } from '../content.js'
 
 const artFor = { 'virtual-tours': 'tours', 'digital-twins': 'twins', 'web-development': 'web' }
 
@@ -22,8 +22,7 @@ export default function Home() {
             <span className="eyebrow intro">Virtual tours · Digital twins · Web</span>
             <h1 className="display intro" style={{ '--delay': '60ms' }}>Step inside before you arrive.</h1>
             <p className="lead intro" style={{ '--delay': '120ms' }}>
-                We turn real spaces into immersive 360° tours and measurable digital twins and build the
-                websites that put them in front of the right people.
+                360° tours, 3D digital twins and the websites that show them off.
             </p>
             <div className="btn-row intro" style={{ '--delay': '180ms' }}>
               <Link to="/contact" className="btn btn--primary">
@@ -58,8 +57,7 @@ export default function Home() {
         <div className="container">
           <SectionHeader
             eyebrow="What we do"
-            title={<span id="services-title">One team for capturing, modelling and publishing your space.</span>}
-            lead="Pick one service or combine all three. Tours and twins are captured in the same visit."
+            title={<span id="services-title">Capture it, model it, publish it.</span>}
           />
           <div className="grid grid-3">
             {services.map((s, i) => (
@@ -88,7 +86,7 @@ export default function Home() {
           <SectionHeader
             eyebrow="See it for yourself"
             title={<span id="demo-title">Walk through a space right now.</span>}
-            lead="Drag to look around and tap the rings on the floor to walk from room to room. It is the same experience we build for your space."
+            lead="Drag to look around. Tap the floor rings to walk."
           />
           <Reveal>
             <TourEmbed url={demoTourUrl} title="Sample virtual tour" />
@@ -100,7 +98,7 @@ export default function Home() {
         <div className="container">
           <SectionHeader
             eyebrow="How it works"
-            title={<span id="process-title">From first call to live tour in days, not weeks.</span>}
+            title={<span id="process-title">Live in days, not weeks.</span>}
           />
           <ol className="steps">
             {process.map((p, i) => (
@@ -135,7 +133,6 @@ export default function Home() {
             <SectionHeader
               eyebrow="Who it’s for"
               title={<span id="industries-title">Built for spaces people need to see.</span>}
-              lead="If your customers would benefit from looking around before they commit, a tour or twin pays for itself."
             />
             <Reveal className="pill-grid">
               {industries.map((ind) => (
@@ -164,7 +161,7 @@ export default function Home() {
       <section className="section section--alt" aria-labelledby="faq-title">
         <div className="container">
           <SectionHeader center eyebrow="FAQ" title={<span id="faq-title">Questions, answered.</span>} />
-          <FAQ />
+          <FAQ items={faqs.slice(0, 4)} />
         </div>
       </section>
 

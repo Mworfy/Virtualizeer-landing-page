@@ -22,7 +22,7 @@ export default function Projects() {
       <PageHero
         eyebrow="Projects"
         title="Spaces we’ve brought online."
-        lead="A selection of tours, twins and websites. Open any project to explore it."
+        lead="Tours, twins and websites we’ve built."
       />
       <section className="section" style={{ paddingTop: 48 }}>
         <div className="container">
