@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { AlertCircle, Check, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { AlertCircle, Check, Clock, Mail, MapPin } from 'lucide-react'
 import { PageHero, Reveal, usePageMeta } from '../components/ui.jsx'
-import { company, services } from '../content.js'
+import { company, formEndpoint, services } from '../content.js'
 
 const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)
 
@@ -17,6 +17,9 @@ export default function Contact() {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState('')
+  const [trap, setTrap] = useState('')
   const formRef = useRef(null)
 
   const validate = (v) => {
@@ -47,7 +50,7 @@ export default function Contact() {
     setErrors(validate(values))
   }
 
-  const submit = (ev) => {
+  const submit = async (ev) => {
     ev.preventDefault()
     const e = validate(values)
     setErrors(e)
@@ -57,7 +60,28 @@ export default function Contact() {
       first?.focus()
       return
     }
-    // TODO: connect to a form service (Formspree, Web3Forms, your API) here.
+    if (formEndpoint) {
+      setSending(true)
+      setSendError('')
+      try {
+        // no-cors: Apps Script answers from another domain, so the reply can't be read
+        await fetch(formEndpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams({
+            type: state?.partner ? 'Partnership' : 'Quote',
+            name: values.name, email: values.email, company: values.company, size: values.size,
+            services: values.services.join(', '), message: values.message,
+            page: window.location.href, website: trap,
+          }),
+        })
+      } catch {
+        setSending(false)
+        setSendError(`We couldn’t send your message. Check your connection, or email us at ${company.email}.`)
+        return
+      }
+      setSending(false)
+    }
     setSent(true)
   }
 
@@ -154,31 +178,40 @@ export default function Contact() {
                     aria-invalid={!!err('message')} aria-describedby={err('message') ? 'message-error' : undefined} />
                   <ErrorMsg f="message" />
                 </div>
-                <button type="submit" className="btn btn--primary" style={{ justifySelf: 'start' }}>Send message</button>
+                <div className="visually-hidden" aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input id="website" name="website" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
+                </div>
+                {sendError && <p className="field__error" role="alert"><AlertCircle aria-hidden="true" />{sendError}</p>}
+                <button type="submit" className="btn btn--primary" style={{ justifySelf: 'start' }} disabled={sending}>
+                  {sending ? 'Sending…' : 'Send message'}
+                </button>
               </form>
             )}
           </Reveal>
 
-          <Reveal delay={100}>
-            <h2 className="h3" style={{ marginBottom: 8 }}>Prefer to reach us directly?</h2>
-            <p className="muted" style={{ marginBottom: 20 }}>We’re happy to jump on a quick call or chat on WhatsApp.</p>
+          <Reveal delay={100} className="contact-side">
             <div className="contact-list">
               <a href={`mailto:${company.email}`}>
                 <span className="icon-tile"><Mail aria-hidden="true" /></span>
                 <span><span className="contact-list__label">Email</span><br /><span className="contact-list__value">{company.email}</span></span>
               </a>
-              <a href={`tel:${company.phone.replace(/\s/g, '')}`}>
-                <span className="icon-tile"><Phone aria-hidden="true" /></span>
-                <span><span className="contact-list__label">Phone</span><br /><span className="contact-list__value">{company.phone}</span></span>
-              </a>
-              <a href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noreferrer">
-                <span className="icon-tile"><MessageCircle aria-hidden="true" /></span>
-                <span><span className="contact-list__label">WhatsApp</span><br /><span className="contact-list__value">Chat with us</span></span>
-              </a>
               <div>
                 <span className="icon-tile"><MapPin aria-hidden="true" /></span>
                 <span><span className="contact-list__label">Based in</span><br /><span className="contact-list__value">{company.location}</span></span>
               </div>
+              <div>
+                <span className="icon-tile"><Clock aria-hidden="true" /></span>
+                <span><span className="contact-list__label">Reply time</span><br /><span className="contact-list__value">Within one business day</span></span>
+              </div>
+            </div>
+            <div className="contact-next">
+              <h2 className="h3">What happens next</h2>
+              <ol>
+                <li>We read your message and reply by email.</li>
+                <li>A short call to understand your space.</li>
+                <li>You get a clear quote and timeline.</li>
+              </ol>
             </div>
           </Reveal>
         </div>

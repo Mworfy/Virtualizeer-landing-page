@@ -899,3 +899,14 @@ main { min-height: 60vh; }
   .partners__plus { width: 32px; height: 32px; }
 }
 @media (prefers-reduced-motion: reduce) { .partners__logo, .partners__join, .partners__plus { transition: none; } .partners__logo:hover { transform: none; } .partners__join:hover .partners__plus { transform: none; } }
+
+/* ── Contact side panel ────────────────────────────────── */
+.contact-side { display: grid; gap: 28px; align-content: start; }
+.contact-next { padding: 24px; border-radius: 18px; background: var(--navy); color: #fff; }
+.contact-next .h3 { color: #fff; margin-bottom: 14px; }
+.contact-next ol { list-style: none; margin: 0; padding: 0; counter-reset: next; display: grid; gap: 12px; }
+.contact-next li { counter-increment: next; display: flex; gap: 12px; align-items: baseline; color: var(--on-navy-2); }
+.contact-next li::before {
+  content: counter(next); flex: none; width: 26px; height: 26px; border-radius: 50%; display: inline-grid; place-items: center;
+  background: rgba(255,255,255,.12); color: #fff; font-weight: 700; font-size: 0.8rem; transform: translateY(-1px);
+}

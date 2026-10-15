@@ -7,14 +7,15 @@ export const company = {
   name: 'Virtualizeer',
   tagline: 'Step inside before you arrive.',
   email: 'info@virtualizeer.com',
-  phone: '+20 100 000 0000', // TODO: real phone
-  whatsapp: '201000000000', // TODO: WhatsApp number, digits only with country code
   location: 'Cairo, Egypt', // TODO: city / address
   socials: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/company/virtualizeer' },
     { label: 'Instagram', href: 'https://www.instagram.com/virtualizeer/' },
   ],
 }
+
+// Google Apps Script web app URL (ends in /exec). See apps-script/Code.gs.
+export const formEndpoint = ''
 
 // Optional: paste one of your own tour links (Matterport, Kuula, 3DVista, etc.).
 // Leave empty to show the built in interactive 3D apartment tour instead.
