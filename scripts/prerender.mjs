@@ -181,7 +181,7 @@ for (const [path, meta] of Object.entries(ROUTES)) {
 }
 // Sample project pages: rendered for users, kept out of search until the content is real
 for (const p of projects) {
-  write(`/projects/${p.slug}`, page({ path: `/projects/${p.slug}`, title: p.title, description: p.summary, body: `<h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>${p.live ? `<p>${esc(p.challenge)}</p><p>${esc(p.solution)}</p><p>Live site: <a href="${p.live}">${p.live}</a></p>` : ""}`, index: Boolean(p.live) }))
+  write(`/projects/${p.slug}`, page({ path: `/projects/${p.slug}`, title: p.title, description: p.summary, body: `<h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>${p.live ? `<p>${esc(p.challenge)}</p><p>${esc(p.solution)}</p><p>Live site: <a href="${p.live}">${p.live}</a></p>` : ""}`, index: Boolean(p.live || p.demo || p.link) }))
 }
 
 
@@ -486,7 +486,7 @@ for (const l of LOCATIONS) {
   extraUrls.push({ path: g.path, priority: 0.8, alternates })
 }
 
-for (const p of projects.filter((x) => x.live)) extraUrls.push({ path: `/projects/${p.slug}`, priority: 0.6, alternates: null })
+for (const p of projects.filter((x) => x.live || x.demo || x.link)) extraUrls.push({ path: `/projects/${p.slug}`, priority: 0.6, alternates: null })
 
 // ── sitemap.xml (with hreflang alternates) ──
 const alt = (enPath) => {

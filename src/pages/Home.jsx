@@ -9,7 +9,7 @@ import { demoTourUrl, partners, faqs, process, projects, services, stats } from 
 
 export default function Home() {
   usePageMeta()
-  const featured = [...projects.filter((p) => p.category === 'tours').slice(0, 2), projects.find((p) => p.category === 'web')].filter(Boolean)
+  const featured = [...projects.filter((p) => p.category === 'tours').slice(0, 2), projects.find((p) => p.category === 'twins')].filter(Boolean)
 
   return (
     <>

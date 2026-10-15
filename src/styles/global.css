@@ -345,7 +345,7 @@ main { min-height: 60vh; }
 .project-card:hover .art, .project-card:hover img { transform: scale(1.04); }
 .project-card__media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--navy); }
 .project-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
-.project-card__tag { position: absolute; left: 14px; top: 14px; }
+.project-card__tag { position: absolute; left: 14px; top: 14px; background: rgba(10,30,46,.85) !important; color: #fff !important; border-color: transparent !important; }
 .project-card__body { padding: 22px 24px 26px; }
 .project-card__meta { font-size: 0.88rem; color: var(--ink-3); margin-bottom: 6px; }
 .project-card__body h3 { margin-bottom: 8px; }
@@ -922,3 +922,14 @@ main { min-height: 60vh; }
 }
 .project-card:hover .project-card__360 { transform: translate(-50%, -50%) scale(1.08); }
 .tour__poster-img { filter: brightness(.55) blur(1px); }
+
+/* ── Projects page groups ──────────────────────────────── */
+.jump-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.jump-nav a {
+  display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line);
+  background: #fff; color: var(--navy); font-weight: 600; text-decoration: none; transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+}
+.jump-nav a:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+.jump-nav .count { font-size: 0.8rem; padding: 2px 8px; border-radius: 999px; background: #eaf1f8; color: var(--navy); }
+.jump-nav a:hover .count { background: rgba(255,255,255,.15); color: #fff; }
+.work-group { scroll-margin-top: 72px; }
