@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Check } from 'lucide-react'
 import HeroViewer from '../components/HeroViewer.jsx'
 import Art from '../components/Art.jsx'
+import Icon from '../components/Icon.jsx'
 import {
   CTABand, FAQ, ProjectCard, Reveal, SectionHeader, Steps, TourEmbed, usePageMeta,
 } from '../components/ui.jsx'
@@ -79,6 +80,27 @@ export default function Home() {
           <Reveal>
             <TourEmbed url={demoTourUrl} title="Sample virtual tour" />
           </Reveal>
+        </div>
+      </section>
+
+      <section className="section section--alt" aria-labelledby="sectors-title">
+        <div className="container">
+          <div className="section-head-row">
+            <SectionHeader
+              eyebrow="Who it’s for"
+              title={<span id="sectors-title">A virtual tour for every kind of space.</span>}
+              lead="If people want to look around before they come, a tour does the first visit for you."
+            />
+            <Link to="/virtual-tours" className="link-arrow">Explore virtual tours <ArrowRight aria-hidden="true" /></Link>
+          </div>
+          <ul className="sector-grid">
+            {services[0].sectors.map((x, i) => (
+              <Reveal as="li" key={x.name} delay={(i % 4) * 50} className="sector-tile">
+                <span className="sector-tile__icon"><Icon name={x.icon} /></span>
+                <span>{x.name}</span>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </section>
 

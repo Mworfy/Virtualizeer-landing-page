@@ -73,7 +73,7 @@ const bodies = {
     <section><h2>Compounds in New Zayed</h2><ul>${realCompounds.map((c) => `<li><strong>${esc(c.name)}</strong> by ${esc(c.developer)}${c.acres ? `, about ${c.acres} acres` : ''}. Unit types: ${esc(c.units.join(', '))}.${c.delivery ? ` Delivery: ${esc(c.delivery)}.` : ''}</li>`).join('')}</ul>
     <p>Compound locations on the map are indicative. Confirm details with each developer.</p></section>`,
   '/projects': () => `<h1>Projects</h1><p>Virtual tour, digital twin and website projects by Virtualizeer. Explore the interactive demos on the <a href="/digital-twins">Digital Twins</a> page and the <a href="/new-zayed-atlas">New Zayed Atlas</a>.</p>`,
-  '/about': () => `<h1>About Virtualizeer</h1><p>${esc(ORG_DESCRIPTION)}</p><p>We help developers, brokers, hotels, schools, nurseries, showrooms and contractors show their spaces with the clarity of a visit and the reach of the web.</p>`,
+  '/about': () => `<h1>About Virtualizeer</h1><p>${esc(ORG_DESCRIPTION)}</p><p>We help developers, brokers, hotels, retailers and contractors show their spaces with the clarity of a visit and the reach of the web.</p>`,
   '/contact': () => `<h1>Contact Virtualizeer</h1><p>Tell us about your property, compound or facility and we will reply within one business day with a tailored quote for a virtual tour, digital twin or website.</p><p>Email: <a href="mailto:${esc(company.email)}">${esc(company.email)}</a></p>`,
 }
 

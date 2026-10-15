@@ -7,7 +7,7 @@ export const SITE_NAME = 'Virtualizeer'
 export const OG_IMAGE = `${SITE_URL}/brand/og.png`
 
 export const ORG_DESCRIPTION =
-  'Virtualizeer is a Cairo based studio that creates 360° virtual tours, measurable 3D digital twins and websites for real estate, hotels, schools, nurseries, furniture and car showrooms, and construction in Egypt.'
+  'Virtualizeer is a Cairo based studio that creates 360° virtual tours, measurable 3D digital twins and websites for real estate developers, brokers, hotels, retail and construction in Egypt.'
 
 // Real, verifiable facts only. Placeholder content (sample projects, testimonials, stats,
 // phone number) is deliberately left out until it is real.
@@ -30,7 +30,7 @@ export const ROUTES = {
   '/virtual-tours': {
     title: '360° Virtual Tours for Real Estate in Egypt',
     description:
-      '360° virtual tours for hotels, furniture showrooms, real estate, car showrooms, schools and nurseries in Cairo and across Egypt. Floor plans, hotspots, VR and Google Street View.',
+      '360° virtual tours for real estate, hotels, showrooms, restaurants, gyms, schools, nurseries, clinics, offices, malls, event venues and museums in Cairo and across Egypt. Floor plans, hotspots, VR and Google Street View.',
     priority: 0.9,
   },
   '/digital-twins': {

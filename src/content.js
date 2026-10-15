@@ -29,6 +29,7 @@ export const services = [
     short: '360° walkthroughs anyone can explore from any screen.',
     headline: 'Let people walk through your space from anywhere.',
     intro: 'High resolution 360° tours that open on any phone, laptop or VR headset. No app needed.',
+    get useCases() { return this.sectors.map((x) => x.name) },
     features: [
       { icon: 'Orbit', title: '360° walkthroughs', text: 'Move room to room in crisp HDR.' },
       { icon: 'MapPin', title: 'Hotspots', text: 'Tag products, videos and links in the space.' },
@@ -37,14 +38,23 @@ export const services = [
       { icon: 'Map', title: 'Google Street View', text: 'Be found and seen inside on Google Maps.' },
       { icon: 'Share2', title: 'Share & embed', text: 'One link for listings, socials and QR codes.' },
     ],
-    useCases: ['Hotels & resorts', 'Furniture showrooms', 'Real estate', 'Car showrooms', 'Schools & universities', 'Nurseries'],
     sectors: [
-      { icon: 'BedDouble', name: 'Hotels & resorts' },
-      { icon: 'Sofa', name: 'Furniture showrooms' },
       { icon: 'Building2', name: 'Real estate' },
+      { icon: 'BedDouble', name: 'Hotels & resorts' },
+      { icon: 'Palmtree', name: 'Holiday homes' },
+      { icon: 'Sofa', name: 'Furniture showrooms' },
       { icon: 'Car', name: 'Car showrooms' },
+      { icon: 'ShoppingBag', name: 'Retail & malls' },
+      { icon: 'UtensilsCrossed', name: 'Restaurants & cafés' },
+      { icon: 'Dumbbell', name: 'Gyms & clubs' },
+      { icon: 'Flower2', name: 'Spas & salons' },
       { icon: 'GraduationCap', name: 'Schools & universities' },
       { icon: 'Baby', name: 'Nurseries' },
+      { icon: 'Stethoscope', name: 'Clinics & hospitals' },
+      { icon: 'Briefcase', name: 'Offices & coworking' },
+      { icon: 'PartyPopper', name: 'Event & wedding venues' },
+      { icon: 'Landmark', name: 'Museums & culture' },
+      { icon: 'Factory', name: 'Factories & warehouses' },
     ],
     deliverables: ['Hosted tour with a share link', 'Embed code for your website', 'Floor plan and dollhouse view', 'Branded intro and hotspots', 'HD stills for marketing'],
   },
@@ -104,12 +114,12 @@ export const stats = [
 ]
 
 export const industries = [
-  { icon: 'Home', name: 'Real estate' },
-  { icon: 'BedDouble', name: 'Hotels' },
-  { icon: 'GraduationCap', name: 'Schools & nurseries' },
-  { icon: 'Sofa', name: 'Furniture showrooms' },
-  { icon: 'Car', name: 'Car showrooms' },
-  { icon: 'HardHat', name: 'Construction & facilities' },
+  { icon: 'Building2', name: 'Real estate' },
+  { icon: 'BedDouble', name: 'Hospitality' },
+  { icon: 'ShoppingBag', name: 'Retail' },
+  { icon: 'GraduationCap', name: 'Education' },
+  { icon: 'HardHat', name: 'Construction' },
+  { icon: 'Landmark', name: 'Culture & venues' },
 ]
 
 // TODO: replace with real projects. `category` must be one of: tours, twins, web.
