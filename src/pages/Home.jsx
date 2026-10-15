@@ -1,14 +1,11 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Check, Plus } from 'lucide-react'
 import HeroViewer from '../components/HeroViewer.jsx'
-import Art from '../components/Art.jsx'
 import Icon from '../components/Icon.jsx'
 import {
   CTABand, FAQ, ProjectCard, Reveal, SectionHeader, Steps, TourEmbed, usePageMeta,
 } from '../components/ui.jsx'
 import { demoTourUrl, partners, faqs, process, projects, services, stats } from '../content.js'
-
-const artFor = { 'virtual-tours': 'tours', 'digital-twins': 'twins', 'web-development': 'web' }
 
 export default function Home() {
   usePageMeta()
@@ -72,7 +69,7 @@ export default function Home() {
           <div className="grid grid-3">
             {services.map((s, i) => (
               <Reveal key={s.slug} delay={i * 80} className="card card--link service-card">
-                <div className="service-card__visual"><Art variant={artFor[s.slug]} seed={s.slug} /></div>
+                <div className="service-card__visual"><img src={s.image} alt="" loading="lazy" /></div>
                 <div className="service-card__body">
                   <h3 className="h3">{s.name}</h3>
                   <p>{s.short}</p>

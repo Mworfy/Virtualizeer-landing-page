@@ -23,6 +23,7 @@ export const demoTourUrl = ''
 export const services = [
   {
     slug: 'virtual-tours',
+    image: '/services/virtual-tours.jpg',
     path: '/virtual-tours',
     icon: 'Rotate3d',
     name: 'Virtual Tours',
@@ -60,6 +61,7 @@ export const services = [
   },
   {
     slug: 'digital-twins',
+    image: '/services/digital-twins.jpg',
     path: '/digital-twins',
     icon: 'Box',
     name: 'Digital Twins',
@@ -79,6 +81,7 @@ export const services = [
   },
   {
     slug: 'web-development',
+    image: '/work/where-it-all-begins-desktop.jpg',
     path: '/web-development',
     icon: 'Code2',
     name: 'Web Development',

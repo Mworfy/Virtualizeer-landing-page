@@ -252,6 +252,10 @@ main { min-height: 60vh; }
 
 .service-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
 .service-card__visual { aspect-ratio: 16 / 9; position: relative; overflow: hidden; }
+.service-card__visual img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
+.service-card__visual::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 -1px 0 var(--line); pointer-events: none; }
+.service-card:hover .service-card__visual img { transform: scale(1.04); }
+@media (prefers-reduced-motion: reduce) { .service-card:hover .service-card__visual img { transform: none; } }
 .service-card__body { padding: 28px 28px 24px; display: flex; flex-direction: column; flex: 1; }
 .service-card__body p { margin-bottom: 16px; flex: 1; }
 .service-card__body ul { display: grid; gap: 8px; margin-bottom: 20px; }
