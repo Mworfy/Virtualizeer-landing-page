@@ -33,14 +33,14 @@ const PROJECTS = [
     ],
   },
   {
-    id: 'konnect', name: 'Konnect', client: 'Konnect HR services', type: 'HR outsourcing platform', origin: SCRATCH,
-    src: 'https://konnect-services.com/', live: 'https://konnect-services.com/', host: 'konnect-services.com',
-    posters: { desktop: '/work/konnect-desktop.jpg', mobile: '/work/konnect-mobile.jpg' },
-    summary: 'A hiring platform connecting job seekers and companies.',
+    id: 'ic-egypt-24', name: 'IC Egypt 2024', client: 'AIESEC in Egypt', type: 'International congress website', origin: CODEV,
+    src: '/work/ic-egypt-24/index.html', live: '', host: 'ic-egypt.aiesec.org.eg',
+    posters: { desktop: '/work/ic-egypt-24-desktop.jpg', mobile: '/work/ic-egypt-24-mobile.jpg' }, demo: true,
+    summary: 'The website for AIESEC’s International Congress 2024 in Egypt, with registration for delegates and partners.',
     built: [
-      'Job seekers upload a CV in minutes.',
-      'Companies browse talent by field.',
-      'Recruiters track which link brought each applicant.',
+      'Opens on a bold Discover your Origin hero over the pyramids and the Nile.',
+      'Delegates and partners can each register in a few steps.',
+      'Pages for Egypt, tours and the congress store.',
     ],
   },
 ]
@@ -62,10 +62,15 @@ const MORE = [
     summary: 'A regional leadership conference site with registration.',
   },
   {
-    id: 'ic-egypt-24', name: 'IC Egypt 2024', client: 'AIESEC in Egypt', type: 'International congress website', origin: CODEV,
-    src: '/work/ic-egypt-24/index.html', live: '', host: 'ic-egypt.aiesec.org.eg',
-    posters: { desktop: '/work/ic-egypt-24-desktop.jpg', mobile: '/work/ic-egypt-24-mobile.jpg' }, demo: true,
-    summary: 'The website for AIESEC’s International Congress 2024 in Egypt, with delegate and partner registration, tours and merchandise.',
+    id: 'konnect', name: 'Konnect', client: 'Konnect HR services', type: 'HR outsourcing platform', origin: SCRATCH,
+    src: 'https://konnect-services.com/', live: 'https://konnect-services.com/', host: 'konnect-services.com',
+    posters: { desktop: '/work/konnect-desktop.jpg', mobile: '/work/konnect-mobile.jpg' },
+    summary: 'A hiring platform connecting job seekers and companies.',
+    built: [
+      'Job seekers upload a CV in minutes.',
+      'Companies browse talent by field.',
+      'Recruiters track which link brought each applicant.',
+    ],
   },
   {
     id: 'aiesec-us', name: 'AIESEC in the United States', client: '', type: 'National website', origin: CODEV,
