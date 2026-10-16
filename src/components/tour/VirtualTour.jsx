@@ -314,7 +314,6 @@ export default function VirtualTour({ label = 'Interactive 3D virtual tour', com
       )}
 
       <div className="viewer__bar">
-        <span className="chip chip--live">Live tour</span>
         <span className="chip" aria-live="polite">{POINTS[room].name} · {room + 1} of {POINTS.length}</span>
       </div>
 
