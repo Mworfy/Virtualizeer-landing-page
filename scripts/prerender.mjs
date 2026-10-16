@@ -42,6 +42,7 @@ const PORTFOLIO = [
   { name: 'Konnect', client: 'Konnect HR services', origin: 'built from scratch', url: 'https://konnect-services.com/', text: 'An HR outsourcing platform in Next.js and TypeScript where applicants apply with CVs, companies browse talent by field and HR teams share tracked apply links.' },
   { name: 'Youth to Business (Y2B)', client: 'AIESEC in Egypt', origin: 'built from scratch', url: 'https://youth2business.aiesec.org.eg/', text: 'A Django conference website with ticketing, early bird pricing, promo codes, checkout and an admin for all event content.' },
   { name: 'MEA XLDS 2026', client: 'AIESEC in the Middle East and Africa', origin: 'built from scratch', url: 'https://mea-xlds.aiesec.org.eg/', text: 'The regional leadership conference website with registrations.' },
+  { name: 'IC Egypt 2024', client: 'AIESEC in Egypt', origin: 'co developed', url: '', text: 'The website for AIESEC’s International Congress 2024 in Egypt, with delegate and partner registration, tours and merchandise.' },
   { name: 'AIESEC in the United States', client: '', origin: 'co developed', url: 'https://aiesecus.org/', text: 'The national website for volunteering, internships and youth leadership, with programme sign ups, a blog, news, donations and a CMS.' },
   { name: 'AIESEC in Egypt', client: 'AIESEC in Egypt', origin: 'co developed', url: 'https://aiesec.org.eg/', text: 'The national landing page, built together with the AIESEC in Egypt team.' },
 ]
@@ -63,7 +64,7 @@ const bodies = {
     </section>${stepsHtml}`,
   '/web-development': () => `<h1>Websites people remember, built to rank and convert</h1>
     <p>We design and build fast, interactive websites for real estate, events and brands: 3D experiences, Arabic and English, forms wired to your tools, and SEO that works for search engines and AI assistants.</p>
-    <section><h2>Websites we have built</h2><ul>${PORTFOLIO.map((w) => `<li><strong><a href="${w.url}">${esc(w.name)}</a></strong>${w.client ? ` for ${esc(w.client)}` : ''} (${w.origin}): ${esc(w.text)}</li>`).join('')}</ul></section>
+    <section><h2>Websites we have built</h2><ul>${PORTFOLIO.map((w) => `<li><strong>${w.url ? `<a href="${w.url}">${esc(w.name)}</a>` : esc(w.name)}</strong>${w.client ? ` for ${esc(w.client)}` : ''} (${w.origin}): ${esc(w.text)}</li>`).join('')}</ul></section>
     <section><h2>What we build</h2><ul><li>Real estate websites and portals with virtual tours, 3D masterplans and live availability</li><li>Event and campaign sites with registration, QR codes and confirmation emails</li><li>Interactive 3D experiences, digital twins and maps</li><li>Company websites</li><li>Web apps and dashboards</li><li>Ecommerce</li></ul></section>
     <section><h2>Built in on every site</h2><ul><li>Fast on any connection</li><li>Prerendered pages, structured data, sitemaps and llms.txt for search engines and AI assistants</li><li>Arabic and English with right to left layouts</li><li>Forms connected to Google Sheets, email or your CRM</li><li>Accessibility</li><li>Full ownership and a clean handover</li></ul></section>
     ${serviceHtml(services[2])}`,
@@ -85,7 +86,7 @@ const routeLd = {
   '/digital-twins': () => [orgLd(), serviceLd('digital-twins'), crumbs('/digital-twins', 'Digital Twins')],
   '/web-development': () => [
     orgLd(), serviceLd('web-development'),
-    ...PORTFOLIO.map((w) => ({ '@context': 'https://schema.org', '@type': 'WebSite', name: w.name, url: w.url, description: w.text, creator: { '@id': `${SITE_URL}/#organization` } })),
+    ...PORTFOLIO.filter((w) => w.url).map((w) => ({ '@context': 'https://schema.org', '@type': 'WebSite', name: w.name, url: w.url, description: w.text, creator: { '@id': `${SITE_URL}/#organization` } })),
     crumbs('/web-development', 'Web Development'),
   ],
   '/new-zayed-atlas': () => [

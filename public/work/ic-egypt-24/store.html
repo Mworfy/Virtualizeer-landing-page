@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head><base href="/work/ic-egypt-24/"><meta name="robots" content="noindex"><script>document.addEventListener("submit",function(e){e.preventDefault()},true);</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IC24 Egypt</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="static/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href=" /static/images/favicon/site.webmanifest">
+    <link rel="mask-icon" href=" /static/images/favicon/safari-pinned-tab.svg" color="#041049">
+    <meta name="msapplication-TileColor" content="#041049">
+    <meta name="theme-color" content="#041049">
+    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static/vendors/fontawesome/css/all.min.css" />
+    <link href="static/vendors/aos/aos.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="static/vendors/swiperjs/swiper-bundle.min.css"
+    />
+  </head>
+  <!-- Google tag (gtag.js) -->
+  
+  
+  <body>
+    <div class="pre-loader">
+      <img src="static/images/IC/ic-animation_compressed.gif" alt="">
+    </div>
+
+    
+<header class="hide">
+  <div class="container">
+    <nav>
+      <a href="index.html"
+        ><img class="logo" src="static/images/IC/logo.webp" alt=""
+      /></a>
+      <ul class="nav-main">
+        <li class="nav-main-first"><a href="register.html">Register Now</a></li>
+        <li><a href="partners.html">Partner with us</a></li>
+        <li><a href="egypt.html">Why Egypt</a></li>
+        <li><a href="store.html">ic'24 store</a></li>
+        <li><a href="tours.html">Tours</a></li>
+        
+          <li><a href="#">Login</a></li>
+        
+        <!-- <li><a href="egypt.html">Partners</a></li> -->
+        <!-- <li><a href="egypt.html">Login</a></li> -->
+      </ul>
+      
+      <a href="#" class="user-mobile-nav-a">
+        <div class="user-mobile-nav">
+            <p>Login</p>
+            <div class="profile-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" id="Profile"><g fill="none" fill-rule="evenodd"><g fill="#ffffff" transform="translate(-140 -2159)" class="color000000 svgShape"><g transform="translate(56 160)" fill="#ffffff" class="color000000 svgShape"><path d="M100.563 2017H87.438c-.706 0-1.228-.697-.961-1.338 1.236-2.964 4.14-4.662 7.523-4.662 3.384 0 6.288 1.698 7.524 4.662.267.641-.255 1.338-.961 1.338m-10.646-12c0-2.206 1.832-4 4.083-4 2.252 0 4.083 1.794 4.083 4s-1.831 4-4.083 4c-2.251 0-4.083-1.794-4.083-4m14.039 11.636c-.742-3.359-3.064-5.838-6.119-6.963 1.619-1.277 2.563-3.342 2.216-5.603-.402-2.623-2.63-4.722-5.318-5.028-3.712-.423-6.86 2.407-6.86 5.958 0 1.89.894 3.574 2.289 4.673-3.057 1.125-5.377 3.604-6.12 6.963-.27 1.221.735 2.364 2.01 2.364h15.892c1.276 0 2.28-1.143 2.01-2.364" fill="#ffffff" class="color000000 svgShape"></path></g></g></g></svg>
+            </div>
+        </div>
+        </a>
+      
+      <div class="hamburger">
+        <button>
+          <div class="bar"></div>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+
+    
+
+<main>
+
+  <section class="register_hero">
+      <picture>
+          <source media="(max-width: 767px)" srcset="static/images/IC/merch/Mobile_Banner.webp" />
+          <source media="(min-width: 787px)" srcset="static/images/IC/merch/merch_website.webp" />
+          <img src="static/images/IC/merch/merch_website.webp" alt="" width="100%"/>
+        </picture>
+    </section>
+
+  <div class="background-pattern" style="    background-repeat: repeat-y;">
+    <section class="merchandise">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center;">
+          <div class="merch-grid">
+            
+               <div class="merch-item">
+                  <img src="static/images/IC/merch/new_merch/ProudAIESECer.webp" alt="">
+                  <div class="item-content">
+                    <p>asdfasd</p>
+                    
+                    
+                  </div>
+                </div>
+            
+               <div class="merch-item">
+                  <img src="static/images/IC/merch/bucket_hat.webp" alt="">
+                  <div class="item-content">
+                    <p>tshirt</p>
+                    
+                    
+                  </div>
+                </div>
+            
+          </div>
+        </div>
+    </section>
+  </div>
+</main>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+  <script>
+    $(document).on('click', '#add-cart', function(e){
+      e.preventDefault();
+       var quantityInput = $(this).closest('.merch-item').find('input[name="quantity"]');
+      $.ajax({
+        type: 'POST',
+        url: "/cart/add/",
+        data: {
+          product_id: $(this).val(),
+          product_qty: quantityInput.val(),
+          csrfmiddlewaretoken: 'upZGU11As0xhainNngIxiZmgpilNSMv92Shck9OJByaXtDnYK7WqSYmzQR0Vri7c',
+          action: 'post',
+        },
+        success: function(json){
+          console.log(json);
+          console.log(json.qty);
+          document.getElementById("cart_quantity").textContent = json.qty
+        },
+        error: function(xhr, errmsg, err){
+          console.log(errmsg)
+          console.log(err)
+        }
+      })
+    })
+  </script>
+
+    
+    
+
+<footer class="foter container" style="padding-top: 12px !important">
+  <p>2024 © Courtesy
+                of<a href="https://www.facebook.com/membercommitteegypt" target="_blank"> AIESEC in EGYPT </a><br>Developed by, <a href="https://www.linkedin.com/in/omar-rwiheb-698a761b9" target="_blank"> Omar Rwiheb</a></p>
+  
+  
+  <img src="static/images/IC/footer_image.webp" alt="" />
+</footer>
+<script>
+  let thankyou = document.querySelector('.reg-thankyou');
+  let ftr = document.querySelector('.foter');
+  console.log(ftr.offsetHeight)
+  thankyou.style.height = `calc(100vh - ${ftr.offsetHeight}px - 80px)`
+</script>
+    
+<div class="mobile-nav" style="display: none">
+  <div class="nav-blocker"></div>
+  <div class="nav-content">
+    <a style="display: flex; justify-content: left" href="index.html"
+      ><img class="logo" src="static/images/IC/logo.webp" alt=""
+    /></a>
+    <ul>
+      <li style="margin-top: 19px">
+        <a href="register.html">Register Now</a>
+      </li>
+      <li style="margin-top: 19px">
+        <a href="egypt.html">Why Egypt</a>
+      </li>
+      <li style="margin-top: 19px">
+        <a href="store.html">ic'24 store</a>
+      </li>
+      <li style="margin-top: 19px">
+        <a href="tours.html">Tours</a>
+      </li>
+    </ul>
+  </div>
+</div>
+    
+<div class="user-list-mob" style="display: none">
+  <div class="nav-blocker-user"></div>
+  <div class="nav-content-user">
+    <a style="display: flex; justify-content: left" href="index.html"
+      ><img class="logo" src="static/images/IC/logo.webp" alt=""
+    /></a>
+    <ul id="dropdown-profile" class="dropdown-user-mob">
+      <li><a href="#">Check-in</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    
+    <script src="static/js/script.js"></script>
+    <script src="static/vendors/aos/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script>
+let dropdownProfile = document.querySelector(".user-list")
+let dropdownProfileList = document.getElementById("dropdown-profile")
+let dropdownArrow = document.querySelector(".arrow")
+
+dropdownProfile.addEventListener("click", () => {
+  if(dropdownProfileList.style.display == "none"){
+    dropdownProfileList.style.display = "flex";
+  }
+  else{
+    dropdownProfileList.style.display = "none";
+  }
+})
+
+let profileIcon = document.querySelector(".profile-icon");
+let usreListMob = document.querySelector(".user-list-mob");
+profileIcon.addEventListener("click", () => {
+  console.log("test")
+  if (usreListMob.style.display == "none") {
+    usreListMob.style.display = "block";
+    setTimeout(() => {
+      document.querySelector(".nav-content-user").style.transform =
+        "translateX(-100%)";
+    }, 100);
+  } else {
+    setTimeout(() => {
+      document.querySelector(".nav-content-user").style.transform =
+        "translateX(100%)";
+    }, 100);
+    usreListMob.style.display = "none";
+  }
+});
+document.querySelector(".nav-blocker-user").addEventListener("click", () => {
+  console.log("test2")
+
+  setTimeout(() => {
+    document.querySelector(".nav-content-user").style.transform =
+      "translateX(100%)";
+  }, 100);
+  usreListMob.style.display = "none";
+});
+</script>
+  </body>
+</html>

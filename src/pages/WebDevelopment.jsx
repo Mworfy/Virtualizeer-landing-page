@@ -62,6 +62,12 @@ const MORE = [
     summary: 'A regional leadership conference site with registration.',
   },
   {
+    id: 'ic-egypt-24', name: 'IC Egypt 2024', client: 'AIESEC in Egypt', type: 'International congress website', origin: CODEV,
+    src: '/work/ic-egypt-24/index.html', live: '', host: 'ic-egypt.aiesec.org.eg',
+    posters: { desktop: '/work/ic-egypt-24-desktop.jpg', mobile: '/work/ic-egypt-24-mobile.jpg' }, demo: true,
+    summary: 'The website for AIESEC’s International Congress 2024 in Egypt, with delegate and partner registration, tours and merchandise.',
+  },
+  {
     id: 'aiesec-us', name: 'AIESEC in the United States', client: '', type: 'National website', origin: CODEV,
     src: 'https://aiesecus.org/', live: 'https://aiesecus.org/', host: 'aiesecus.org',
     posters: { desktop: '/work/aiesec-us-desktop.jpg', mobile: '/work/aiesec-us-mobile.jpg' },
@@ -120,7 +126,7 @@ function SitePreview({ project, autoload = false }) {
         </div>
         <div className="wd-preview__actions">
           <a href={project.src} target="_blank" rel="noopener" className="wd-iconbtn" aria-label="Open the preview full screen" title="Full screen"><Maximize2 aria-hidden="true" /></a>
-          <a href={project.live} target="_blank" rel="noopener" className="wd-iconbtn" aria-label="Visit the live site" title="Live site"><ExternalLink aria-hidden="true" /></a>
+          {project.live && <a href={project.live} target="_blank" rel="noopener" className="wd-iconbtn" aria-label="Visit the live site" title="Live site"><ExternalLink aria-hidden="true" /></a>}
         </div>
       </div>
       <div ref={stageRef} className={`wd-stage wd-stage--${device}`}>
@@ -154,7 +160,9 @@ function PreviewNote({ project }) {
   return (
     <p className="wd-note">
       {project.demo ? 'Forms are turned off in this preview. ' : 'This is the live site. '}
-      Visit it at <a href={project.live} target="_blank" rel="noopener">{project.host}</a>.
+      {project.live
+        ? <>Visit it at <a href={project.live} target="_blank" rel="noopener">{project.host}</a>.</>
+        : 'The original site is no longer online.'}
     </p>
   )
 }
@@ -188,7 +196,7 @@ function FeaturedWork() {
             <div><dt>Project</dt><dd>{p.type}</dd></div>
             <div><dt>How we worked</dt><dd>{p.origin}</dd></div>
           </dl>
-          <a href={p.live} target="_blank" rel="noopener" className="link-arrow">Visit the live site <ExternalLink aria-hidden="true" /></a>
+          {p.live && <a href={p.live} target="_blank" rel="noopener" className="link-arrow">Visit the live site <ExternalLink aria-hidden="true" /></a>}
         </div>
       </div>
     </>
@@ -225,7 +233,7 @@ function MoreWork() {
               <p>{x.summary}</p>
               <div className="wd-more__links">
                 <button className="link-arrow" onClick={() => setViewing(x)}>Preview on any device <ArrowRight aria-hidden="true" /></button>
-                <a href={x.live} target="_blank" rel="noopener" className="link-arrow">Live site <ExternalLink aria-hidden="true" /></a>
+                {x.live && <a href={x.live} target="_blank" rel="noopener" className="link-arrow">Live site <ExternalLink aria-hidden="true" /></a>}
               </div>
             </li>
           ))}
