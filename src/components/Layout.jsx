@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ArrowRight, Menu, X } from 'lucide-react'
 import { company, services } from '../content.js'
+import RobotCompanion from './robot/RobotCompanion.jsx'
 
 const navItems = [
   ...services.map((s) => ({ to: s.path, label: s.name })),
@@ -48,16 +49,16 @@ function Navbar() {
             <img src="/brand/logo-h-navy.png" alt="" width="150" height="30" />
           </Link>
           <nav className="nav__links" aria-label="Main">
-            {navItems.map((item) => (
-              <NavLink key={item.to} to={item.to} className="nav__link">
-                {item.label}
-              </NavLink>
-            ))}
             {pathname !== '/' && (
               <NavLink to="/" end className="nav__link">
                 Home
               </NavLink>
             )}
+            {navItems.map((item) => (
+              <NavLink key={item.to} to={item.to} className="nav__link">
+                {item.label}
+              </NavLink>
+            ))}
             <Link to="/contact" className="btn btn--primary btn--sm nav__cta">
               Get a quote
             </Link>
@@ -159,6 +160,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <RobotCompanion />
     </>
   )
 }

@@ -14,10 +14,18 @@ export default function Home() {
   return (
     <>
       <section className="hero">
+        {/* Gold orbit lines and dots from the brand posts */}
+        <svg className="hero__art" viewBox="0 0 1440 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <path d="M-40 120 C 260 160, 380 520, 760 640 S 1300 600, 1500 780" fill="none" stroke="currentColor" strokeWidth="1.6" opacity=".55" />
+          <path d="M1010 -20 C 1080 140, 1240 220, 1480 240" fill="none" stroke="currentColor" strokeWidth="1.6" opacity=".45" />
+          <circle cx="352" cy="412" r="15" fill="currentColor" opacity=".85" />
+          <circle cx="1160" cy="132" r="11" fill="currentColor" opacity=".8" />
+          <circle cx="560" cy="574" r="6" fill="currentColor" opacity=".7" />
+        </svg>
         <div className="container hero__grid">
           <div className="hero__copy">
             <span className="eyebrow intro">Virtual tours · Digital twins · Web</span>
-            <h1 className="display intro" style={{ '--delay': '60ms' }}>Step inside before you arrive.</h1>
+            <h1 className="display intro" style={{ '--delay': '60ms' }}>Step inside before you arrive<span className="gold-dot">.</span></h1>
             <p className="lead intro" style={{ '--delay': '120ms' }}>
                 360° tours, 3D digital twins and the websites that show them off.
             </p>
