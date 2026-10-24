@@ -995,7 +995,8 @@ main { min-height: 60vh; }
 @media print { .robot { display: none; } }
 
 /* ── Digital twin full screen ─────────────────────────── */
-.twin__toolbar { display: flex; justify-content: flex-end; margin-top: 12px; }
+.twin__toolbar { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+@media (max-width: 560px) { .twin__toolbar .btn { width: 100%; justify-content: center; min-height: 44px; } }
 .twin__toolbar svg { width: 16px; height: 16px; }
 .twin.is-full {
   position: fixed; inset: 0; z-index: 3000; display: flex; flex-direction: column; background: #0a1e2e;
