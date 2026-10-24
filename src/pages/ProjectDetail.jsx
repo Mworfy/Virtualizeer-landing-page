@@ -6,6 +6,7 @@ import {
   CTABand, PageHero, ProjectCard, Reveal, SectionHeader, TourEmbed, TourLink, categoryLabels, usePageMeta,
 } from '../components/ui.jsx'
 import { projects } from '../content.js'
+import TwinFrame from '../components/TwinFrame.jsx'
 import NotFound from './NotFound.jsx'
 
 const DEMOS = {
@@ -40,11 +41,11 @@ export default function ProjectDetail() {
         <div className="container">
           <Reveal>
             {p.demo && DEMOS[p.demo] ? (
-              <div className={`tour ${DEMOS[p.demo].cls}`}>
+              <TwinFrame className={DEMOS[p.demo].cls} title={p.title}>
                 <Suspense fallback={<div className="vtour"><div className="vtour__loading"><span className="vtour__spinner" aria-label="Loading 3D view" /></div></div>}>
                   {(() => { const D = DEMOS[p.demo].C; return <D /> })()}
                 </Suspense>
-              </div>
+              </TwinFrame>
             ) : p.tourUrl ? (
               <>
                 <TourEmbed url={p.tourUrl} title={`${p.title} virtual tour`} variant={p.category} poster={p.image} />

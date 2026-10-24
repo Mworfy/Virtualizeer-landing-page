@@ -993,3 +993,24 @@ main { min-height: 60vh; }
   .robot__bubble { background: #fff; backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 @media print { .robot { display: none; } }
+
+/* ── Digital twin full screen ─────────────────────────── */
+.twin__toolbar { display: flex; justify-content: flex-end; margin-top: 12px; }
+.twin__toolbar svg { width: 16px; height: 16px; }
+.twin.is-full {
+  position: fixed; inset: 0; z-index: 3000; display: flex; flex-direction: column; background: #0a1e2e;
+  height: 100vh; height: 100dvh;
+}
+.twin.is-full .tour { flex: 1; min-height: 0; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
+.twin__bar {
+  flex: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #fff;
+  padding: calc(8px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) 8px calc(14px + env(safe-area-inset-left));
+}
+.twin__title { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.twin__exit {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.14); color: #fff; font: inherit; font-weight: 600; flex: none;
+}
+.twin__exit:hover { background: rgba(255,255,255,0.26); }
+.twin__exit:focus-visible { outline: 3px solid #8fd3ff; outline-offset: 2px; }
+.twin__exit svg { width: 18px; height: 18px; }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import NewZayedMap from '../zayed/NewZayedMap.jsx'
 import { Activity, ArrowRight, Building2, Eye, Factory, Layers, MapPin, MousePointerClick, Scale, Trees, Wrench } from 'lucide-react'
 import { Reveal, SectionHeader } from '../ui.jsx'
+import TwinFrame from '../TwinFrame.jsx'
 
 const CompoundTour = lazy(() => import('./CompoundTour.jsx'))
 const FactoryTour = lazy(() => import('../factory/FactoryTour.jsx'))
@@ -75,9 +76,9 @@ export default function TwinUseCases() {
       <div className="container">
         <SectionHeader eyebrow={u.eyebrow} title={<span id={u.id}>{u.title}</span>} lead={u.lead} />
         <Reveal>
-          <div className={`tour ${u.className}`}>
+          <TwinFrame className={u.className} title={u.eyebrow.split(' · ')[1]}>
             <LazyMount><u.Demo /></LazyMount>
-          </div>
+          </TwinFrame>
         </Reveal>
         <div className="grid grid-3" style={{ marginTop: 32 }}>
           {u.benefits.map(({ icon: I, title, text }, i) => (
