@@ -64,14 +64,14 @@ export default function TwinFrame({ className = '', title = 'Digital twin', chil
           </button>
         </div>
       )}
-      <div className={`tour ${className}`}>{children}</div>
       {!full && (
         <div className="twin__toolbar">
-          <button ref={openerRef} type="button" className="btn btn--secondary btn--sm" onClick={enter}>
-            <Maximize2 aria-hidden="true" /> Full screen
+          <button ref={openerRef} type="button" className="btn btn--primary btn--sm" onClick={enter}>
+            <Maximize2 aria-hidden="true" /> Open full screen
           </button>
         </div>
       )}
+      <div className={`tour ${className}`}>{children}</div>
     </div>
   )
 }
