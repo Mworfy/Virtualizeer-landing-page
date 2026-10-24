@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Hand, Map as MapIcon, Maximize2, Minus, Plus, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Hand, Map as MapIcon, Minus, Plus, Sparkles, X } from 'lucide-react'
 import { NODES, STATUS, STOPS, UNITS, UNIT_SPEC, planLines } from './zayedScene.js'
 import NewZayedMap from './NewZayedMap.jsx'
 import './zayed.css'
@@ -92,14 +92,8 @@ export default function ZayedExperience() {
     setHint(true)
   }
   const exit = () => {
-    if (document.fullscreenElement) document.exitFullscreen?.()
     if (mode === 'ground') xp.current?.exitHouse()
     else if (mode === 'aerial') backToMap()
-  }
-  const fullscreen = () => {
-    const el = rootRef.current
-    if (document.fullscreenElement) document.exitFullscreen?.()
-    else el?.requestFullscreen?.()
   }
   const stepStop = (dir) => {
     const i = STOPS.indexOf(xp.current?.stop() ?? 'front')
@@ -169,7 +163,6 @@ export default function ZayedExperience() {
                 title="High quality adds ambient occlusion">
                 <Sparkles aria-hidden="true" /> {quality === 'high' ? 'High quality' : 'Fast'}
               </button>
-              <button className="zx__glass zx__btn zx__icon" onClick={fullscreen} aria-label="Toggle full screen"><Maximize2 aria-hidden="true" /></button>
               <button className="zx__btn zx__icon xexit" onClick={exit} disabled={mode === 'flying' || moving}
                 aria-label={mode === 'ground' ? 'Exit the villa' : 'Exit to the New Zayed map'} title="Exit"><X aria-hidden="true" /></button>
             </div>
