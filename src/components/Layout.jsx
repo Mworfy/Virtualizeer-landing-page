@@ -7,6 +7,7 @@ import RobotCompanion from './robot/RobotCompanion.jsx'
 const navItems = [
   ...services.map((s) => ({ to: s.path, label: s.name })),
   { to: '/projects', label: 'Projects' },
+  { to: '/careers', label: 'Careers' },
   // { to: '/about', label: 'About' },
 ]
 
@@ -118,6 +119,7 @@ function Footer() {
             <ul>
               <li><Link to="/projects">Projects</Link></li>
               <li><Link to="/about">About</Link></li>
+              <li><Link to="/careers">Careers</Link></li>
               <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>

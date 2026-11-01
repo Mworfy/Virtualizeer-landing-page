@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { company, services, process as steps, faqs, industries, projects } from '../src/content.js'
+import { company, services, process as steps, faqs, industries, projects, jobs } from '../src/content.js'
 import { COMPOUNDS, REGION } from '../src/components/atlas/data.js'
 import {
   SITE_URL, SITE_NAME, OG_IMAGE, ORG_DESCRIPTION, ROUTES, canonicalFor,
@@ -28,7 +28,7 @@ const ld = (obj) => `<script type="application/ld+json">${JSON.stringify(obj).re
 const realCompounds = COMPOUNDS.filter((c) => !c.concept)
 
 // ── Shared fallback chrome ──
-const nav = `<nav aria-label="Main"><a href="/">Virtualizeer</a> · ${services.map((s) => `<a href="${s.path}">${esc(s.name)}</a>`).join(' · ')} · <a href="/new-zayed-atlas">New Zayed Atlas</a> · <a href="/projects">Projects</a> · <a href="/about">About</a> · <a href="/contact">Contact</a></nav>`
+const nav = `<nav aria-label="Main"><a href="/">Virtualizeer</a> · ${services.map((s) => `<a href="${s.path}">${esc(s.name)}</a>`).join(' · ')} · <a href="/new-zayed-atlas">New Zayed Atlas</a> · <a href="/projects">Projects</a> · <a href="/about">About</a> · <a href="/careers">Careers</a> · <a href="/contact">Contact</a></nav>`
 const footer = `<footer><p>${esc(ORG_DESCRIPTION)}</p><p>Email: <a href="mailto:${esc(company.email)}">${esc(company.email)}</a> · ${esc(company.location)}</p><p>${company.socials.map((s) => `<a href="${esc(s.href)}">${esc(s.label)}</a>`).join(' · ')}</p></footer>`
 const faqHtml = (items) => `<section><h2>Frequently asked questions</h2>${items.map((f) => `<h3>${esc(f.q)}</h3><p>${esc(f.a)}</p>`).join('')}</section>`
 const serviceHtml = (s) => `<section><h2>${esc(s.name)}</h2><p>${esc(s.intro)}</p><ul>${s.features.map((f) => `<li><strong>${esc(f.title)}:</strong> ${esc(f.text)}</li>`).join('')}</ul>${s.sectors ? `<h3>Who it is for</h3><ul>${s.sectors.map((x) => `<li>${esc(x.name)}</li>`).join('')}</ul>` : `<p>Use cases: ${esc(s.useCases.join(', '))}.</p>`}<p>What you receive: ${esc(s.deliverables.join(', '))}.</p></section>`
@@ -76,6 +76,7 @@ const bodies = {
   '/projects': () => `<h1>Projects</h1><p>Virtual tour, digital twin and website projects by Virtualizeer. Explore the interactive demos on the <a href="/digital-twins">Digital Twins</a> page and the <a href="/new-zayed-atlas">New Zayed Atlas</a>.</p>`,
   '/about': () => `<h1>About Virtualizeer</h1><p>${esc(ORG_DESCRIPTION)}</p><p>We help developers, brokers, hotels, retailers and contractors show their spaces with the clarity of a visit and the reach of the web.</p>`,
   '/contact': () => `<h1>Contact Virtualizeer</h1><p>Tell us about your property, compound or facility and we will reply within one business day with a tailored quote for a virtual tour, digital twin or website.</p><p>Email: <a href="mailto:${esc(company.email)}">${esc(company.email)}</a></p>`,
+  '/careers': () => `<h1>Careers at Virtualizeer</h1>${jobs.map((j) => `<section><h2>${esc(j.title)}</h2><p>${esc(j.type)} · ${esc(j.location)}</p><p>${esc(j.summary)}</p><h3>What you will do</h3><ul>${j.responsibilities.map((r) => `<li>${esc(r)}</li>`).join('')}</ul><h3>What we are looking for</h3><ul>${j.requirements.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></section>`).join('')}`,
 }
 
 // ── Route JSON-LD ──
@@ -118,6 +119,7 @@ const routeLd = {
   '/projects': () => [orgLd(), crumbs('/projects', 'Projects')],
   '/about': () => [orgLd(), crumbs('/about', 'About')],
   '/contact': () => [orgLd(), crumbs('/contact', 'Contact')],
+  '/careers': () => [orgLd(), crumbs('/careers', 'Careers')],
 }
 
 // ── Page writer ──
@@ -548,6 +550,7 @@ ${services.map((s) => `- [${s.name}](${SITE_URL}${s.path}): ${s.short}`).join('\
 ## Company
 - [About](${SITE_URL}/about)
 - [Contact and quotes](${SITE_URL}/contact)
+- [Careers](${SITE_URL}/careers)
 
 ## Guides
 ${GUIDES.map((g) => `- [${g.title}](${SITE_URL}${g.path}): ${g.description}`).join('\n')}

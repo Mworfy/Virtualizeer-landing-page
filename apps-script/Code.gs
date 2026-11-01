@@ -7,8 +7,12 @@
  *   3. sends a designed notification to info@virtualizeer.com
  *      (partnership requests are marked as such).
  *
- * The script owns only the columns listed in FIELDS. It never writes to any
- * other column, so add your own (Status, Notes…) and edit them freely.
+ * The script finds columns by their title on HEADER_ROW and writes only the
+ * ones listed in its field lists, once per new row. Status starts as "New" and
+ * is yours to change after that; Notes and any columns you add are never touched.
+ *
+ * Job applications from /careers go to the "Applicants" tab instead, and
+ * their CVs are saved to a private Drive folder (run setupSheet() once).
  *
  * One-time Zoho setup: see setupZoho() at the bottom of this file.
  * After pasting a new version: Deploy → Manage deployments → Edit →
@@ -16,6 +20,8 @@
  */
 
 const SHEET_NAME = 'Leads';
+// Rows 1-3 are the branded banner; column titles sit on row 4, data starts on 5.
+const HEADER_ROW = 4;
 const FROM_NAME = 'Virtualizeer';
 const FROM_ADDRESS = 'info@virtualizeer.com'; // your Zoho mailbox
 const NOTIFY_TO = 'info@virtualizeer.com';
@@ -27,6 +33,7 @@ const ZOHO_DC = 'com';
 // [key sent by the website, header shown in the sheet]
 const FIELDS = [
   ['submitted_at', 'Submitted at'],
+  ['status', 'Status'],
   ['type', 'Type'],
   ['name', 'Name'],
   ['email', 'Email'],
@@ -36,6 +43,29 @@ const FIELDS = [
   ['message', 'Message'],
   ['page', 'Page'],
 ];
+
+const APPLICATIONS_SHEET = 'Applicants';
+const APPLICATION_FIELDS = [
+  ['submitted_at', 'Submitted at'],
+  ['status', 'Status'],
+  ['role', 'Role'],
+  ['name', 'Name'],
+  ['email', 'Email'],
+  ['phone', 'Phone'],
+  ['linkedin', 'LinkedIn'],
+  ['cv', 'CV'],
+  ['message', 'Why this role'],
+  ['page', 'Page'],
+];
+
+// Keep in sync with CV_EXTENSIONS and CV_MAX_MB in src/pages/Careers.jsx
+const CV_FOLDER_NAME = 'Virtualizeer job applications';
+const CV_MAX_BYTES = 5 * 1024 * 1024;
+const CV_TYPES = {
+  pdf: 'application/pdf',
+  doc: 'application/msword',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+};
 
 const MAX_LENGTH = 5000;
 
@@ -47,8 +77,11 @@ function doPost(e) {
   // Hidden field real visitors never fill in; bots usually do.
   if (data.website) return json_({ ok: true });
 
+  if (data.type === 'Application') return handleApplication_(data);
+
   const lead = {};
   FIELDS.forEach(([key]) => { lead[key] = key === 'submitted_at' ? new Date() : clean_(data[key]); });
+  lead.status = 'New';
   if (!lead.type) lead.type = 'Quote';
 
   let row;
@@ -82,6 +115,126 @@ function doGet() {
   return json_({ ok: true, message: 'Virtualizeer form endpoint is running.' });
 }
 
+/* ───────────────────────── Job applications ───────────────────────── */
+
+function handleApplication_(data) {
+  const app = {};
+  APPLICATION_FIELDS.forEach(([key]) => { app[key] = key === 'submitted_at' ? new Date() : clean_(data[key]); });
+  app.status = 'New';
+  // The apostrophe keeps it as text, or the sheet would drop a leading 0.
+  app.phone = "'" + app.phone.replace(/^'/, '');
+
+  // A CV problem never loses the application: the row and emails still go out.
+  let cvUrl = '';
+  try {
+    cvUrl = saveCv_(data, app);
+    app.cv = `=HYPERLINK("${cvUrl}","Open CV")`;
+  } catch (err) {
+    console.error('CV upload failed: ' + err);
+    app.cv = 'Upload failed: ' + err.message;
+  }
+
+  let row;
+  const lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    const sheet = getSheet_(APPLICATIONS_SHEET);
+    const cols = ensureHeaders_(sheet, APPLICATION_FIELDS);
+    row = nextRow_(sheet, cols.submitted_at);
+    APPLICATION_FIELDS.forEach(([key]) => sheet.getRange(row, cols[key]).setValue(app[key]));
+    SpreadsheetApp.flush();
+  } catch (err) {
+    return json_({ ok: false, error: String(err) });
+  } finally {
+    lock.releaseLock();
+  }
+
+  const mail = { confirmation: false, notification: false };
+  if (isEmail_(app.email)) {
+    try { sendMail_(app.email, `We received your application for the ${app.role}`, applicationConfirmationHtml_(app)); mail.confirmation = true; }
+    catch (err) { console.error('Confirmation email failed: ' + err); }
+  }
+  try { sendMail_(NOTIFY_TO, `New application: ${app.role} from ${app.name}`, applicationNotificationHtml_(app, cvUrl, row)); mail.notification = true; }
+  catch (err) { console.error('Notification email failed: ' + err); }
+
+  return json_({ ok: true, row, mail });
+}
+
+// Saves the file privately in Drive and returns its link.
+function saveCv_(data, app) {
+  const originalName = String(data.cv_name || '');
+  const ext = originalName.split('.').pop().toLowerCase();
+  if (!CV_TYPES[ext]) throw new Error('unsupported file type: ' + originalName);
+  if (!data.cv_data) throw new Error('no file received');
+  const bytes = Utilities.base64Decode(String(data.cv_data));
+  if (bytes.length > CV_MAX_BYTES) throw new Error('file is larger than the limit');
+
+  const applicant = app.name.replace(/[^\p{L}\p{N} .'-]/gu, '').slice(0, 80) || 'Applicant';
+  const stamp = Utilities.formatDate(app.submitted_at, 'Africa/Cairo', 'yyyy-MM-dd HHmm');
+  const blob = Utilities.newBlob(bytes, CV_TYPES[ext], `${applicant} - ${stamp}.${ext}`);
+  return cvFolder_().createFile(blob).getUrl();
+}
+
+function cvFolder_() {
+  const props = PropertiesService.getScriptProperties();
+  const id = props.getProperty('CV_FOLDER_ID');
+  if (id) return DriveApp.getFolderById(id);
+  const folder = DriveApp.createFolder(CV_FOLDER_NAME);
+  props.setProperty('CV_FOLDER_ID', folder.getId());
+  return folder;
+}
+
+// Run once from the editor: it grants Drive access, creates the CV folder and
+// embeds the logo in both tabs, so Sheets stops asking to allow external access.
+function setupSheet() {
+  console.log('CVs are saved to ' + cvFolder_().getUrl());
+  const logo = SpreadsheetApp.newCellImage().setSourceUrl(LOGO).setAltTextTitle(FROM_NAME).build();
+  [SHEET_NAME, APPLICATIONS_SHEET].forEach((name) => getSheet_(name).getRange('A1').setValue(logo));
+  console.log('Logo added to ' + SHEET_NAME + ' and ' + APPLICATIONS_SHEET);
+}
+
+function applicationConfirmationHtml_(app) {
+  const body = `
+    <h1 style="margin:0 0 12px;font-size:26px;line-height:1.25;color:#0f2a40;font-weight:800;">Thanks, ${esc_(firstName_(app))}!</h1>
+    <p style="margin:0 0 24px;font-size:16px;line-height:1.6;color:#4a5866;">We’ve received your application for the ${esc_(app.role)} at Virtualizeer. We’ll review your CV and contact you about next steps.</p>
+    <table role="presentation" cellpadding="0" cellspacing="0"><tr>
+      ${buttonHtml_(SITE + '/projects', 'See our work', true)}
+    </tr></table>
+    <p style="margin:28px 0 0;font-size:14px;line-height:1.6;color:#6b7785;">Need to add something? Just reply to this email.</p>`;
+  return layoutHtml_('Application received', body);
+}
+
+function applicationNotificationHtml_(app, cvUrl, row) {
+  const when = Utilities.formatDate(app.submitted_at, 'Africa/Cairo', 'EEE d MMM yyyy, HH:mm');
+  const sheetUrl = SpreadsheetApp.getActiveSpreadsheet().getUrl();
+  const phone = esc_(app.phone);
+  const linkedin = /^https?:\/\//i.test(app.linkedin)
+    ? `<a href="${esc_(app.linkedin)}" style="color:#1f5f99;">${esc_(app.linkedin)}</a>`
+    : esc_(app.linkedin);
+
+  const rows = [
+    ['Role', app.role],
+    ['Email', `<a href="mailto:${esc_(app.email)}" style="color:#1f5f99;">${esc_(app.email)}</a>`, true],
+    ['Phone', `<a href="tel:${esc_(app.phone.replace(/[^\p{Nd}+]/gu, ''))}" style="color:#1f5f99;">${phone}</a>`, true],
+    ['LinkedIn', linkedin, true],
+    ['Why this role', app.message],
+    ['CV', cvUrl ? '' : app.cv],
+    ['Received', when],
+  ].filter(([, v]) => v);
+
+  const body = `
+    <span style="display:inline-block;padding:6px 12px;border-radius:999px;background:#e6f4ec;color:#1c6b3f;font-size:12px;font-weight:700;letter-spacing:.04em;">JOB APPLICATION</span>
+    <h1 style="margin:14px 0 6px;font-size:24px;line-height:1.25;color:#0f2a40;font-weight:800;">${esc_(app.name || 'New applicant')}</h1>
+    <p style="margin:0 0 24px;font-size:15px;color:#4a5866;">applied for the ${esc_(app.role)}.</p>
+    ${tableHtml_(rows)}
+    <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top:28px;"><tr>
+      ${cvUrl ? buttonHtml_(cvUrl, 'Open CV', true) : ''}
+      <td style="width:10px;"></td>
+      ${buttonHtml_(sheetUrl, `Open in sheet (row ${row})`, false)}
+    </tr></table>`;
+  return layoutHtml_('New job application', body);
+}
+
 /* ───────────────────────── Sheet ───────────────────────── */
 
 function readPayload_(e) {
@@ -93,32 +246,32 @@ function readPayload_(e) {
   return e.parameter || {};
 }
 
-function getSheet_() {
+function getSheet_(name = SHEET_NAME) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  return ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+  return ss.getSheetByName(name) || ss.insertSheet(name);
 }
 
 // Returns { key: columnNumber }. Adds only the headers that are missing.
-function ensureHeaders_(sheet) {
+function ensureHeaders_(sheet, fields = FIELDS) {
   const lastCol = Math.max(sheet.getLastColumn(), 1);
-  const headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0]
+  const headers = sheet.getRange(HEADER_ROW, 1, 1, lastCol).getValues()[0]
     .map((h) => String(h).trim().toLowerCase());
   const sheetIsNew = headers.every((h) => h === '');
 
   const cols = {};
   let nextFree = sheetIsNew ? 1 : lastCol + 1;
-  FIELDS.forEach(([key, label]) => {
+  fields.forEach(([key, label]) => {
     const found = headers.indexOf(label.toLowerCase());
     if (found !== -1) {
       cols[key] = found + 1;
     } else {
-      sheet.getRange(1, nextFree).setValue(label).setFontWeight('bold');
+      sheet.getRange(HEADER_ROW, nextFree).setValue(label).setFontWeight('bold');
       cols[key] = nextFree;
       nextFree += 1;
     }
   });
 
-  if (sheet.getFrozenRows() === 0) sheet.setFrozenRows(1);
+  if (sheet.getFrozenRows() === 0) sheet.setFrozenRows(HEADER_ROW);
   return cols;
 }
 
@@ -127,8 +280,8 @@ function ensureHeaders_(sheet) {
 function nextRow_(sheet, timestampCol) {
   const maxRows = sheet.getMaxRows();
   const values = sheet.getRange(1, timestampCol, maxRows, 1).getValues();
-  let last = 1;
-  for (let i = values.length - 1; i >= 1; i--) {
+  let last = HEADER_ROW;
+  for (let i = values.length - 1; i >= HEADER_ROW; i--) {
     if (values[i][0] !== '' && values[i][0] !== null) { last = i + 1; break; }
   }
   const row = last + 1;

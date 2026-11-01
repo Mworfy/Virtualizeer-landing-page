@@ -66,6 +66,11 @@ export const ROUTES = {
     description: 'Tell us about your property, compound or facility and get a quote for a virtual tour, digital twin or website from Virtualizeer.',
     priority: 0.7,
   },
+  '/careers': {
+    title: 'Careers: Sales Internship in Cairo',
+    description: 'Join Virtualizeer in Cairo, Egypt. See open roles, including our Sales Internship, and apply online with your CV.',
+    priority: 0.5,
+  },
 }
 
 export const routeMeta = (path) => ROUTES[path] ?? null

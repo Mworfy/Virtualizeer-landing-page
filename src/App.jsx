@@ -7,6 +7,7 @@ import Projects from './pages/Projects.jsx'
 import ProjectDetail from './pages/ProjectDetail.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
+import Careers from './pages/Careers.jsx'
 import NotFound from './pages/NotFound.jsx'
 import { lazy, Suspense } from 'react'
 
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="projects/:slug" element={<ProjectDetail />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="careers" element={<Careers />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

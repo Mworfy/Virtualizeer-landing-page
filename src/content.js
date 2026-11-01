@@ -15,11 +15,34 @@ export const company = {
 }
 
 // Google Apps Script web app URL (ends in /exec). See apps-script/Code.gs.
-export const formEndpoint = 'https://script.google.com/macros/s/AKfycbzA6TfT79hq74Fn9JSx1Ux5kE_HldbLRBodRBuGPbQmCJC4VgT8EaUqsQlUvGAfV7ABuQ/exec'
+export const formEndpoint = 'https://script.google.com/macros/s/AKfycbwXEDofqTPx-1D4s3Gf-s4TckVKX7SMmtHYqY0X1MBA031y-aW2bMr745o5bfCTLNr_uA/exec'
 
 // Optional: paste one of your own tour links (Matterport, Kuula, 3DVista, etc.).
 // Leave empty to show the built in interactive 3D apartment tour instead.
 export const demoTourUrl = ''
+
+// Open roles on /careers. Add an entry here and the form offers a role picker.
+export const jobs = [
+  {
+    slug: 'sales-internship',
+    title: 'Sales Internship',
+    type: 'Internship',
+    location: company.location,
+    summary: 'Learn how B2B sales works by helping real estate developers, brokers and hotels discover what virtual tours and digital twins can do for them.',
+    responsibilities: [
+      'Research and build lists of potential clients',
+      'Reach out to leads by phone, email and LinkedIn',
+      'Help prepare proposals and product demos',
+      'Keep track of leads and follow-ups',
+    ],
+    requirements: [
+      'A student or recent graduate who enjoys talking to people',
+      'Clear communication in Arabic and English',
+      'Organized and reliable with follow-ups',
+      'Curious about real estate and technology',
+    ],
+  },
+]
 
 export const services = [
   {
