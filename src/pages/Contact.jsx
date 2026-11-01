@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { AlertCircle, Check, Clock, Mail, MapPin } from 'lucide-react'
+import { AlertCircle, Check, Clock, Loader2, Mail, MapPin } from 'lucide-react'
 import { PageHero, Reveal, usePageMeta } from '../components/ui.jsx'
 import { company, formEndpoint, services } from '../content.js'
 
@@ -183,8 +183,8 @@ export default function Contact() {
                   <input id="website" name="website" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
                 </div>
                 {sendError && <p className="field__error" role="alert"><AlertCircle aria-hidden="true" />{sendError}</p>}
-                <button type="submit" className="btn btn--primary" style={{ justifySelf: 'start' }} disabled={sending}>
-                  {sending ? 'Sending…' : 'Send message'}
+                <button type="submit" className="btn btn--primary" style={{ justifySelf: 'start' }} disabled={sending} aria-busy={sending}>
+                  {sending ? <><Loader2 className="btn__spinner" aria-hidden="true" />Sending…</> : 'Send message'}
                 </button>
               </form>
             )}

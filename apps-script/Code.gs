@@ -25,6 +25,7 @@ const HEADER_ROW = 4;
 const FROM_NAME = 'Virtualizeer';
 const FROM_ADDRESS = 'info@virtualizeer.com'; // your Zoho mailbox
 const NOTIFY_TO = 'info@virtualizeer.com';
+const HR_ADDRESS = 'hr@virtualizeer.com'; // must be an alias of the Zoho mailbox above
 const SITE = 'https://www.virtualizeer.com';
 const LOGO = SITE + '/brand/logo-h-white.png';
 // Zoho data centre: 'com' (default), 'eu', 'in', 'com.au', 'jp', 'ca', 'sa'
@@ -151,10 +152,10 @@ function handleApplication_(data) {
 
   const mail = { confirmation: false, notification: false };
   if (isEmail_(app.email)) {
-    try { sendMail_(app.email, `We received your application for the ${app.role}`, applicationConfirmationHtml_(app)); mail.confirmation = true; }
+    try { sendHrMail_(app.email, `We received your application for the ${app.role}`, applicationConfirmationHtml_(app)); mail.confirmation = true; }
     catch (err) { console.error('Confirmation email failed: ' + err); }
   }
-  try { sendMail_(NOTIFY_TO, `New application: ${app.role} from ${app.name}`, applicationNotificationHtml_(app, cvUrl, row)); mail.notification = true; }
+  try { sendHrMail_(NOTIFY_TO, `New application: ${app.role} from ${app.name}`, applicationNotificationHtml_(app, cvUrl, row)); mail.notification = true; }
   catch (err) { console.error('Notification email failed: ' + err); }
 
   return json_({ ok: true, row, mail });
@@ -201,7 +202,7 @@ function applicationConfirmationHtml_(app) {
       ${buttonHtml_(SITE + '/projects', 'See our work', true)}
     </tr></table>
     <p style="margin:28px 0 0;font-size:14px;line-height:1.6;color:#6b7785;">Need to add something? Just reply to this email.</p>`;
-  return layoutHtml_('Application received', body);
+  return layoutHtml_('Application received', body, HR_ADDRESS);
 }
 
 function applicationNotificationHtml_(app, cvUrl, row) {
@@ -232,7 +233,7 @@ function applicationNotificationHtml_(app, cvUrl, row) {
       <td style="width:10px;"></td>
       ${buttonHtml_(sheetUrl, `Open in sheet (row ${row})`, false)}
     </tr></table>`;
-  return layoutHtml_('New job application', body);
+  return layoutHtml_('New job application', body, HR_ADDRESS);
 }
 
 /* ───────────────────────── Sheet ───────────────────────── */
@@ -307,11 +308,11 @@ function json_(obj) {
 
 // Sends through the Zoho Mail API once setupZoho() has run; until then it
 // falls back to the Google account that owns this script.
-function sendMail_(to, subject, html) {
+function sendMail_(to, subject, html, from = FROM_ADDRESS) {
   const props = PropertiesService.getScriptProperties();
   const accountId = props.getProperty('ZOHO_ACCOUNT_ID');
   if (!accountId) {
-    MailApp.sendEmail({ to, subject, htmlBody: html, name: FROM_NAME, replyTo: FROM_ADDRESS });
+    MailApp.sendEmail({ to, subject, htmlBody: html, name: FROM_NAME, replyTo: from });
     return;
   }
   const res = UrlFetchApp.fetch(`https://mail.zoho.${ZOHO_DC}/api/accounts/${accountId}/messages`, {
@@ -319,7 +320,7 @@ function sendMail_(to, subject, html) {
     contentType: 'application/json',
     headers: { Authorization: 'Zoho-oauthtoken ' + zohoToken_() },
     payload: JSON.stringify({
-      fromAddress: FROM_ADDRESS,
+      fromAddress: from,
       toAddress: to,
       subject,
       content: html,
@@ -329,6 +330,23 @@ function sendMail_(to, subject, html) {
     muteHttpExceptions: true,
   });
   if (res.getResponseCode() >= 300) throw new Error('Zoho ' + res.getResponseCode() + ': ' + res.getContentText());
+}
+
+// Careers emails go from HR. If Zoho refuses that address, the main mailbox
+// sends instead, so an applicant never misses their confirmation.
+function sendHrMail_(to, subject, html) {
+  try {
+    sendMail_(to, subject, html, HR_ADDRESS);
+  } catch (err) {
+    console.error('Sending from ' + HR_ADDRESS + ' failed, using ' + FROM_ADDRESS + ': ' + err);
+    sendMail_(to, subject, html);
+  }
+}
+
+// Run after adding the alias in Zoho: it fails loudly if HR can't send yet.
+function testHrEmail() {
+  sendMail_(NOTIFY_TO, 'Careers emails can send from ' + HR_ADDRESS, applicationConfirmationHtml_({ name: 'Test Person', role: 'Sales Internship' }), HR_ADDRESS);
+  console.log('Test email sent from ' + HR_ADDRESS + ' to ' + NOTIFY_TO);
 }
 
 // Access tokens last an hour; cache one for 50 minutes.
@@ -442,7 +460,7 @@ function notificationHtml_(lead, row) {
 
 /* ───────────────────────── Email building blocks ───────────────────────── */
 
-function layoutHtml_(preheader, inner) {
+function layoutHtml_(preheader, inner, contact = FROM_ADDRESS) {
   return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc_(preheader)}</title></head>
 <body style="margin:0;padding:0;background:#eef1f5;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;">
 <span style="display:none;max-height:0;overflow:hidden;opacity:0;">${esc_(preheader)}</span>
@@ -457,7 +475,7 @@ function layoutHtml_(preheader, inner) {
     <tr><td style="padding:24px 12px;text-align:center;font-size:12px;line-height:1.7;color:#6b7785;">
       Virtualizeer · Virtual tours, digital twins and websites · Cairo, Egypt<br>
       <a href="${SITE}" style="color:#1f5f99;text-decoration:none;">virtualizeer.com</a> ·
-      <a href="mailto:${FROM_ADDRESS}" style="color:#1f5f99;text-decoration:none;">${FROM_ADDRESS}</a>
+      <a href="mailto:${contact}" style="color:#1f5f99;text-decoration:none;">${contact}</a>
     </td></tr>
   </table>
 </td></tr></table></body></html>`;

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { AlertCircle, ArrowRight, Briefcase, Check, MapPin } from 'lucide-react'
+import { AlertCircle, ArrowRight, Briefcase, Check, Loader2, MapPin } from 'lucide-react'
 import { PageHero, Reveal, usePageMeta } from '../components/ui.jsx'
 import { company, formEndpoint, jobs } from '../content.js'
 
@@ -204,8 +204,8 @@ export default function Careers() {
                   <input id="website" name="website" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
                 </div>
                 {sendError && <p className="field__error" role="alert"><AlertCircle aria-hidden="true" />{sendError}</p>}
-                <button type="submit" className="btn btn--primary" style={{ justifySelf: 'start' }} disabled={sending}>
-                  {sending ? 'Sending…' : 'Send application'}
+                <button type="submit" className="btn btn--primary" style={{ justifySelf: 'start' }} disabled={sending} aria-busy={sending}>
+                  {sending ? <><Loader2 className="btn__spinner" aria-hidden="true" />Uploading your CV…</> : 'Send application'}
                 </button>
               </form>
             )}
