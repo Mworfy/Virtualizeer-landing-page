@@ -25,7 +25,8 @@ const HEADER_ROW = 4;
 const FROM_NAME = 'Virtualizeer';
 const FROM_ADDRESS = 'info@virtualizeer.com'; // your Zoho mailbox
 const NOTIFY_TO = 'info@virtualizeer.com';
-const HR_ADDRESS = 'hr@virtualizeer.com'; // must be an alias of the Zoho mailbox above
+const HR_ADDRESS = 'hr@virtualizeer.com'; // connected on its own login: see setupHrZoho()
+const HR_PREFIX = 'HR_';
 const SITE = 'https://www.virtualizeer.com';
 const LOGO = SITE + '/brand/logo-h-white.png';
 // Zoho data centre: 'com' (default), 'eu', 'in', 'com.au', 'jp', 'ca', 'sa'
@@ -310,7 +311,9 @@ function json_(obj) {
 // falls back to the Google account that owns this script.
 function sendMail_(to, subject, html, from = FROM_ADDRESS) {
   const props = PropertiesService.getScriptProperties();
-  const accountId = props.getProperty('ZOHO_ACCOUNT_ID');
+  // HR has its own Zoho login once setupHrZoho() has run.
+  const prefix = from === HR_ADDRESS && props.getProperty(HR_PREFIX + 'ZOHO_ACCOUNT_ID') ? HR_PREFIX : '';
+  const accountId = props.getProperty(prefix + 'ZOHO_ACCOUNT_ID');
   if (!accountId) {
     MailApp.sendEmail({ to, subject, htmlBody: html, name: FROM_NAME, replyTo: from });
     return;
@@ -318,7 +321,7 @@ function sendMail_(to, subject, html, from = FROM_ADDRESS) {
   const res = UrlFetchApp.fetch(`https://mail.zoho.${ZOHO_DC}/api/accounts/${accountId}/messages`, {
     method: 'post',
     contentType: 'application/json',
-    headers: { Authorization: 'Zoho-oauthtoken ' + zohoToken_() },
+    headers: { Authorization: 'Zoho-oauthtoken ' + zohoToken_(prefix) },
     payload: JSON.stringify({
       fromAddress: from,
       toAddress: to,
@@ -343,31 +346,31 @@ function sendHrMail_(to, subject, html) {
   }
 }
 
-// Run after adding the alias in Zoho: it fails loudly if HR can't send yet.
+// Run after setupHrZoho(): it fails loudly if HR can't send yet.
 function testHrEmail() {
   sendMail_(NOTIFY_TO, 'Careers emails can send from ' + HR_ADDRESS, applicationConfirmationHtml_({ name: 'Test Person', role: 'Sales Internship' }), HR_ADDRESS);
   console.log('Test email sent from ' + HR_ADDRESS + ' to ' + NOTIFY_TO);
 }
 
 // Access tokens last an hour; cache one for 50 minutes.
-function zohoToken_() {
+function zohoToken_(prefix = '') {
   const cache = CacheService.getScriptCache();
-  const cached = cache.get('zoho_token');
+  const cached = cache.get(prefix + 'zoho_token');
   if (cached) return cached;
   const props = PropertiesService.getScriptProperties();
   const res = UrlFetchApp.fetch(`https://accounts.zoho.${ZOHO_DC}/oauth/v2/token`, {
     method: 'post',
     payload: {
-      refresh_token: props.getProperty('ZOHO_REFRESH_TOKEN'),
-      client_id: props.getProperty('ZOHO_CLIENT_ID'),
-      client_secret: props.getProperty('ZOHO_CLIENT_SECRET'),
+      refresh_token: props.getProperty(prefix + 'ZOHO_REFRESH_TOKEN'),
+      client_id: props.getProperty(prefix + 'ZOHO_CLIENT_ID'),
+      client_secret: props.getProperty(prefix + 'ZOHO_CLIENT_SECRET'),
       grant_type: 'refresh_token',
     },
     muteHttpExceptions: true,
   });
   const body = JSON.parse(res.getContentText());
   if (!body.access_token) throw new Error('Zoho token refresh failed: ' + res.getContentText());
-  cache.put('zoho_token', body.access_token, 3000);
+  cache.put(prefix + 'zoho_token', body.access_token, 3000);
   return body.access_token;
 }
 
@@ -524,39 +527,55 @@ function buttonHtml_(href, label, primary) {
  *    test email to info@virtualizeer.com. Check the Execution log.
  */
 function setupZoho() {
+  connectZoho_('', FROM_ADDRESS);
+}
+
+/**
+ * Connects hr@ on its own login, the same way, with two differences:
+ *   - do steps 1 to 3 while logged in to Zoho as hr@virtualizeer.com,
+ *   - name the Script Properties HR_ZOHO_CLIENT_ID, HR_ZOHO_CLIENT_SECRET
+ *     and HR_ZOHO_GRANT_CODE, then run setupHrZoho.
+ */
+function setupHrZoho() {
+  connectZoho_(HR_PREFIX, HR_ADDRESS);
+}
+
+function connectZoho_(prefix, address) {
   const props = PropertiesService.getScriptProperties();
-  const code = props.getProperty('ZOHO_GRANT_CODE');
+  const code = props.getProperty(prefix + 'ZOHO_GRANT_CODE');
   if (code) {
     const res = UrlFetchApp.fetch(`https://accounts.zoho.${ZOHO_DC}/oauth/v2/token`, {
       method: 'post',
       payload: {
         code,
-        client_id: props.getProperty('ZOHO_CLIENT_ID'),
-        client_secret: props.getProperty('ZOHO_CLIENT_SECRET'),
+        client_id: props.getProperty(prefix + 'ZOHO_CLIENT_ID'),
+        client_secret: props.getProperty(prefix + 'ZOHO_CLIENT_SECRET'),
         grant_type: 'authorization_code',
       },
       muteHttpExceptions: true,
     });
     const body = JSON.parse(res.getContentText());
     if (!body.refresh_token) throw new Error('Could not get a refresh token (the code may have expired): ' + res.getContentText());
-    props.setProperty('ZOHO_REFRESH_TOKEN', body.refresh_token);
-    props.deleteProperty('ZOHO_GRANT_CODE');
-    CacheService.getScriptCache().put('zoho_token', body.access_token, 3000);
+    props.setProperty(prefix + 'ZOHO_REFRESH_TOKEN', body.refresh_token);
+    props.deleteProperty(prefix + 'ZOHO_GRANT_CODE');
+    CacheService.getScriptCache().put(prefix + 'zoho_token', body.access_token, 3000);
     console.log('Saved refresh token.');
   }
 
   const res = UrlFetchApp.fetch(`https://mail.zoho.${ZOHO_DC}/api/accounts`, {
-    headers: { Authorization: 'Zoho-oauthtoken ' + zohoToken_() },
+    headers: { Authorization: 'Zoho-oauthtoken ' + zohoToken_(prefix) },
     muteHttpExceptions: true,
   });
   const accounts = (JSON.parse(res.getContentText()).data || []);
-  const match = accounts.find((a) => (a.emailAddress || []).some((e) => e.mailId === FROM_ADDRESS) || a.primaryEmailAddress === FROM_ADDRESS) || accounts[0];
-  if (!match) throw new Error('No Zoho Mail account found: ' + res.getContentText());
-  props.setProperty('ZOHO_ACCOUNT_ID', String(match.accountId));
+  const owns = (a) => (a.emailAddress || []).some((e) => e.mailId === address) || a.primaryEmailAddress === address;
+  // HR must match exactly, so a code made while logged in as info@ can't pass as hr@.
+  const match = accounts.find(owns) || (prefix ? null : accounts[0]);
+  if (!match) throw new Error('No Zoho Mail account for ' + address + ' on this login: ' + res.getContentText());
+  props.setProperty(prefix + 'ZOHO_ACCOUNT_ID', String(match.accountId));
   console.log('Saved Zoho account ' + match.accountId + ' (' + (match.primaryEmailAddress || '') + ')');
 
   sendMail_(NOTIFY_TO, 'Virtualizeer form emails are connected', layoutHtml_('Test email',
-    '<h1 style="margin:0 0 12px;font-size:24px;color:#0f2a40;">It works.</h1><p style="margin:0;font-size:16px;color:#4a5866;">Form confirmations and notifications will now be sent from ' + FROM_ADDRESS + ' through Zoho Mail.</p>'));
+    '<h1 style="margin:0 0 12px;font-size:24px;color:#0f2a40;">It works.</h1><p style="margin:0;font-size:16px;color:#4a5866;">Form emails will now be sent from ' + address + ' through Zoho Mail.</p>', address), address);
   console.log('Test email sent to ' + NOTIFY_TO);
 }
 
