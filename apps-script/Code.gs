@@ -11,7 +11,8 @@
  * ones listed in its field lists, once per new row. Status starts as "New" and
  * is yours to change after that; Notes and any columns you add are never touched.
  *
- * Job applications from /careers go to the "Applicants" tab instead, and
+ * Job applications from /careers go to the "Applicants" tab instead, the
+ * HR team at HR_ADDRESS is emailed the applicant's details, and
  * their CVs are saved to a private Drive folder (run setupSheet() once).
  *
  * One-time Zoho setup: see setupZoho() at the bottom of this file.
@@ -156,7 +157,7 @@ function handleApplication_(data) {
     try { sendHrMail_(app.email, applicationConfirmationSubject_(app), applicationConfirmationHtml_(app)); mail.confirmation = true; }
     catch (err) { console.error('Confirmation email failed: ' + err); }
   }
-  try { sendHrMail_(NOTIFY_TO, `New application: ${app.role} from ${app.name}`, applicationNotificationHtml_(app, cvUrl, row)); mail.notification = true; }
+  try { sendHrMail_(HR_ADDRESS, `New application: ${app.role} from ${app.name}`, applicationNotificationHtml_(app, cvUrl, row)); mail.notification = true; }
   catch (err) { console.error('Notification email failed: ' + err); }
 
   return json_({ ok: true, row, mail });
