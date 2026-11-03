@@ -153,7 +153,7 @@ function handleApplication_(data) {
 
   const mail = { confirmation: false, notification: false };
   if (isEmail_(app.email)) {
-    try { sendHrMail_(app.email, `We received your application for the ${app.role}`, applicationConfirmationHtml_(app)); mail.confirmation = true; }
+    try { sendHrMail_(app.email, applicationConfirmationSubject_(app), applicationConfirmationHtml_(app)); mail.confirmation = true; }
     catch (err) { console.error('Confirmation email failed: ' + err); }
   }
   try { sendHrMail_(NOTIFY_TO, `New application: ${app.role} from ${app.name}`, applicationNotificationHtml_(app, cvUrl, row)); mail.notification = true; }
@@ -195,15 +195,33 @@ function setupSheet() {
   console.log('Logo added to ' + SHEET_NAME + ' and ' + APPLICATIONS_SHEET);
 }
 
+function applicationConfirmationSubject_(app) {
+  return `Thanks for applying to Virtualizeer, ${firstName_(app)}!`;
+}
+
 function applicationConfirmationHtml_(app) {
+  const p = 'margin:0 0 18px;font-size:16px;line-height:1.65;color:#4a5866;';
+  const link = 'color:#1f5f99;font-weight:600;text-decoration:none;';
   const body = `
-    <h1 style="margin:0 0 12px;font-size:26px;line-height:1.25;color:#0f2a40;font-weight:800;">Thanks, ${esc_(firstName_(app))}!</h1>
-    <p style="margin:0 0 24px;font-size:16px;line-height:1.6;color:#4a5866;">We’ve received your application for the ${esc_(app.role)} at Virtualizeer. We’ll review your CV and contact you about next steps.</p>
+    <p style="margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#8c6230;font-weight:700;">Application received</p>
+    <h1 style="margin:0 0 16px;font-size:26px;line-height:1.25;color:#0f2a40;font-weight:800;">A warm hello from Virtualizeer, ${esc_(firstName_(app))}!</h1>
+    <p style="${p}">Thank you for applying for the <strong style="color:#0f2a40;">${esc_(app.role)}</strong>. At Virtualizeer, we help people step inside spaces before they arrive, through virtual tours, digital twins and websites, and every person who joins us helps shape what we build. We’re genuinely glad you want to be part of it.</p>
+    <p style="margin:0 0 24px;font-size:16px;line-height:1.65;color:#4a5866;">Your application and CV have reached our Talent Acquisition team safely.</p>
+    ${stepsHtml_('What happens next', [
+      'Our Talent Acquisition team reviews your application and CV.',
+      'If your profile matches the role, a member of our HR team will call or email you to arrange an interview.',
+      'You meet the team, ask us anything and see how we work.',
+    ])}
+    <p style="margin:24px 0 18px;font-size:16px;line-height:1.65;color:#4a5866;">Our team reviews every application carefully, so it can take a little time. Thank you for your patience while we do.</p>
+    <p style="margin:0 0 24px;font-size:16px;line-height:1.65;color:#4a5866;">In the meantime, take a look at the spaces we’ve brought online, and follow along on <a href="https://www.linkedin.com/company/virtualizeer" style="${link}">LinkedIn</a> and <a href="https://www.instagram.com/virtualizeer/" style="${link}">Instagram</a> to see what life at Virtualizeer looks like.</p>
     <table role="presentation" cellpadding="0" cellspacing="0"><tr>
       ${buttonHtml_(SITE + '/projects', 'See our work', true)}
+      <td style="width:10px;"></td>
+      ${buttonHtml_(SITE + '/careers', 'View open roles', false)}
     </tr></table>
-    <p style="margin:28px 0 0;font-size:14px;line-height:1.6;color:#6b7785;">Need to add something? Just reply to this email.</p>`;
-  return layoutHtml_('Application received', body, HR_ADDRESS);
+    <p style="margin:28px 0 0;font-size:15px;line-height:1.65;color:#4a5866;">Have a question, or something to add to your application? Just reply to this email and it will reach our HR team directly.</p>
+    <p style="margin:24px 0 0;font-size:16px;line-height:1.6;color:#0f2a40;">Best of luck, and talk soon!<br><strong>The Virtualizeer Talent Acquisition Team</strong></p>`;
+  return layoutHtml_('Thanks for applying to Virtualizeer', body, HR_ADDRESS);
 }
 
 function applicationNotificationHtml_(app, cvUrl, row) {
