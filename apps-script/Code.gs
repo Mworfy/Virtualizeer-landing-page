@@ -28,6 +28,8 @@ const FROM_ADDRESS = 'info@virtualizeer.com'; // your Zoho mailbox
 const NOTIFY_TO = 'info@virtualizeer.com';
 const HR_ADDRESS = 'hr@virtualizeer.com'; // connected on its own login: see setupHrZoho()
 const HR_PREFIX = 'HR_';
+// Name shown as the sender in the inbox; Zoho ignores the profile name for API mail.
+const HR_NAME = 'Virtualizeer Talent Acquisition Team';
 const SITE = 'https://www.virtualizeer.com';
 const LOGO = SITE + '/brand/logo-h-white.png';
 // Zoho data centre: 'com' (default), 'eu', 'in', 'com.au', 'jp', 'ca', 'sa'
@@ -330,19 +332,20 @@ function json_(obj) {
 // falls back to the Google account that owns this script.
 function sendMail_(to, subject, html, from = FROM_ADDRESS) {
   const props = PropertiesService.getScriptProperties();
+  const name = from === HR_ADDRESS ? HR_NAME : FROM_NAME;
   // HR has its own Zoho login once setupHrZoho() has run.
   const prefix = from === HR_ADDRESS && props.getProperty(HR_PREFIX + 'ZOHO_ACCOUNT_ID') ? HR_PREFIX : '';
   const accountId = props.getProperty(prefix + 'ZOHO_ACCOUNT_ID');
   if (!accountId) {
-    MailApp.sendEmail({ to, subject, htmlBody: html, name: FROM_NAME, replyTo: from });
+    MailApp.sendEmail({ to, subject, htmlBody: html, name, replyTo: from });
     return;
   }
-  const res = UrlFetchApp.fetch(`https://mail.zoho.${ZOHO_DC}/api/accounts/${accountId}/messages`, {
+  const send = (fromAddress) => UrlFetchApp.fetch(`https://mail.zoho.${ZOHO_DC}/api/accounts/${accountId}/messages`, {
     method: 'post',
     contentType: 'application/json',
     headers: { Authorization: 'Zoho-oauthtoken ' + zohoToken_(prefix) },
     payload: JSON.stringify({
-      fromAddress: from,
+      fromAddress,
       toAddress: to,
       subject,
       content: html,
@@ -351,6 +354,12 @@ function sendMail_(to, subject, html, from = FROM_ADDRESS) {
     }),
     muteHttpExceptions: true,
   });
+  let res = send(`"${name}" <${from}>`);
+  // If Zoho won't take a name with the address, send with the bare address.
+  if (res.getResponseCode() >= 300) {
+    console.error('Zoho refused the sender name, sending without it: ' + res.getContentText());
+    res = send(from);
+  }
   if (res.getResponseCode() >= 300) throw new Error('Zoho ' + res.getResponseCode() + ': ' + res.getContentText());
 }
 
