@@ -15,7 +15,7 @@ export const company = {
 }
 
 // Google Apps Script web app URL (ends in /exec). See apps-script/Code.gs.
-export const formEndpoint = 'https://script.google.com/macros/s/AKfycbwVNnggP-dpZCR6AMjsHSZEDWsgKG8eQF_LehOJcrwParR74xqS9TvUclEv7CSSADXZqQ/exec'
+export const formEndpoint = 'https://script.google.com/macros/s/AKfycbzFtToqMI3bnsg0j6_lpTdd6mG01sKsMl17ek2Mrf7AhD_JnFo_bBGHVzaH3V3osTLVgw/exec'
 
 // Optional: paste one of your own tour links (Matterport, Kuula, 3DVista, etc.).
 // Leave empty to show the built in interactive 3D apartment tour instead.
