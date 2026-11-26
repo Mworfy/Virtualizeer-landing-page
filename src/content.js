@@ -285,8 +285,8 @@ export const projects = [
 
 export const partners = [
   { name: 'Career 180', logo: '/partners/career180.webp', url: 'https://career-180.com/' },
-  { name: 'AIESEC', logo: '/partners/aiesec.png', url: 'https://aiesec.org/' },
-  { name: 'Konnect', logo: '/partners/konnect.webp', url: 'https://konnect-services.com/', dark: true },
+  { name: 'AIESEC', logo: '/partners/aiesec-white.png', hoverLogo: '/partners/aiesec-blue.png', url: 'https://aiesec.org/', official: true },
+  { name: 'Konnect', logo: '/partners/konnect-light.png', url: 'https://konnect-services.com/' },
 ]
 
 export const faqs = [

@@ -50,21 +50,22 @@ export default function Home() {
       <section className="section--tight partners" aria-labelledby="partners-title">
         <div className="container partners__row">
           <h2 id="partners-title" className="partners__label">Our partners</h2>
-          <ul className="partners__list">
-            {partners.map((p) => (
-              <li key={p.name}>
-                <a href={p.url} target="_blank" rel="noopener" className={`partners__logo${p.dark ? ' partners__logo--dark' : ''}`} title={p.name}>
+          <Reveal as="ul" className="partners__list">
+            {partners.map((p, i) => (
+              <li key={p.name} style={{ '--i': i }}>
+                <a href={p.url} target="_blank" rel="noopener" className={`partners__logo${p.official ? ' partners__logo--official' : ''}`} title={p.name}>
                   <img src={p.logo} alt={p.name} loading="lazy" />
+                  {p.hoverLogo && <img src={p.hoverLogo} alt="" aria-hidden="true" loading="lazy" className="partners__logo-hover" />}
                 </a>
               </li>
             ))}
-            <li>
+            <li style={{ '--i': partners.length }}>
               <Link to="/contact" state={{ partner: true }} className="partners__join">
                 <span className="partners__plus"><Plus aria-hidden="true" /></span>
                 <span>Be our partner</span>
               </Link>
             </li>
-          </ul>
+          </Reveal>
         </div>
       </section>
 

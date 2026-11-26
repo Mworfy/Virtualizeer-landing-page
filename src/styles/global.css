@@ -898,31 +898,76 @@ main { min-height: 60vh; }
 @media (max-width: 720px) { .section-head-row { gap: 0; } .section-head-row .section-header { margin-bottom: 18px; } .section-head-row .link-arrow { margin-bottom: 28px; } .sector-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } .sector-tile { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px; font-size: 0.95rem; } .sector-tile__icon { width: 40px; height: 40px; } }
 @media (prefers-reduced-motion: reduce) { .sector-tile { transition: none; } .sector-tile:hover { transform: none; } }
 
-/* ── Partners (home) ───────────────────────────────────── */
-.partners__row { display: flex; align-items: center; gap: 28px 40px; flex-wrap: wrap; justify-content: center; }
-.partners__label { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin: 0; }
-.partners__list { list-style: none; margin: 0; padding: 0; display: flex; align-items: stretch; gap: 16px; flex-wrap: wrap; justify-content: center; }
-.partners__logo, .partners__join {
-  height: 96px; min-width: 240px; padding: 0 24px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px;
-  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+/* ── Partners (home): navy band, white logos ───────────── */
+.partners { position: relative; overflow: hidden; background: var(--navy); color: var(--on-navy); }
+/* slow light sweep behind the logos */
+.partners::before {
+  content: ''; position: absolute; inset: -40% -10%; pointer-events: none;
+  background: radial-gradient(40% 60% at 50% 50%, rgba(255,255,255,.07), transparent 70%);
+  animation: partners-sweep 14s ease-in-out infinite alternate;
 }
-.partners__logo { background: #fff; border: 1px solid var(--line); }
-.partners__logo img { max-height: 54px; max-width: 200px; width: auto; height: auto; object-fit: contain; }
-.partners__logo--dark { background: #000; border-color: #000; }
-.partners__logo:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -18px rgba(15,42,64,.5); }
-.partners__join { border: 2px dashed #b9c6d3; color: var(--navy); font-weight: 600; text-decoration: none; background: transparent; }
-.partners__plus { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--navy); color: #fff; transition: transform .3s var(--ease); }
-.partners__plus svg { width: 22px; height: 22px; }
-.partners__join:hover { border-color: var(--navy); background: #eef3f8; }
-.partners__join:hover .partners__plus { transform: rotate(90deg); }
+@keyframes partners-sweep { from { transform: translateX(-35%); } to { transform: translateX(35%); } }
+.partners__row { position: relative; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.partners__label { font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-navy-2); margin: 0; }
+.partners__list {
+  list-style: none; margin: 0; padding: 28px clamp(16px, 4vw, 48px); width: 100%; max-width: 980px;
+  display: flex; align-items: center; justify-content: space-evenly; gap: 24px clamp(24px, 5vw, 64px); flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.12); border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.partners__list.reveal { opacity: 1; transform: none; }
+
+/* staggered entrance */
+.partners__list > li { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+.partners__list.is-visible > li { animation: partner-in .9s var(--ease) forwards; animation-delay: calc(var(--i, 0) * 120ms); }
+@keyframes partner-in { to { opacity: 1; transform: none; filter: none; } }
+
+/* logos are always solid white at full strength (no fading: AIESEC may only be blue, white or black) */
+.partners__logo { position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; height: 56px; padding: 8px 14px; border-radius: 12px; }
+.partners__logo img {
+  height: 36px; width: auto; max-width: 170px; object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: filter .45s var(--ease), transform .5s var(--ease);
+}
+.partners__logo--official img { filter: none; } /* AIESEC's own white logo, shown untouched */
+
+/* hover: a white chip grows in behind the logo and the logo switches to its real colours */
+.partners__logo::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #fff;
+  box-shadow: 0 14px 34px -14px rgba(0,0,0,.55);
+  opacity: 0; transform: scale(.85);
+  transition: opacity .4s var(--ease), transform .5s var(--ease);
+}
+.partners__logo:hover, .partners__logo:focus-visible { transform: translateY(-3px); }
+.partners__logo { transition: transform .5s var(--ease); }
+.partners__logo:hover::before, .partners__logo:focus-visible::before { opacity: 1; transform: scale(1); }
+.partners__logo:not(.partners__logo--official):hover img, .partners__logo:not(.partners__logo--official):focus-visible img { filter: none; transform: scale(1.04); }
+/* AIESEC: the official white logo crossfades to the official blue one (never tinted by a filter) */
+.partners__logo-hover { position: absolute; left: 50%; top: 50%; translate: -50% -50%; opacity: 0; transition: opacity .45s var(--ease), transform .5s var(--ease) !important; }
+.partners__logo--official img:not(.partners__logo-hover) { transition: opacity .45s var(--ease), transform .5s var(--ease); }
+.partners__logo--official:hover img, .partners__logo--official:focus-visible img { transform: scale(1.04); }
+.partners__logo--official:hover img:not(.partners__logo-hover), .partners__logo--official:focus-visible img:not(.partners__logo-hover) { opacity: 0; }
+.partners__logo--official:hover .partners__logo-hover, .partners__logo--official:focus-visible .partners__logo-hover { opacity: 1; }
+.partners__logo:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
+
+/* "Be our partner" */
+.partners__join { display: inline-flex; align-items: center; gap: 10px; color: var(--on-navy-2); font-size: 0.92rem; font-weight: 600; text-decoration: none; padding: 8px 4px; transition: color .4s var(--ease); }
+.partners__plus { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; border: 1.5px dashed rgba(255,255,255,.4); color: var(--on-navy-2); transition: transform .5s var(--ease), background .4s var(--ease), border-color .4s var(--ease), color .4s var(--ease); }
+.partners__plus svg { width: 16px; height: 16px; }
+.partners__join:hover, .partners__join:focus-visible { color: #fff; }
+.partners__join:hover .partners__plus, .partners__join:focus-visible .partners__plus { transform: rotate(90deg); background: #fff; border-color: #fff; border-style: solid; color: var(--navy); }
+
 @media (max-width: 720px) {
-  .partners__list { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 10px; }
-  .partners__logo, .partners__join { min-width: 0; height: 72px; padding: 0 16px; }
-  .partners__logo img { max-width: 100%; max-height: 40px; }
-  .partners__join { gap: 8px; font-size: 0.92rem; white-space: nowrap; }
-  .partners__plus { width: 32px; height: 32px; }
+  .partners__list { gap: 20px 32px; padding: 22px 8px; }
+  .partners__logo img { height: 28px; max-width: 130px; }
+  .partners__logo { padding: 6px 10px; }
 }
-@media (prefers-reduced-motion: reduce) { .partners__logo, .partners__join, .partners__plus { transition: none; } .partners__logo:hover { transform: none; } .partners__join:hover .partners__plus { transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .partners::before { animation: none; }
+  .partners__list > li { opacity: 1; transform: none; filter: none; animation: none !important; }
+  .partners__logo img, .partners__join, .partners__plus { transition: none; }
+  .partners__logo:hover, .partners__logo:hover img, .partners__join:hover .partners__plus { transform: none; }
+  .partners__logo::before { transition: none; }
+}
 
 /* ── Contact side panel ────────────────────────────────── */
 .contact-side { display: grid; gap: 28px; align-content: start; }
